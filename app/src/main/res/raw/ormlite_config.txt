@@ -1,0 +1,26 @@
+#
+# generated on 2018/08/03 08:57:29
+#
+# --table-start--
+dataClass=ir.mobasher.app.client.model.users.User
+tableName=user
+# --table-fields-start--
+# --field-start--
+fieldName=id
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=userName
+# --field-end--
+# --field-start--
+fieldName=password
+# --field-end--
+# --field-start--
+fieldName=enabled
+# --field-end--
+# --field-start--
+fieldName=remember
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
