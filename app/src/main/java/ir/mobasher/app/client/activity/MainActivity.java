@@ -3,8 +3,13 @@ package ir.mobasher.app.client.activity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.jakewharton.picasso.OkHttp3Downloader;
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 import ir.mobasher.app.client.R;
 import ir.mobasher.app.client.intreface.GetDataService;
@@ -48,6 +53,15 @@ public class MainActivity extends AppCompatActivity {
     private void generateDataList(List<RetroPhoto> photoList) {
         TextView mainTv = (TextView) findViewById(R.id.mainTv);
         mainTv.setText(photoList.get(0).getTitle() + " " +  photoList.get(1).getTitle());
+
+        ImageView imageView = (ImageView) findViewById(R.id.imageView);
+
+        Picasso.Builder builder = new Picasso.Builder(this);
+        builder.downloader(new OkHttp3Downloader(this));
+        builder.build().load(photoList.get(0).getThumbnailUrl())
+                .placeholder((R.drawable.ic_launcher_background))
+                .error(R.drawable.ic_launcher_background)
+                .into(imageView);
 //        recyclerView = findViewById(R.id.customRecyclerView);
 //        adapter = new CustomAdapter(this,photoList);
 //        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(MainActivity.this);
