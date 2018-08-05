@@ -26,7 +26,18 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 
-    compile files('libs/ormlite-android-4.48.jar')
-    compile files('libs/ormlite-core-4.48.jar')
-    compile files('libs/ormlite-jdbc-4.48.jar')
+    //ORM
+    implementation files('libs/ormlite-android-4.48.jar')
+    implementation files('libs/ormlite-core-4.48.jar')
+    implementation files('libs/ormlite-jdbc-4.48.jar')
+
+
+    implementation group: 'com.android.support', name: 'cardview-v7', version: '28.0.0-alpha1'
+    implementation group: 'com.android.support', name: 'recyclerview-v7', version: '28.0.0-alpha1'
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+
+    //Retrofit2
+    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+    implementation 'com.jakewharton.picasso:picasso2-okhttp3-downloader:1.1.0'
 }
