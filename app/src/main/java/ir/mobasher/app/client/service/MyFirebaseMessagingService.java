@@ -13,10 +13,6 @@ import ir.mobasher.app.client.activity.MainActivity;
 import ir.mobasher.app.client.app.Config;
 import ir.mobasher.app.client.utils.NotificationUtils;
 
-/**
- * Created by Ravi Tamada on 08/08/16.
- * www.androidhive.info
- */
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     private static final String TAG = MyFirebaseMessagingService.class.getSimpleName();
