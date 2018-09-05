@@ -1,5 +1,5 @@
 #
-# generated on 2018/08/03 08:57:29
+# generated on 2018/09/05 12:14:28
 #
 # --table-start--
 dataClass=ir.mobasher.app.client.model.users.User
@@ -20,6 +20,9 @@ fieldName=enabled
 # --field-end--
 # --field-start--
 fieldName=remember
+# --field-end--
+# --field-start--
+fieldName=isLogin
 # --field-end--
 # --table-fields-end--
 # --table-end--

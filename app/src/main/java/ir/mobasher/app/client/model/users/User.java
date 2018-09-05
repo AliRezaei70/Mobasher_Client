@@ -17,6 +17,8 @@ public class User {
     private boolean enabled;
     @DatabaseField
     private boolean remember;
+    @DatabaseField
+    private boolean isLogin;
 
     public int getId() {
         return id;
@@ -53,4 +55,13 @@ public class User {
     public void setRemember(boolean remember) {
         this.remember = remember;
     }
+
+    public boolean isLogin() {
+        return isLogin;
+    }
+
+    public void setLogin(boolean login) {
+        isLogin = login;
+    }
 }
+
