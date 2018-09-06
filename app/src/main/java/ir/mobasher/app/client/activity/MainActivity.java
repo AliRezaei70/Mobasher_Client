@@ -15,7 +15,6 @@ import android.widget.Toast;
 import com.google.firebase.messaging.FirebaseMessaging;
 import ir.mobasher.app.client.R;
 import ir.mobasher.app.client.app.Config;
-import ir.mobasher.app.client.core.MobasherLawyerApplication;
 import ir.mobasher.app.client.utils.NotificationUtils;
 
 public class MainActivity extends AppCompatActivity {
