@@ -17,6 +17,9 @@ public class LauncherActivity extends AppCompatActivity {
         boolean isFirstRun = settingsPref.getBoolean(Config.FISRT_RUN, true);
         if (isFirstRun){
             settingsPref.edit().putBoolean(Config.FISRT_RUN, false).commit();
+            startActivity(new Intent(this, HelpActivity.class));
+            finish();
+            return;
         }
 
         boolean isLogin = settingsPref.getBoolean(Config.IS_LOGIN, false);

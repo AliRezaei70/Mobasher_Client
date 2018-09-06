@@ -24,6 +24,7 @@ dependencies {
     //noinspection GradleCompatible
     implementation 'com.android.support:appcompat-v7:28.+'
     implementation 'com.android.support:design:28.+'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
@@ -47,13 +48,8 @@ dependencies {
     implementation group: 'com.google.firebase', name: 'firebase-core', version: '15.0.0'
     implementation group: 'com.google.firebase', name: 'firebase-messaging', version: '17.0.0'
 
-
     //implementation group: 'com.google.android.gms', name: 'play-services', version: '12.0.0'
-   // implementation group: 'com.google.android.gms', name: 'play-services-location', version: '12.0.0'
-
-
-
+    // implementation group: 'com.google.android.gms', name: 'play-services-location', version: '12.0.0'
 
 
 }
-
