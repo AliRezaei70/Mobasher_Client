@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.google.firebase.messaging.FirebaseMessaging;
 import ir.mobasher.app.client.R;
 import ir.mobasher.app.client.app.Config;
+import ir.mobasher.app.client.core.MobasherLawyerApplication;
 import ir.mobasher.app.client.utils.NotificationUtils;
 
 public class MainActivity extends AppCompatActivity {
@@ -27,6 +28,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        SharedPreferences settingsPref = getSharedPreferences(Config.SETTINGS_SHARED_PREF, MODE_PRIVATE);
+        String username = settingsPref.getString(Config.USERNAME, Config.DEFAULT_STRING_NO_THING_FOUND);
+        Toast.makeText(getBaseContext(), username, Toast.LENGTH_SHORT).show();
 
         txtRegId = (TextView) findViewById(R.id.txt_reg_id);
         txtMessage = (TextView) findViewById(R.id.txt_push_message);

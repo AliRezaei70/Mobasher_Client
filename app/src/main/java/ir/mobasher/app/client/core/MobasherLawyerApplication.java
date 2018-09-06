@@ -2,6 +2,10 @@ package ir.mobasher.app.client.core;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.widget.Toast;
+
+import ir.mobasher.app.client.app.Config;
 
 
 /**
@@ -20,7 +24,6 @@ public class MobasherLawyerApplication extends Application {
     public void onCreate() {
         super.onCreate();
         MobasherLawyerApplication.context = getApplicationContext();
-
         //FontUtil.getInstance().init(getApplicationContext().getAssets(), getApplicationContext().getResources());
     }
 

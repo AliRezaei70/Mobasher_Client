@@ -2,6 +2,7 @@ package ir.mobasher.app.client.activity;
 
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 
 import android.os.Build;
@@ -18,7 +19,9 @@ import android.widget.TextView;
 import java.sql.SQLException;
 
 import ir.mobasher.app.client.R;
+import ir.mobasher.app.client.app.Config;
 import ir.mobasher.app.client.core.DatabaseHelper;
+import ir.mobasher.app.client.core.MobasherLawyerApplication;
 import ir.mobasher.app.client.model.users.User;
 
 /**
@@ -56,19 +59,21 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (attemptLogin()){
-                    User user = new User();
-                    user.setUserName(mUserNameView.getText().toString());
-                    user.setPassword(mPasswordView.getText().toString());
-                    user.setRemember(true);
-                    user.setLogin(true);
 
-                    try {
-                        DatabaseHelper.getInstance(getApplicationContext()).getUsersDao().createOrUpdate(user);
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
+                    String username = mUserNameView.getText().toString();
+                    String password = mPasswordView.getText().toString();
+
+                    SharedPreferences.Editor settingsPrefEditor = getSharedPreferences(Config.SETTINGS_SHARED_PREF, MODE_PRIVATE).edit();
+
+
+                    settingsPrefEditor.putString(Config.USERNAME, username);
+                    settingsPrefEditor.putString(Config.PASSWORD, password);
+                    settingsPrefEditor.putBoolean(Config.IS_LOGIN, true);
+                    settingsPrefEditor.commit();
+
                     Intent i = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(i);
+                    finish();
                 }
             }
         });
@@ -97,7 +102,7 @@ public class LoginActivity extends AppCompatActivity {
             return false;
         }
 
-        if (isPasswordValid(password)) {
+        if (isPasswordValid(password) == false) {
             mPasswordView.setError(getString(R.string.error_invalid_password));
             focusView = mPasswordView;
             return false;
@@ -115,7 +120,12 @@ public class LoginActivity extends AppCompatActivity {
 
 
     private boolean isPasswordValid(String password) {
-        return password.length() > 4;
+        if (password.length()> 3){
+            return true;
+        }else {
+            return false;
+        }
+
     }
 
 
