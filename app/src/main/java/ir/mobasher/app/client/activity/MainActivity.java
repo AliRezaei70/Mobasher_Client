@@ -29,10 +29,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        SharedPreferences settingsPref = getSharedPreferences(Config.SETTINGS_SHARED_PREF, MODE_PRIVATE);
-        String username = settingsPref.getString(Config.USERNAME, Config.DEFAULT_STRING_NO_THING_FOUND);
-        Toast.makeText(getBaseContext(), username, Toast.LENGTH_SHORT).show();
-
         txtRegId = (TextView) findViewById(R.id.txt_reg_id);
         txtMessage = (TextView) findViewById(R.id.txt_push_message);
 
@@ -60,7 +56,31 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
-        displayFirebaseRegId();
+        //displayFirebaseRegId();
+        launch();
+    }
+
+    public void launch(){
+        SharedPreferences settingsPref = getSharedPreferences(Config.SETTINGS_SHARED_PREF, MODE_PRIVATE);
+
+        boolean isFirstRun = settingsPref.getBoolean(Config.FISRT_RUN, true);
+        if (isFirstRun){
+            settingsPref.edit().putBoolean(Config.FISRT_RUN, false).commit();
+            startActivity(new Intent(this, HelpActivity.class));
+            finish();
+            return;
+        }
+
+        boolean isLogin = settingsPref.getBoolean(Config.IS_LOGIN, false);
+        if (isLogin == false){
+            startActivity(new Intent(this, LoginActivity.class));
+            finish();
+        }else {
+            startActivity(new Intent(this, HomeActivity.class));
+            finish();
+        }
+
+        finish();
     }
 
     // Fetches reg id from shared preferences

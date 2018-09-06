@@ -1,6 +1,7 @@
 package ir.mobasher.app.client.activity;
 
 import android.app.ProgressDialog;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
@@ -12,6 +13,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 import ir.mobasher.app.client.R;
+import ir.mobasher.app.client.app.Config;
 import ir.mobasher.app.client.intreface.GetDataService;
 import ir.mobasher.app.client.model.photo.RetroPhoto;
 import ir.mobasher.app.client.network.RetrofitClientInstance;
@@ -26,6 +28,10 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        SharedPreferences settingsPref = getSharedPreferences(Config.SETTINGS_SHARED_PREF, MODE_PRIVATE);
+        String username = settingsPref.getString(Config.USERNAME, Config.DEFAULT_STRING_NO_THING_FOUND);
+        Toast.makeText(getBaseContext(), username, Toast.LENGTH_SHORT).show();
 
         progressDoalog = new ProgressDialog(HomeActivity.this);
         progressDoalog.setMessage("Loading....");
