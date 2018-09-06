@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
@@ -39,6 +40,8 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.login_toolbar);
+        setSupportActionBar(toolbar);
         // Set up the login form.
         mUserNameView = (EditText) findViewById(R.id.username);
 
@@ -58,7 +61,7 @@ public class LoginActivity extends AppCompatActivity {
         mLoginButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (attemptLogin()){
+                if (attemptLogin()) {
 
                     String username = mUserNameView.getText().toString();
                     String password = mPasswordView.getText().toString();
@@ -120,9 +123,9 @@ public class LoginActivity extends AppCompatActivity {
 
 
     private boolean isPasswordValid(String password) {
-        if (password.length()> 3){
+        if (password.length() > 3) {
             return true;
-        }else {
+        } else {
             return false;
         }
 
