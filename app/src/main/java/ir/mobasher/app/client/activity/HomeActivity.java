@@ -60,10 +60,10 @@ public class HomeActivity extends AppCompatActivity {
 
     /*Method to generate List of data using RecyclerView with custom adapter*/
     private void generateDataList(List<RetroPhoto> photoList) {
-        TextView mainTv = (TextView) findViewById(R.id.mainTv);
+        TextView mainTv = (TextView) findViewById(R.id.help_item_textview);
         mainTv.setText(photoList.get(0).getTitle() + " " +  photoList.get(1).getTitle());
 
-        ImageView imageView = (ImageView) findViewById(R.id.imageView);
+        ImageView imageView = (ImageView) findViewById(R.id.help_item_imageView);
 
         Picasso.Builder builder = new Picasso.Builder(this);
         builder.downloader(new OkHttp3Downloader(this));

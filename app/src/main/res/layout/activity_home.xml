@@ -27,13 +27,13 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/mainTv"
+            android:id="@+id/help_item_textview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp" />
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/help_item_imageView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

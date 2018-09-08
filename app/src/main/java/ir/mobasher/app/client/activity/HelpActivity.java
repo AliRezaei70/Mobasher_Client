@@ -8,7 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import ir.mobasher.app.client.R;
-import ir.mobasher.app.client.adapter.ViewPagerAdapter;
+import ir.mobasher.app.client.adapter.HelpViewPagerAdapter;
 
 public class HelpActivity extends AppCompatActivity {
 
@@ -28,7 +28,7 @@ public class HelpActivity extends AppCompatActivity {
 
         sliderDotspanel = (LinearLayout) findViewById(R.id.SliderDots);
 
-        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(this);
+        HelpViewPagerAdapter viewPagerAdapter = new HelpViewPagerAdapter(this);
 
         viewPager.setAdapter(viewPagerAdapter);
 

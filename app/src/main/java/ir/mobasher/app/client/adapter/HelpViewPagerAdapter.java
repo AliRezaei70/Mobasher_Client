@@ -10,13 +10,13 @@ import android.widget.ImageView;
 import ir.mobasher.app.client.R;
 
 
-public class ViewPagerAdapter extends PagerAdapter {
+public class HelpViewPagerAdapter extends PagerAdapter {
 
     private Context context;
     private LayoutInflater layoutInflater;
     private Integer [] images = {R.drawable.ic_launcher_background,R.drawable.ic_launcher_foreground,R.drawable.ic_launcher_background};
 
-    public ViewPagerAdapter(Context context) {
+    public HelpViewPagerAdapter(Context context) {
         this.context = context;
     }
 
@@ -35,7 +35,7 @@ public class ViewPagerAdapter extends PagerAdapter {
 
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = layoutInflater.inflate(R.layout.help_item_layout, null);
-        ImageView imageView = (ImageView) view.findViewById(R.id.imageView);
+        ImageView imageView = (ImageView) view.findViewById(R.id.help_item_imageView);
         imageView.setImageResource(images[position]);
 
 
