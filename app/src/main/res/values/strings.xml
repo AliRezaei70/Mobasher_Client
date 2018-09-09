@@ -14,4 +14,7 @@
         completions."
     </string>
     <string name="title_activity_help">HelpActivity</string>
+    <string name="signin_or_signup">ورود/ثبت نام</string>
+    <string name="next">بعدی</string>
+    <string name="finish">تمام</string>
 </resources>

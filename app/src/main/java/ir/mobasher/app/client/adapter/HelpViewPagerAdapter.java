@@ -14,7 +14,7 @@ public class HelpViewPagerAdapter extends PagerAdapter {
 
     private Context context;
     private LayoutInflater layoutInflater;
-    private Integer [] images = {R.drawable.ic_launcher_background,R.drawable.ic_launcher_foreground,R.drawable.ic_launcher_background};
+    private Integer [] images = {R.drawable.slide1,R.drawable.slide2,R.drawable.slide3};
 
     public HelpViewPagerAdapter(Context context) {
         this.context = context;
