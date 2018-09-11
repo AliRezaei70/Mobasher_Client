@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
 
         boolean isLogin = settingsPref.getBoolean(Config.IS_LOGIN, false);
         if (isLogin == false){
-            startActivity(new Intent(this, LoginActivity.class));
+            startActivity(new Intent(this, RulesActivity.class));
             finish();
         }else {
             startActivity(new Intent(this, HomeActivity.class));

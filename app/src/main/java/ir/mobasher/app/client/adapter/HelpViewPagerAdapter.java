@@ -14,7 +14,7 @@ public class HelpViewPagerAdapter extends PagerAdapter {
 
     private Context context;
     private LayoutInflater layoutInflater;
-    private Integer [] images = {R.drawable.slide1,R.drawable.slide2,R.drawable.slide3};
+    private Integer [] images = {R.mipmap.slide1,R.mipmap.slide2,R.mipmap.slide3};
 
     public HelpViewPagerAdapter(Context context) {
         this.context = context;

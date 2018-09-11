@@ -17,4 +17,8 @@
     <string name="signin_or_signup">ورود/ثبت نام</string>
     <string name="next">بعدی</string>
     <string name="finish">تمام</string>
+    <string name="title_activity_rules">RulesActivity</string>
+    <string name="app_rules">قوانین نرم افزار</string>
+    <string name="agree">موافقم</string>
+    <string name="disagree">مخالفم</string>
 </resources>

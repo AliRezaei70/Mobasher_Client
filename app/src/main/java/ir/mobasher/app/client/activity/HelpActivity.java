@@ -109,7 +109,7 @@ public class HelpActivity extends AppCompatActivity {
             if (isLogin == true){
                 finish();
             } else {
-                startActivity(new Intent(this, LoginActivity.class));
+                startActivity(new Intent(this, RulesActivity.class));
                 finish();
             }
         }else {
