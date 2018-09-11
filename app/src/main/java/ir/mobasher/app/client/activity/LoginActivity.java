@@ -3,6 +3,7 @@ package ir.mobasher.app.client.activity;
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 
 import android.os.Build;
@@ -19,6 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.sql.SQLException;
+import java.util.concurrent.TimeUnit;
 
 import ir.mobasher.app.client.R;
 import ir.mobasher.app.client.app.Config;
@@ -41,6 +43,8 @@ public class LoginActivity extends AppCompatActivity {
     private LinearLayout loginForm3;
     private EditText phoneNumEt;
     private TextView showPhoneNumTv;
+    private TextView timmerTv;
+    private CountDownTimer countDownTimer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +99,9 @@ public class LoginActivity extends AppCompatActivity {
         loginForm3 = (LinearLayout) findViewById(R.id.loginForm3);
         phoneNumEt = (EditText) findViewById(R.id.phoneNumEt);
         showPhoneNumTv = (TextView) findViewById(R.id.showPhoneNumTv);
+        timmerTv = (TextView) findViewById(R.id.timmerTv);
+
+
 
     }
 
@@ -151,6 +158,9 @@ public class LoginActivity extends AppCompatActivity {
             loginForm3.setVisibility(View.GONE);
 
             showPhoneNumTv.setText(phoneNumEt.getText().toString());
+
+            resetTimer();
+
         }else {
             phoneNumEt.setError(getString(R.string.phone_num_err));
         }
@@ -161,10 +171,34 @@ public class LoginActivity extends AppCompatActivity {
         loginForm1.setVisibility(View.VISIBLE);
         loginForm2.setVisibility(View.GONE);
         loginForm3.setVisibility(View.GONE);
+
     }
 
     public void resendCodeOnClick(View v){
+        resetTimer();
+    }
 
+    public void resetTimer(){
+        if (countDownTimer != null)
+            countDownTimer.cancel();
+
+        countDownTimer = new CountDownTimer(90000, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                //timmerTv.setText("" + millisUntilFinished / 1000);
+                //here you can have your logic to set text to edittext
+
+                timmerTv.setText(""+String.format("%d min, %d sec",
+                        TimeUnit.MILLISECONDS.toMinutes( millisUntilFinished),
+                        TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) -
+                                TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished))));
+            }
+
+            public void onFinish() {
+                timmerTv.setText("done!");
+            }
+
+        }.start();
     }
 
 }
