@@ -15,6 +15,7 @@ import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.sql.SQLException;
@@ -35,6 +36,11 @@ public class LoginActivity extends AppCompatActivity {
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
+    private LinearLayout loginForm1;
+    private LinearLayout loginForm2;
+    private LinearLayout loginForm3;
+    private EditText phoneNumEt;
+    private TextView showPhoneNumTv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,8 +87,15 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        mLoginFormView = findViewById(R.id.login_form);
+        mLoginFormView = findViewById(R.id.username_login_form);
         mProgressView = findViewById(R.id.login_progress);
+
+        loginForm1 = (LinearLayout) findViewById(R.id.loginForm1);
+        loginForm2 = (LinearLayout) findViewById(R.id.loginForm2);
+        loginForm3 = (LinearLayout) findViewById(R.id.loginForm3);
+        phoneNumEt = (EditText) findViewById(R.id.phoneNumEt);
+        showPhoneNumTv = (TextView) findViewById(R.id.showPhoneNumTv);
+
     }
 
     private boolean attemptLogin() {
@@ -131,6 +144,28 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+    public void getRegCodeOnClick(View v){
+        if(phoneNumEt.getText().length() == 10){
+            loginForm1.setVisibility(View.GONE);
+            loginForm2.setVisibility(View.VISIBLE);
+            loginForm3.setVisibility(View.GONE);
+
+            showPhoneNumTv.setText(phoneNumEt.getText().toString());
+        }else {
+            phoneNumEt.setError(getString(R.string.phone_num_err));
+        }
+
+    }
+
+    public void editNumOnClick(View v){
+        loginForm1.setVisibility(View.VISIBLE);
+        loginForm2.setVisibility(View.GONE);
+        loginForm3.setVisibility(View.GONE);
+    }
+
+    public void resendCodeOnClick(View v){
+
+    }
 
 }
 

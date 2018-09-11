@@ -21,4 +21,12 @@
     <string name="app_rules">قوانین نرم افزار</string>
     <string name="agree">موافقم</string>
     <string name="disagree">مخالفم</string>
+    <string name="enter_phone_num">شماره همراه خود را وارد نمایید</string>
+    <string name="phone_num">شماره همراه</string>
+    <string name="get_code">دریافت کد</string>
+    <string name="reg_code_sent">کد فعالسازی به شماره همراه شما ارسال شد</string>
+    <string name="edit_num">ویرایش شماره</string>
+    <string name="phone_num_err">شماره وارد شده صحیح نمیباشد</string>
+    <string name="elapsed_time">زمان باقی مانده</string>
+    <string name="resend_reg_code">دریافت مجدد کد فعالسازی</string>
 </resources>
