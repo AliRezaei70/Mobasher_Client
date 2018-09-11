@@ -14,43 +14,47 @@
         android:text="@string/reg_code_sent" />
 
     <LinearLayout
-        android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:orientation="horizontal">
 
         <Button
+            android:id="@+id/editPhoneNumBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/editPhoneNumBtn"
-            android:text="@string/edit_num"
-            android:onClick="editNumOnClick"/>
+            android:onClick="editNumOnClick"
+            android:text="@string/edit_num" />
 
         <TextView
             android:id="@+id/showPhoneNumTv"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-             />
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 
 
     <TextView
-        android:gravity="center"
+        android:id="@+id/regCodeTv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/regCodeTv"
-        android:text="___________"/>
-
-    
-
-    <Button
         android:gravity="center"
+        android:text="___________" />
+
+
+    <TextView
+        android:id="@+id/timmerTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/resend_reg_code"
+        android:gravity="center" />
+
+    <Button
         android:id="@+id/resendRegCodeBtn"
-        android:onClick="resendCodeOnClick"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:onClick="resendCodeOnClick"
+        android:text="@string/resend_reg_code" />
 
 
 </LinearLayout>
