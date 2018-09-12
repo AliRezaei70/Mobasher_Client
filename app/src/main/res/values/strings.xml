@@ -29,4 +29,8 @@
     <string name="phone_num_err">شماره وارد شده صحیح نمیباشد</string>
     <string name="elapsed_time">زمان باقی مانده</string>
     <string name="resend_reg_code">دریافت مجدد کد فعالسازی</string>
+
+    <string name="name">نام</string>
+    <string name="family_name">نام خانوادگی</string>
+
 </resources>

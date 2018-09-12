@@ -1,32 +1,24 @@
 package ir.mobasher.app.client.activity;
 
-import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.sql.SQLException;
 import java.util.concurrent.TimeUnit;
 
 import ir.mobasher.app.client.R;
 import ir.mobasher.app.client.app.Config;
-import ir.mobasher.app.client.core.DatabaseHelper;
-import ir.mobasher.app.client.core.MobasherLawyerApplication;
-import ir.mobasher.app.client.model.users.User;
 
 /**
  * A login screen that offers login via email/password.
@@ -34,8 +26,9 @@ import ir.mobasher.app.client.model.users.User;
 public class LoginActivity extends AppCompatActivity {
 
 
-    private EditText mUserNameView;
-    private EditText mPasswordView;
+    private EditText userNameEt;
+    private EditText nameEt;
+    private EditText familyNameEt;
     private View mProgressView;
     private View mLoginFormView;
     private LinearLayout loginForm1;
@@ -53,19 +46,11 @@ public class LoginActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.login_toolbar);
         setSupportActionBar(toolbar);
         // Set up the login form.
-        mUserNameView = (EditText) findViewById(R.id.username);
+        userNameEt = (EditText) findViewById(R.id.username);
+        nameEt = (EditText) findViewById(R.id.nameEt);
+        familyNameEt = (EditText) findViewById(R.id.familyNamEt);
 
-        mPasswordView = (EditText) findViewById(R.id.password);
-        mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
-                if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
-                    attemptLogin();
-                    return true;
-                }
-                return false;
-            }
-        });
+
 
         Button mLoginButton = (Button) findViewById(R.id.login_button);
         mLoginButton.setOnClickListener(new OnClickListener() {
@@ -73,25 +58,26 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (attemptLogin()) {
 
-                    String username = mUserNameView.getText().toString();
-                    String password = mPasswordView.getText().toString();
+                    String username = userNameEt.getText().toString();
+                    String name = nameEt.getText().toString();
+                    String family = familyNameEt.getText().toString();
 
                     SharedPreferences.Editor settingsPrefEditor = getSharedPreferences(Config.SETTINGS_SHARED_PREF, MODE_PRIVATE).edit();
 
 
                     settingsPrefEditor.putString(Config.USERNAME, username);
-                    settingsPrefEditor.putString(Config.PASSWORD, password);
+                    settingsPrefEditor.putString(Config.NAME, name);
+                    settingsPrefEditor.putString(Config.FAMILYNAME, family);
                     settingsPrefEditor.putBoolean(Config.IS_LOGIN, true);
                     settingsPrefEditor.commit();
 
-                    Intent i = new Intent(LoginActivity.this, MainActivity.class);
+                    Intent i = new Intent(LoginActivity.this, HomeActivity.class);
                     startActivity(i);
                     finish();
                 }
             }
         });
 
-        mLoginFormView = findViewById(R.id.username_login_form);
         mProgressView = findViewById(R.id.login_progress);
 
         loginForm1 = (LinearLayout) findViewById(R.id.loginForm1);
@@ -101,55 +87,47 @@ public class LoginActivity extends AppCompatActivity {
         showPhoneNumTv = (TextView) findViewById(R.id.showPhoneNumTv);
         timmerTv = (TextView) findViewById(R.id.timmerTv);
 
-
-
     }
 
     private boolean attemptLogin() {
 
 
         // Reset errors.
-        mUserNameView.setError(null);
-        mPasswordView.setError(null);
+        userNameEt.setError(null);
+        nameEt.setError(null);
+        familyNameEt.setError(null);
 
         // Store values at the time of the login attempt.
-        String userName = mUserNameView.getText().toString();
-        String password = mPasswordView.getText().toString();
+        String userName = userNameEt.getText().toString();
+        String name = nameEt.getText().toString();
+        String family = familyNameEt.getText().toString();
 
         View focusView = null;
 
-        // Check for a valid password, if the user entered one.
-        if (TextUtils.isEmpty(password)) {
-            mPasswordView.setError(getString(R.string.error_field_required));
-            focusView = mPasswordView;
-            return false;
-        }
 
-        if (isPasswordValid(password) == false) {
-            mPasswordView.setError(getString(R.string.error_invalid_password));
-            focusView = mPasswordView;
-            return false;
-        }
 
         // Check for a valid userName address.
         if (TextUtils.isEmpty(userName)) {
-            mUserNameView.setError(getString(R.string.error_field_required));
-            focusView = mUserNameView;
+            userNameEt.setError(getString(R.string.error_field_required));
+            focusView = userNameEt;
+            return false;
+        }
+
+        if (TextUtils.isEmpty(name)) {
+            nameEt.setError(getString(R.string.error_field_required));
+            focusView = nameEt;
+            return false;
+        }
+
+        if (TextUtils.isEmpty(family)) {
+            familyNameEt.setError(getString(R.string.error_field_required));
+            focusView = familyNameEt;
             return false;
         }
 
         return true;
     }
 
-
-    private boolean isPasswordValid(String password) {
-        if (password.length() > 3) {
-            return true;
-        } else {
-            return false;
-        }
-
-    }
 
     public void getRegCodeOnClick(View v){
         if(phoneNumEt.getText().length() == 10){
@@ -176,6 +154,10 @@ public class LoginActivity extends AppCompatActivity {
 
     public void resendCodeOnClick(View v){
         resetTimer();
+
+        loginForm1.setVisibility(View.GONE);
+        loginForm2.setVisibility(View.GONE);
+        loginForm3.setVisibility(View.VISIBLE);
     }
 
     public void resetTimer(){
@@ -185,10 +167,8 @@ public class LoginActivity extends AppCompatActivity {
         countDownTimer = new CountDownTimer(90000, 1000) {
 
             public void onTick(long millisUntilFinished) {
-                //timmerTv.setText("" + millisUntilFinished / 1000);
-                //here you can have your logic to set text to edittext
 
-                timmerTv.setText(""+String.format("%d min, %d sec",
+                timmerTv.setText(""+String.format("%02d:%02d",
                         TimeUnit.MILLISECONDS.toMinutes( millisUntilFinished),
                         TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) -
                                 TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished))));
