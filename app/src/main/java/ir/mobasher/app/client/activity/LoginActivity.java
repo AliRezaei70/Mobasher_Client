@@ -176,6 +176,8 @@ public class LoginActivity extends AppCompatActivity {
 
             public void onFinish() {
                 timmerTv.setText("done!");
+                //resend the activation code automatically
+
             }
 
         }.start();
