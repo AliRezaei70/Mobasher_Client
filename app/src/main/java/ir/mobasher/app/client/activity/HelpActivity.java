@@ -1,7 +1,9 @@
 package ir.mobasher.app.client.activity;
 
+import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
@@ -33,7 +35,7 @@ public class HelpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_help);
         Toolbar toolbar = (Toolbar) findViewById(R.id.help_toolbar);
         setSupportActionBar(toolbar);
-
+        forceRTLIfSupported();
 
         nextBtn = (Button) findViewById(R.id.nextBtn);
         signInOrSignUpBtn = (Button) findViewById(R.id.signInOrSignUpBtn);
@@ -102,6 +104,14 @@ public class HelpActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
+    private void forceRTLIfSupported()
+    {
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1){
+            getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
+        }
     }
 
     public void nextOnClick(View view){

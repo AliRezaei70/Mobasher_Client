@@ -1,7 +1,9 @@
 package ir.mobasher.app.client.activity;
 
+import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 
@@ -45,6 +47,8 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         Toolbar toolbar = (Toolbar) findViewById(R.id.login_toolbar);
         setSupportActionBar(toolbar);
+        forceRTLIfSupported();
+
         // Set up the login form.
         userNameEt = (EditText) findViewById(R.id.username);
         nameEt = (EditText) findViewById(R.id.nameEt);
@@ -87,6 +91,14 @@ public class LoginActivity extends AppCompatActivity {
         showPhoneNumTv = (TextView) findViewById(R.id.showPhoneNumTv);
         timmerTv = (TextView) findViewById(R.id.timmerTv);
 
+    }
+
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
+    private void forceRTLIfSupported()
+    {
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1){
+            getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
+        }
     }
 
     private boolean attemptLogin() {
