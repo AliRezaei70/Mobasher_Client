@@ -6,9 +6,12 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -20,10 +23,13 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.jakewharton.picasso.OkHttp3Downloader;
 import com.mikhaellopez.circularimageview.CircularImageView;
 import com.squareup.picasso.Picasso;
+
 import java.util.List;
+
 import ir.mobasher.app.client.R;
 import ir.mobasher.app.client.app.Config;
 import ir.mobasher.app.client.intreface.GetDataService;
@@ -37,12 +43,13 @@ public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     ProgressDialog progressDoalog;
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         forceRTLIfSupported();
 
@@ -63,6 +70,9 @@ public class HomeActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
 
         SharedPreferences settingsPref = getSharedPreferences(Config.SETTINGS_SHARED_PREF, MODE_PRIVATE);
@@ -91,10 +101,36 @@ public class HomeActivity extends AppCompatActivity
         });
     }
 
+
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            Fragment fragment;
+            switch (item.getItemId()) {
+                case R.id.navigation_shop:
+                    toolbar.setTitle("Shop");
+                    return true;
+                case R.id.navigation_gifts:
+                    toolbar.setTitle("My Gifts");
+                    return true;
+                case R.id.navigation_cart:
+                    toolbar.setTitle("Cart");
+                    return true;
+                case R.id.navigation_profile:
+                    toolbar.setTitle("Profile");
+                    return true;
+            }
+            return false;
+        }
+    };
+
+
     /*Method to generate List of data using RecyclerView with custom adapter*/
     private void generateDataList(List<RetroPhoto> photoList) {
         TextView mainTv = (TextView) findViewById(R.id.help_item_textview);
-        mainTv.setText(photoList.get(0).getTitle() + " " +  photoList.get(1).getTitle());
+        mainTv.setText(photoList.get(0).getTitle() + " " + photoList.get(1).getTitle());
 
         ImageView imageView = (ImageView) findViewById(R.id.help_item_imageView);
 
@@ -112,9 +148,8 @@ public class HomeActivity extends AppCompatActivity
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
-    private void forceRTLIfSupported()
-    {
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1){
+    private void forceRTLIfSupported() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
         }
     }
