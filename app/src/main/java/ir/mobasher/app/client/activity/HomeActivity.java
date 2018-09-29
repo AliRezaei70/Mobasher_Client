@@ -12,6 +12,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -23,15 +24,15 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.jakewharton.picasso.OkHttp3Downloader;
-import com.mikhaellopez.circularimageview.CircularImageView;
 import com.squareup.picasso.Picasso;
-
 import java.util.List;
-
 import ir.mobasher.app.client.R;
 import ir.mobasher.app.client.app.Config;
+import ir.mobasher.app.client.fragments.CartFragment;
+import ir.mobasher.app.client.fragments.GiftsFragment;
+import ir.mobasher.app.client.fragments.ProfileFragment;
+import ir.mobasher.app.client.fragments.StoreFragment;
 import ir.mobasher.app.client.intreface.GetDataService;
 import ir.mobasher.app.client.model.photo.RetroPhoto;
 import ir.mobasher.app.client.network.RetrofitClientInstance;
@@ -53,15 +54,6 @@ public class HomeActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         forceRTLIfSupported();
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -82,6 +74,9 @@ public class HomeActivity extends AppCompatActivity
         progressDoalog = new ProgressDialog(HomeActivity.this);
         progressDoalog.setMessage("Loading....");
         progressDoalog.show();
+
+//        toolbar.setTitle("Shop");
+//        loadFragment(new StoreFragment());
 
         /*Create handle for the RetrofitInstance interface*/
         GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
@@ -111,21 +106,38 @@ public class HomeActivity extends AppCompatActivity
             switch (item.getItemId()) {
                 case R.id.navigation_shop:
                     toolbar.setTitle("Shop");
+                    fragment = new StoreFragment();
+                    loadFragment(fragment);
                     return true;
                 case R.id.navigation_gifts:
                     toolbar.setTitle("My Gifts");
+                    fragment = new GiftsFragment();
+                    loadFragment(fragment);
                     return true;
                 case R.id.navigation_cart:
                     toolbar.setTitle("Cart");
+                    fragment = new CartFragment();
+                    loadFragment(fragment);
                     return true;
                 case R.id.navigation_profile:
                     toolbar.setTitle("Profile");
+                    fragment = new ProfileFragment();
+                    loadFragment(fragment);
                     return true;
             }
+
             return false;
         }
     };
 
+
+    private void loadFragment(Fragment fragment) {
+        // load fragment
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.frame_container, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
 
     /*Method to generate List of data using RecyclerView with custom adapter*/
     private void generateDataList(List<RetroPhoto> photoList) {
