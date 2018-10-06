@@ -13,12 +13,12 @@ import ir.mobasher.app.client.R;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link CartFragment.OnFragmentInteractionListener} interface
+ * {@link WalletFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link CartFragment#newInstance} factory method to
+ * Use the {@link WalletFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CartFragment extends Fragment {
+public class WalletFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -30,7 +30,7 @@ public class CartFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public CartFragment() {
+    public WalletFragment() {
         // Required empty public constructor
     }
 
@@ -40,11 +40,11 @@ public class CartFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment CartFragment.
+     * @return A new instance of fragment WalletFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static CartFragment newInstance(String param1, String param2) {
-        CartFragment fragment = new CartFragment();
+    public static WalletFragment newInstance(String param1, String param2) {
+        WalletFragment fragment = new WalletFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -65,7 +65,7 @@ public class CartFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_cart, container, false);
+        return inflater.inflate(R.layout.fragment_wallet, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event

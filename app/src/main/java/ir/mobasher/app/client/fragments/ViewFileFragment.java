@@ -13,12 +13,12 @@ import ir.mobasher.app.client.R;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link GiftsFragment.OnFragmentInteractionListener} interface
+ * {@link ViewFileFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link GiftsFragment#newInstance} factory method to
+ * Use the {@link ViewFileFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class GiftsFragment extends Fragment {
+public class ViewFileFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -30,7 +30,7 @@ public class GiftsFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public GiftsFragment() {
+    public ViewFileFragment() {
         // Required empty public constructor
     }
 
@@ -40,11 +40,11 @@ public class GiftsFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment GiftsFragment.
+     * @return A new instance of fragment ViewFileFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static GiftsFragment newInstance(String param1, String param2) {
-        GiftsFragment fragment = new GiftsFragment();
+    public static ViewFileFragment newInstance(String param1, String param2) {
+        ViewFileFragment fragment = new ViewFileFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -65,7 +65,7 @@ public class GiftsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_gifts, container, false);
+        return inflater.inflate(R.layout.fragment_profile, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event

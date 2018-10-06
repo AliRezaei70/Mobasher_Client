@@ -3,14 +3,11 @@ package ir.mobasher.app.client.activity;
 import android.annotation.TargetApi;
 import android.app.ProgressDialog;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
@@ -29,10 +26,11 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 import ir.mobasher.app.client.R;
 import ir.mobasher.app.client.app.Config;
-import ir.mobasher.app.client.fragments.CartFragment;
-import ir.mobasher.app.client.fragments.GiftsFragment;
-import ir.mobasher.app.client.fragments.ProfileFragment;
-import ir.mobasher.app.client.fragments.StoreFragment;
+import ir.mobasher.app.client.fragments.FavoriteLawyersFragment;
+import ir.mobasher.app.client.fragments.HomeFragment;
+import ir.mobasher.app.client.fragments.AddFileFragment;
+import ir.mobasher.app.client.fragments.ViewFileFragment;
+import ir.mobasher.app.client.fragments.WalletFragment;
 import ir.mobasher.app.client.intreface.GetDataService;
 import ir.mobasher.app.client.model.photo.RetroPhoto;
 import ir.mobasher.app.client.network.RetrofitClientInstance;
@@ -76,7 +74,7 @@ public class HomeActivity extends AppCompatActivity
         progressDoalog.show();
 
 //        toolbar.setTitle("Shop");
-//        loadFragment(new StoreFragment());
+//        loadFragment(new FavoriteLawyersFragment());
 
         /*Create handle for the RetrofitInstance interface*/
         GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
@@ -104,24 +102,29 @@ public class HomeActivity extends AppCompatActivity
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             Fragment fragment;
             switch (item.getItemId()) {
-                case R.id.navigation_shop:
-                    toolbar.setTitle("Shop");
-                    fragment = new StoreFragment();
+                case R.id.navigation_home:
+                    toolbar.setTitle("Home");
+                    fragment = new FavoriteLawyersFragment();
                     loadFragment(fragment);
                     return true;
-                case R.id.navigation_gifts:
-                    toolbar.setTitle("My Gifts");
-                    fragment = new GiftsFragment();
+                case R.id.navigation_view_files:
+                    toolbar.setTitle("View Files");
+                    fragment = new AddFileFragment();
                     loadFragment(fragment);
                     return true;
-                case R.id.navigation_cart:
-                    toolbar.setTitle("Cart");
-                    fragment = new CartFragment();
+                case R.id.navigation_add_file:
+                    toolbar.setTitle("Add");
+                    fragment = new HomeFragment();
                     loadFragment(fragment);
                     return true;
-                case R.id.navigation_profile:
-                    toolbar.setTitle("Profile");
-                    fragment = new ProfileFragment();
+                case R.id.navigation_favorite_lawyers:
+                    toolbar.setTitle("favorite");
+                    fragment = new ViewFileFragment();
+                    loadFragment(fragment);
+                    return true;
+                case R.id.navigation_wallet:
+                    toolbar.setTitle("wallet");
+                    fragment = new WalletFragment();
                     loadFragment(fragment);
                     return true;
             }
@@ -129,6 +132,7 @@ public class HomeActivity extends AppCompatActivity
             return false;
         }
     };
+
 
 
     private void loadFragment(Fragment fragment) {

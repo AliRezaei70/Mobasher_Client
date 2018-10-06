@@ -49,4 +49,9 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <string name="home">خانه</string>
+    <string name="view_file">مشاهده پرونده</string>
+    <string name="wallet">کیف پول</string>
+    <string name="favorite_lawyers">مشاورین محبوب</string>
+
 </resources>
