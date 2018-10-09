@@ -104,28 +104,28 @@ public class HomeActivity extends AppCompatActivity
             switch (item.getItemId()) {
                 case R.id.navigation_home:
                     toolbar.setTitle("Home");
-                    fragment = new FavoriteLawyersFragment();
-                    loadFragment(fragment);
+                   // fragment = new FavoriteLawyersFragment();
+                   // loadFragment(fragment);
                     return true;
                 case R.id.navigation_view_files:
                     toolbar.setTitle("View Files");
-                    fragment = new AddFileFragment();
-                    loadFragment(fragment);
+                   // fragment = new AddFileFragment();
+                   // loadFragment(fragment);
                     return true;
                 case R.id.navigation_add_file:
                     toolbar.setTitle("Add");
-                    fragment = new HomeFragment();
-                    loadFragment(fragment);
+                   // fragment = new HomeFragment();
+                   // loadFragment(fragment);
                     return true;
                 case R.id.navigation_favorite_lawyers:
                     toolbar.setTitle("favorite");
-                    fragment = new ViewFileFragment();
-                    loadFragment(fragment);
+                   // fragment = new ViewFileFragment();
+                    //loadFragment(fragment);
                     return true;
                 case R.id.navigation_wallet:
                     toolbar.setTitle("wallet");
-                    fragment = new WalletFragment();
-                    loadFragment(fragment);
+                   // fragment = new WalletFragment();
+                   // loadFragment(fragment);
                     return true;
             }
 
