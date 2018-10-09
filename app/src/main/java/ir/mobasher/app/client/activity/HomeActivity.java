@@ -70,11 +70,11 @@ public class HomeActivity extends AppCompatActivity
         String username = settingsPref.getString(Config.USERNAME, Config.DEFAULT_STRING_NO_THING_FOUND);
         Toast.makeText(getBaseContext(), username, Toast.LENGTH_SHORT).show();
 
-        progressDoalog = new ProgressDialog(HomeActivity.this);
-        progressDoalog.setMessage("Loading....");
-        progressDoalog.show();
+//        progressDoalog = new ProgressDialog(HomeActivity.this);
+//        progressDoalog.setMessage("Loading....");
+//        progressDoalog.show();
 
-        toolbar.setTitle("Home");
+        toolbar.setTitle(R.string.home);
         fragment = new HomeFragment();
         loadFragment(fragment);
 
@@ -84,7 +84,7 @@ public class HomeActivity extends AppCompatActivity
         call.enqueue(new Callback<List<RetroPhoto>>() {
             @Override
             public void onResponse(Call<List<RetroPhoto>> call, Response<List<RetroPhoto>> response) {
-                progressDoalog.dismiss();
+               // progressDoalog.dismiss();
                 generateDataList(response.body());
             }
 

@@ -9,21 +9,21 @@
     <item
         android:id="@+id/navigation_view_files"
         android:icon="@drawable/view_file"
-        android:title="@string/title_gifts" />
+        android:title="@string/view_file" />
 
     <item
         android:id="@+id/navigation_add_file"
         android:icon="@drawable/addfile_btn"
-        android:title="@string/title_cart" />
+        android:title="@string/add_file" />
 
     <item
         android:id="@+id/navigation_favorite_lawyers"
         android:icon="@drawable/bookmark"
-        android:title="@string/title_profile" />
+        android:title="@string/favorite_lawyers" />
 
     <item
         android:id="@+id/navigation_wallet"
         android:icon="@drawable/wallet"
-        android:title="@string/title_profile" />
+        android:title="@string/wallet" />
 
 </menu>
