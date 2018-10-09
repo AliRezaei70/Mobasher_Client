@@ -14,25 +14,36 @@
         android:layout_height="match_parent" />
 
 
-
     <FrameLayout
+
         android:id="@+id/frame_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <android.support.design.widget.BottomNavigationView
-        android:id="@+id/navigation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:background="@color/bgBottomNavigation"
-        app:itemBackground="@color/bgBottomNavigation"
-        android:foreground="?attr/selectableItemBackground"
-        app:itemIconTint="@android:color/white"
-        app:itemTextColor="@android:color/white"
-        app:menu="@menu/navigation" />
+        <LinearLayout
+            android:padding="10dp"
+            android:id="@+id/fragments_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:layout_marginBottom="60dp"
+            android:layout_marginTop="?attr/actionBarSize"
+            android:orientation="vertical"></LinearLayout>
 
+        <android.support.design.widget.BottomNavigationView
+            android:id="@+id/navigation"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_gravity="bottom"
+            android:background="@color/bgBottomNavigation"
+            android:foreground="?attr/selectableItemBackground"
+            app:itemBackground="@color/bgBottomNavigation"
+            app:itemIconTint="@android:color/white"
+            app:itemTextColor="@android:color/white"
+            app:menu="@menu/navigation" />
+
+    </FrameLayout>
 
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"

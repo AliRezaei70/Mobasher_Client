@@ -43,6 +43,7 @@ public class HomeActivity extends AppCompatActivity
 
     ProgressDialog progressDoalog;
     Toolbar toolbar;
+    Fragment fragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,8 +74,9 @@ public class HomeActivity extends AppCompatActivity
         progressDoalog.setMessage("Loading....");
         progressDoalog.show();
 
-//        toolbar.setTitle("Shop");
-//        loadFragment(new FavoriteLawyersFragment());
+        toolbar.setTitle("Home");
+        fragment = new HomeFragment();
+        loadFragment(fragment);
 
         /*Create handle for the RetrofitInstance interface*/
         GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
@@ -100,32 +102,32 @@ public class HomeActivity extends AppCompatActivity
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            Fragment fragment;
+
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    toolbar.setTitle("Home");
-                   // fragment = new FavoriteLawyersFragment();
-                   // loadFragment(fragment);
+                    toolbar.setTitle(R.string.home);
+                    fragment = new HomeFragment();
+                    loadFragment(fragment);
                     return true;
                 case R.id.navigation_view_files:
-                    toolbar.setTitle("View Files");
-                   // fragment = new AddFileFragment();
-                   // loadFragment(fragment);
+                    toolbar.setTitle(R.string.view_file);
+                    fragment = new ViewFileFragment();
+                    loadFragment(fragment);
                     return true;
                 case R.id.navigation_add_file:
-                    toolbar.setTitle("Add");
-                   // fragment = new HomeFragment();
-                   // loadFragment(fragment);
+                    toolbar.setTitle(R.string.add_file);
+                    fragment = new AddFileFragment();
+                    loadFragment(fragment);
                     return true;
                 case R.id.navigation_favorite_lawyers:
-                    toolbar.setTitle("favorite");
-                   // fragment = new ViewFileFragment();
-                    //loadFragment(fragment);
+                    toolbar.setTitle(R.string.favorite_lawyers);
+                    fragment = new FavoriteLawyersFragment();
+                    loadFragment(fragment);
                     return true;
                 case R.id.navigation_wallet:
-                    toolbar.setTitle("wallet");
-                   // fragment = new WalletFragment();
-                   // loadFragment(fragment);
+                    toolbar.setTitle(R.string.wallet);
+                    fragment = new WalletFragment();
+                    loadFragment(fragment);
                     return true;
             }
 
@@ -138,24 +140,26 @@ public class HomeActivity extends AppCompatActivity
     private void loadFragment(Fragment fragment) {
         // load fragment
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.frame_container, fragment);
+        transaction.replace(R.id.fragments_container, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
     }
 
     /*Method to generate List of data using RecyclerView with custom adapter*/
     private void generateDataList(List<RetroPhoto> photoList) {
-        TextView mainTv = (TextView) findViewById(R.id.help_item_textview);
-        mainTv.setText(photoList.get(0).getTitle() + " " + photoList.get(1).getTitle());
+//        TextView mainTv = (TextView) findViewById(R.id.help_item_textview);
+//        mainTv.setText(photoList.get(0).getTitle() + " " + photoList.get(1).getTitle());
+//
+//        ImageView imageView = (ImageView) findViewById(R.id.help_item_imageView);
+//
+//        Picasso.Builder builder = new Picasso.Builder(this);
+//        builder.downloader(new OkHttp3Downloader(this));
+//        builder.build().load(photoList.get(0).getThumbnailUrl())
+//                .placeholder((R.drawable.ic_launcher_background))
+//                .error(R.drawable.ic_launcher_background)
+//                .into(imageView);
 
-        ImageView imageView = (ImageView) findViewById(R.id.help_item_imageView);
 
-        Picasso.Builder builder = new Picasso.Builder(this);
-        builder.downloader(new OkHttp3Downloader(this));
-        builder.build().load(photoList.get(0).getThumbnailUrl())
-                .placeholder((R.drawable.ic_launcher_background))
-                .error(R.drawable.ic_launcher_background)
-                .into(imageView);
 //        recyclerView = findViewById(R.id.customRecyclerView);
 //        adapter = new CustomAdapter(this,photoList);
 //        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(HomeActivity.this);
