@@ -3,6 +3,7 @@ package ir.mobasher.app.client.activity;
 import android.annotation.TargetApi;
 import android.app.ProgressDialog;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -50,6 +51,7 @@ public class HomeActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitleTextColor(0x000000);
         setSupportActionBar(toolbar);
         forceRTLIfSupported();
 
