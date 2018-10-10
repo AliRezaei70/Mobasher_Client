@@ -14,7 +14,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import ir.mobasher.app.client.R;
-import ir.mobasher.app.client.adapter.HelpViewPagerAdapter;
+import ir.mobasher.app.client.adapter.ViewPagerAdapter;
 import ir.mobasher.app.client.app.Config;
 
 public class HelpActivity extends AppCompatActivity {
@@ -50,7 +50,9 @@ public class HelpActivity extends AppCompatActivity {
 
         sliderDotspanel = (LinearLayout) findViewById(R.id.SliderDots);
 
-        HelpViewPagerAdapter viewPagerAdapter = new HelpViewPagerAdapter(this);
+        Integer [] images = {R.mipmap.slide1,R.mipmap.slide2,R.mipmap.slide3};
+
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(this, images);
 
         viewPager.setAdapter(viewPagerAdapter);
 

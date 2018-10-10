@@ -10,14 +10,16 @@ import android.widget.ImageView;
 import ir.mobasher.app.client.R;
 
 
-public class HelpViewPagerAdapter extends PagerAdapter {
+public class ViewPagerAdapter extends PagerAdapter {
 
     private Context context;
     private LayoutInflater layoutInflater;
-    private Integer [] images = {R.mipmap.slide1,R.mipmap.slide2,R.mipmap.slide3};
+//    private Integer [] images = {R.mipmap.slide1,R.mipmap.slide2,R.mipmap.slide3};
+    private Integer [] images;
 
-    public HelpViewPagerAdapter(Context context) {
+    public ViewPagerAdapter(Context context, Integer[] images) {
         this.context = context;
+        this.images = images;
     }
 
     @Override

@@ -6,8 +6,6 @@
     <color name="bgBottomNavigation">#ffffff</color>
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
-
-
-
-
+    <color name="warmGrey">#9e9e9e</color>
+    <color name="grey">#d3d3d3</color>
 </resources>
