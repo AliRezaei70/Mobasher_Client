@@ -71,8 +71,8 @@ public class HomeActivity extends AppCompatActivity
         scoreTv = (TextView) findViewById(R.id.scoreTv);
         creditTv = (TextView) findViewById(R.id.creditTv);
 
-//        scoreTv.setText(R.string.score);
-//        creditTv.setText(R.string.wallet);
+        scoreTv.setText(R.string.score);
+        creditTv.setText(R.string.wallet);
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -87,7 +87,7 @@ public class HomeActivity extends AppCompatActivity
 //        progressDoalog.show();
 
         toolbar.setTitle(R.string.home);
-        fragment = new HomeFragment();
+        fragment = new Homefr();
         loadFragment(fragment);
 
         /*Create handle for the RetrofitInstance interface*/
