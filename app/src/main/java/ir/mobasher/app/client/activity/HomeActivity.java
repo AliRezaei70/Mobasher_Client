@@ -47,6 +47,8 @@ public class HomeActivity extends AppCompatActivity
     ProgressDialog progressDoalog;
     Toolbar toolbar;
     Fragment fragment;
+    TextView scoreTv;
+    TextView creditTv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +67,12 @@ public class HomeActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        scoreTv = (TextView) findViewById(R.id.scoreTv);
+        creditTv = (TextView) findViewById(R.id.creditTv);
+
+//        scoreTv.setText(R.string.score);
+//        creditTv.setText(R.string.wallet);
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -216,17 +224,21 @@ public class HomeActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.call_report) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.account_report) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.add_credit) {
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.invite) {
 
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.discount_code) {
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.help_usage) {
+
+        } else if (id == R.id.about_us) {
+
+        } else if (id == R.id.exit) {
 
         }
 

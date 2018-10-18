@@ -30,14 +30,16 @@ import ir.mobasher.app.client.app.IntetnKey;
 public class Homefr extends Fragment implements AdapterView.OnItemClickListener{
 
     private TextView stickyView;
-
-    private ListView listView;
-
-    private View heroImageView;
-
     private View stickyViewSpacer;
-
     private int MAX_ROWS = 20;
+    LinearLayout sliderDotspanel;
+    int dotscount;
+    ImageView[] dots;
+    ViewPager viewPager;
+    ListView homeNotifList;
+    ArrayList<HashMap<String, String>> notifArr;
+    HashMap<String, String> notifMap;
+    HomeNotifListAdapter homeNotifListAdapter;
 
     public Homefr() {
         // Required empty public constructor
@@ -52,10 +54,11 @@ public class Homefr extends Fragment implements AdapterView.OnItemClickListener{
 
         /* Initialise list view, hero image, and sticky view */
 
-        listView = (ListView) view.findViewById(R.id.listView);
-
-        heroImageView = view.findViewById(R.id.heroImageView);
-
+        homeNotifList = (ListView) view.findViewById(R.id.home_notif_list);
+        sliderDotspanel = (LinearLayout) view.findViewById(R.id.home_slider_dots);
+        viewPager = view.findViewById(R.id.home_viewPager);
+        initViewPager();
+        initNotifList();
         stickyView = (TextView) view.findViewById(R.id.stickyView);
 
         /* Inflate list header layout */
@@ -68,11 +71,11 @@ public class Homefr extends Fragment implements AdapterView.OnItemClickListener{
 
         /* Add list view header */
 
-        listView.addHeaderView(listHeader);
+        homeNotifList.addHeaderView(listHeader);
 
         /* Handle list View scroll events */
 
-        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
+        homeNotifList.setOnScrollListener(new AbsListView.OnScrollListener() {
 
             @Override
 
@@ -86,9 +89,9 @@ public class Homefr extends Fragment implements AdapterView.OnItemClickListener{
 
                 /* Check if the first item is already reached to top.*/
 
-                if (listView.getFirstVisiblePosition() == 0) {
+                if (homeNotifList.getFirstVisiblePosition() == 0) {
 
-                    View firstChild = listView.getChildAt(0);
+                    View firstChild = homeNotifList.getChildAt(0);
 
                     int topY = 0;
 
@@ -104,7 +107,7 @@ public class Homefr extends Fragment implements AdapterView.OnItemClickListener{
 
                     /* Set the image to scroll half of the amount that of ListView */
 
-                    heroImageView.setY(topY * 0.5f);
+                    viewPager.setY(topY * 0.5f);
 
                 }
 
@@ -112,19 +115,6 @@ public class Homefr extends Fragment implements AdapterView.OnItemClickListener{
 
         });
 
-        /* Populate the ListView with sample data */
-
-        List<String> modelList = new ArrayList<>();
-
-        for (int i = 0; i < MAX_ROWS; i++) {
-
-            modelList.add("List item " + i);
-
-        }
-
-        ArrayAdapter adapter = new ArrayAdapter(getActivity(), R.layout.list_row, modelList);
-
-        listView.setAdapter(adapter);
 
         return view;
 
@@ -132,7 +122,74 @@ public class Homefr extends Fragment implements AdapterView.OnItemClickListener{
     }
 
 
+    public void initNotifList(){
+        notifArr = new ArrayList<HashMap<String, String>>();
 
+        homeNotifListAdapter = new HomeNotifListAdapter(getActivity(), notifArr,
+                R.layout.home_notif_list_row, new String[] {
+                IntetnKey.KEY_NOTIF_TITLLE,
+                IntetnKey.KEY_NOTIF_TIME,}, new int[] {
+                R.id.homeNotifTittleTv,
+                R.id.homeNotifTimeTv});
+
+        for (int i=0; i<10; i++){
+            notifMap = new HashMap<String, String>();
+
+            notifMap.put(IntetnKey.KEY_NOTIF_TITLLE, "first notification");
+            notifMap.put(IntetnKey.KEY_NOTIF_TIME, "10:22");
+            notifArr.add(notifMap);
+        }
+
+        homeNotifList.setAdapter(homeNotifListAdapter);
+    }
+
+    public void initViewPager(){
+        Integer [] images = {R.mipmap.slide1,R.mipmap.slide2,R.mipmap.slide3};
+
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getContext(),images);
+
+        viewPager.setAdapter(viewPagerAdapter);
+
+        dotscount = viewPagerAdapter.getCount();
+        dots = new ImageView[dotscount];
+
+        for(int i = 0; i < dotscount; i++){
+
+            dots[i] = new ImageView(getContext());
+            dots[i].setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.nonactive_dot));
+
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+
+            params.setMargins(8, 0, 8, 0);
+
+            sliderDotspanel.addView(dots[i], params);
+
+        }
+
+        dots[0].setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.active_dot));
+
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+                for(int i = 0; i< dotscount; i++){
+                    dots[i].setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.nonactive_dot));
+                }
+
+                dots[position].setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.active_dot));
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+    }
 
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)

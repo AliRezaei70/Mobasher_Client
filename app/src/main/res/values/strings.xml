@@ -55,5 +55,16 @@
     <string name="wallet">کیف پول</string>
     <string name="favorite_lawyers">مشاورین محبوب</string>
     <string name="notifs">پیام‌ها</string>
+    <string name="score">امتیاز</string>
+
+    <string name="call_report">گزارش تماس</string>
+    <string name="account_report">گزارش حساب</string>
+    <string name="add_credit">افزایش اعتبار</string>
+    <string name="invite">دعوت از دوستان</string>
+    <string name="discount_code">کد تخفیف</string>
+    <string name="help_usage">راهنمای استفاده</string>
+    <string name="about_us">درباره نرم‌افزار</string>
+    <string name="exit">خروج از نرم‌افزار</string>
+
 
 </resources>
