@@ -64,7 +64,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:padding="10dp"
-            android:onClick="settingsOnClick"
+            android:id="@+id/menuSettingBtn"
             android:src="@drawable/setting" />
 
     </RelativeLayout>
@@ -98,7 +98,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:padding="10dp"
-            android:onClick="reloadChrageOnClick"
+            android:id="@+id/menuRefreshBtn"
             android:src="@drawable/refresh" />
 
 

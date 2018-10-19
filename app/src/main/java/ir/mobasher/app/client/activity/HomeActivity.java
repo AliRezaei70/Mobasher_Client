@@ -20,10 +20,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.jakewharton.picasso.OkHttp3Downloader;
+import com.mikhaellopez.circularimageview.CircularImageView;
 import com.squareup.picasso.Picasso;
 import java.util.List;
 import ir.mobasher.app.client.R;
@@ -49,6 +51,9 @@ public class HomeActivity extends AppCompatActivity
     Fragment fragment;
     TextView scoreTv;
     TextView creditTv;
+    CircularImageView profileImageView;
+    TextView userNameTv;
+    TextView phoneNumTv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,16 +71,26 @@ public class HomeActivity extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        View headerView = navigationView.getHeaderView(0);
         navigationView.setNavigationItemSelectedListener(this);
 
-        scoreTv = (TextView) findViewById(R.id.scoreTv);
-        creditTv = (TextView) findViewById(R.id.creditTv);
+        scoreTv = (TextView) headerView.findViewById(R.id.scoreTv);
+        creditTv = (TextView) headerView.findViewById(R.id.creditTv);
+        userNameTv = (TextView) headerView.findViewById(R.id.usernameTv);
+        phoneNumTv = (TextView) headerView.findViewById(R.id.phoneNumTv);
+        profileImageView = (CircularImageView) headerView.findViewById(R.id.profileImageView);
 
-        scoreTv.setText(R.string.score);
-        creditTv.setText(R.string.wallet);
+        ImageView menuSettingBtn = (ImageView) headerView.findViewById(R.id.menuSettingBtn);
+        menuSettingBtn.setOnClickListener(menuSettingsOnClick);
+        ImageView menuRefreshBtn = (ImageView) headerView.findViewById(R.id.menuRefreshBtn);
+        menuRefreshBtn.setOnClickListener(menuRefreshOnClick);
+
+        scoreTv.setText(this.getString(R.string.score) + " " + 6570);
+        creditTv.setText(this.getString(R.string.wallet) + " " + 50000);
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
 
 
         SharedPreferences settingsPref = getSharedPreferences(Config.SETTINGS_SHARED_PREF, MODE_PRIVATE);
@@ -108,6 +123,21 @@ public class HomeActivity extends AppCompatActivity
         });
     }
 
+
+    private View.OnClickListener menuSettingsOnClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Toast.makeText(HomeActivity.this, "settings", Toast.LENGTH_SHORT).show();
+            closeDrawer();
+        }
+    };
+
+    private View.OnClickListener menuRefreshOnClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Toast.makeText(HomeActivity.this, "refresh", Toast.LENGTH_SHORT).show();
+        }
+    };
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -155,6 +185,11 @@ public class HomeActivity extends AppCompatActivity
         transaction.replace(R.id.fragments_container, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
+    }
+
+    public void closeDrawer(){
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
     }
 
     /*Method to generate List of data using RecyclerView with custom adapter*/
