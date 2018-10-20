@@ -87,6 +87,8 @@ public class HomeActivity extends AppCompatActivity
 
         scoreTv.setText(this.getString(R.string.score) + " " + 6570);
         creditTv.setText(this.getString(R.string.wallet) + " " + 50000);
+        userNameTv.setText("Ali Rezaei");
+        phoneNumTv.setText("09126664106");
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
