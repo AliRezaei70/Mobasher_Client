@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/loginForm3"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,65 +8,111 @@
     android:orientation="vertical"
     android:visibility="gone">
 
-    <ImageView
-        android:layout_width="wrap_content"
+    <FrameLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/profileImageView"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center">
 
-    <android.support.design.widget.TextInputLayout
+        <com.mikhaellopez.circularimageview.CircularImageView
+            android:id="@+id/profileImageView"
+            android:layout_width="125dp"
+            android:layout_height="125dp"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:src="@mipmap/gray_circle" />
+
+        <Button
+            android:id="@+id/changePicBtn"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:background="@drawable/change_pic" />
+
+    </FrameLayout>
+
+
+    <EditText
+        android:id="@+id/username"
+
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="50dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/edittext_shape"
+        android:hint="@string/username"
+        android:inputType="text"
+        android:maxLines="1"
+        android:padding="10dp"
+        android:singleLine="true" />
 
-        <EditText
-            android:id="@+id/username"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/prompt_email"
-            android:inputType="textEmailAddress"
-            android:maxLines="1"
-            android:singleLine="true" />
-
-    </android.support.design.widget.TextInputLayout>
-
-    <android.support.design.widget.TextInputLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:orientation="horizontal">
 
         <EditText
             android:id="@+id/nameEt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:background="@drawable/edittext_shape"
             android:hint="@string/name"
             android:imeOptions="actionUnspecified"
             android:maxLines="1"
+            android:padding="10dp"
             android:singleLine="true" />
 
-    </android.support.design.widget.TextInputLayout>
-
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
         <EditText
             android:id="@+id/familyNamEt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/edittext_shape"
             android:hint="@string/family_name"
             android:imeActionId="6"
             android:imeOptions="actionUnspecified"
             android:maxLines="1"
+            android:padding="10dp"
             android:singleLine="true" />
 
-    </android.support.design.widget.TextInputLayout>
+    </LinearLayout>
+
+
+    <EditText
+        android:id="@+id/emailEt"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/edittext_shape"
+        android:hint="@string/prompt_email"
+        android:inputType="textEmailAddress"
+        android:maxLines="1"
+        android:padding="10dp"
+        android:singleLine="true" />
+
 
     <Button
         android:id="@+id/login_button"
         style="?android:textAppearanceSmall"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/turquoise_green"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         android:text="@string/action_sign_in"
+        android:textColor="@color/white"
         android:textStyle="bold" />
 
 

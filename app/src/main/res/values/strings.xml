@@ -66,5 +66,9 @@
     <string name="about_us">درباره نرم‌افزار</string>
     <string name="exit">خروج از نرم‌افزار</string>
 
+    <string name="username">نام کاربری</string>
+    <string name="finish_submit">نهایی نمودن ثبت نام</string>
+
+
 
 </resources>
