@@ -45,8 +45,8 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.login_toolbar);
-        setSupportActionBar(toolbar);
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.login_toolbar);
+//        setSupportActionBar(toolbar);
         forceRTLIfSupported();
 
         // Set up the login form.
@@ -187,7 +187,7 @@ public class LoginActivity extends AppCompatActivity {
             }
 
             public void onFinish() {
-                timmerTv.setText("done!");
+                //timmerTv.setText("done!");
                 //resend the activation code automatically
 
             }

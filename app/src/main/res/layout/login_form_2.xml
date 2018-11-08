@@ -11,35 +11,76 @@
         android:id="@+id/regCodeSentTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/reg_code_sent" />
+        android:gravity="center_horizontal"
+        android:text="@string/reg_code_sent"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+
+    <TextView
+        android:layout_marginTop="15dp"
+        android:id="@+id/showPhoneNumTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:layout_marginTop="10dp"
+        android:background="@null"
+        android:id="@+id/editPhoneNumBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="editNumOnClick"
+        android:text="@string/edit_num"
+        android:textColor="@color/coral" />
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
+        android:gravity="center_horizontal"
         android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/editPhoneNumBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="editNumOnClick"
-            android:text="@string/edit_num" />
+        <EditText
+            android:id="@+id/forthRegCodeChar"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="7.5dp"
+            android:background="@drawable/edittext_shape"
+            android:gravity="center"
+            android:text="4" />
 
-        <TextView
-            android:id="@+id/showPhoneNumTv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/thirdRegCodeChar"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="7.5dp"
+            android:background="@drawable/edittext_shape"
+            android:gravity="center"
+            android:text="3" />
+
+        <EditText
+            android:id="@+id/secondtRegCodeChar"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="7.5dp"
+            android:background="@drawable/edittext_shape"
+            android:gravity="center"
+            android:text="2" />
+
+        <EditText
+            android:id="@+id/firstRegCodeChar"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="7.5dp"
+            android:background="@drawable/edittext_shape"
+            android:gravity="center"
+            android:text="1" />
+
 
     </LinearLayout>
-
-
-    <TextView
-        android:id="@+id/regCodeTv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="___________" />
 
 
     <TextView
@@ -49,12 +90,17 @@
         android:gravity="center" />
 
     <Button
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         android:id="@+id/resendRegCodeBtn"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="35dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/turquoise_green"
         android:gravity="center"
         android:onClick="resendCodeOnClick"
-        android:text="@string/resend_reg_code" />
+        android:text="@string/resend_reg_code"
+        android:textColor="@color/white" />
 
 
 </LinearLayout>
