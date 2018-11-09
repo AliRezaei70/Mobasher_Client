@@ -13,8 +13,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+
 import ir.mobasher.app.client.R;
-import ir.mobasher.app.client.adapter.ViewPagerAdapter;
+import ir.mobasher.app.client.adapter.helpViewPagerAdapter;
 import ir.mobasher.app.client.app.Config;
 
 public class HelpActivity extends AppCompatActivity {
@@ -33,8 +35,8 @@ public class HelpActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_help);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.help_toolbar);
-        setSupportActionBar(toolbar);
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.help_toolbar);
+//        setSupportActionBar(toolbar);
         forceRTLIfSupported();
 
         nextBtn = (Button) findViewById(R.id.nextBtn);
@@ -42,7 +44,7 @@ public class HelpActivity extends AppCompatActivity {
 
         settingsPref = getSharedPreferences(Config.SETTINGS_SHARED_PREF, MODE_PRIVATE);
         isLogin = settingsPref.getBoolean(Config.IS_LOGIN, false);
-        if (isLogin == true){
+        if (isLogin == true) {
             signInOrSignUpBtn.setVisibility(View.INVISIBLE);
         }
 
@@ -50,16 +52,18 @@ public class HelpActivity extends AppCompatActivity {
 
         sliderDotspanel = (LinearLayout) findViewById(R.id.SliderDots);
 
-        Integer [] images = {R.mipmap.slide1,R.mipmap.slide2,R.mipmap.slide3};
+        Integer[] images = {R.mipmap.slide1, R.mipmap.slide2, R.mipmap.slide3};
+        String[] title = {this.getString(R.string.help_item_title_1), this.getString(R.string.help_item_title_2), this.getString(R.string.help_item_title_3)};
+        String[] description = {this.getString(R.string.help_item_desc_1), this.getString(R.string.help_item_desc_2), this.getString(R.string.help_item_desc_3)};
 
-        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(this, images);
+        helpViewPagerAdapter helpViewPagerAdapter = new helpViewPagerAdapter(this, this, images, title, description);
 
-        viewPager.setAdapter(viewPagerAdapter);
+        viewPager.setAdapter(helpViewPagerAdapter);
 
-        dotscount = viewPagerAdapter.getCount();
+        dotscount = helpViewPagerAdapter.getCount();
         dots = new ImageView[dotscount];
 
-        for(int i = 0; i < dotscount; i++){
+        for (int i = 0; i < dotscount; i++) {
 
             dots[i] = new ImageView(this);
             dots[i].setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.nonactive_dot));
@@ -72,7 +76,8 @@ public class HelpActivity extends AppCompatActivity {
 
         }
 
-        dots[0].setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.active_dot));
+        viewPager.setCurrentItem(0);
+        dots[dotscount - 1].setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.active_dot));
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -83,20 +88,32 @@ public class HelpActivity extends AppCompatActivity {
             @Override
             public void onPageSelected(int position) {
 
-                for(int i = 0; i< dotscount; i++){
+                for (int i = 0; i < dotscount; i++) {
                     dots[i].setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.nonactive_dot));
                 }
 
-                dots[position].setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.active_dot));
+                dots[dotscount - position - 1].setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.active_dot));
 
-                if (viewPager.getCurrentItem() == dotscount-1){
-                    nextBtn.setText(R.string.finish);
+                if (viewPager.getCurrentItem() == dotscount - 1) {
+                    signInOrSignUpBtn.setText(R.string.start);
                     isLastPage = true;
-                    signInOrSignUpBtn.setVisibility(View.INVISIBLE);
-                }else {
+                    nextBtn.setVisibility(View.GONE);
+                    RelativeLayout.LayoutParams layoutParams =
+                            (RelativeLayout.LayoutParams)signInOrSignUpBtn.getLayoutParams();
+                    layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
+                    signInOrSignUpBtn.setLayoutParams(layoutParams);
+                } else {
+                    nextBtn.setVisibility(View.VISIBLE);
                     nextBtn.setText(R.string.next);
                     isLastPage = false;
                     signInOrSignUpBtn.setVisibility(View.VISIBLE);
+                    signInOrSignUpBtn.setText(R.string.signin_or_signup);
+
+                    RelativeLayout.LayoutParams layoutParams =
+                            (RelativeLayout.LayoutParams)signInOrSignUpBtn.getLayoutParams();
+                    layoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+                    signInOrSignUpBtn.setLayoutParams(layoutParams);
+
                 }
             }
 
@@ -109,30 +126,38 @@ public class HelpActivity extends AppCompatActivity {
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
-    private void forceRTLIfSupported()
-    {
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1){
+    private void forceRTLIfSupported() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
         }
     }
 
-    public void nextOnClick(View view){
-        if (isLastPage) {
-            if (isLogin == true){
-                finish();
-            } else {
-                startActivity(new Intent(this, RulesActivity.class));
-                finish();
-            }
-        }else {
-            viewPager.setCurrentItem(viewPager.getCurrentItem()+1);
-        }
+    public void nextOnClick(View view) {
+
+        viewPager.setCurrentItem(viewPager.getCurrentItem() + 1);
+
+//        if (isLastPage) {
+//
+//            if (isLogin == true) {
+//                finish();
+//            } else {
+//                startActivity(new Intent(this, RulesActivity.class));
+//                finish();
+//            }
+//        } else {
+//            viewPager.setCurrentItem(viewPager.getCurrentItem() + 1);
+//        }
 
     }
 
-    public void signInOrSignUpOnClick(View view){
-        startActivity(new Intent(this, LoginActivity.class));
-        finish();
+    public void signInOrSignUpOnClick(View view) {
+        if (isLogin == true) {
+            finish();
+        }else {
+            startActivity(new Intent(this, LoginActivity.class));
+            finish();
+        }
+
     }
 
 }

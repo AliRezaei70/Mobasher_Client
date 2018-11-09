@@ -17,6 +17,7 @@
     <string name="signin_or_signup">ورود/ثبت نام</string>
     <string name="next">بعدی</string>
     <string name="finish">تمام</string>
+    <string name="start">شروع کن</string>
     <string name="title_activity_rules">RulesActivity</string>
     <string name="app_rules_title">قوانین نرم افزار</string>
     <string name="agree">موافقم</string>
@@ -69,6 +70,17 @@
     <string name="username">نام کاربری</string>
     <string name="finish_submit">نهایی نمودن ثبت نام</string>
 
+
+    <string name="help_item_title_1">ایجاد پرونده</string>
+    <string name="help_item_title_2">درخواست مشاوره آنلاین</string>
+    <string name="help_item_title_3">انتخاب مشاور</string>
+    <string name="help_item_desc_1">به قسمت ایجاد پرونده برو و پرونده خودت رو
+تشکیل بده؛ میتونید علاوه بر عنوان و توضیحات
+مستندات مد نظرت رو هم به پرونده اضافه کنی</string>
+    <string name="help_item_desc_2">اگر خواستی پروندت رو تکمیل کن
+وگرنه درخواست مشاوره روی پرونده ای که ساختی بده</string>
+    <string name="help_item_desc_3">از بین مشاوران آنلاین که پروند رو قبول کردن یکی
+انتخاب کن و منتظر تماس باش</string>
 
     <string name="app_rules_text">
         لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.

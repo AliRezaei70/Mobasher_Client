@@ -2,6 +2,7 @@ package ir.mobasher.app.client.activity;
 
 import android.annotation.TargetApi;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -24,6 +25,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.j256.ormlite.stmt.query.In;
 import com.jakewharton.picasso.OkHttp3Downloader;
 import com.mikhaellopez.circularimageview.CircularImageView;
 import com.squareup.picasso.Picasso;
@@ -272,6 +275,8 @@ public class HomeActivity extends AppCompatActivity
         } else if (id == R.id.discount_code) {
 
         } else if (id == R.id.help_usage) {
+            Intent i = new Intent(this, HelpActivity.class);
+            startActivity(i);
 
         } else if (id == R.id.about_us) {
 

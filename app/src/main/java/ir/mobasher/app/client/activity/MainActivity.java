@@ -70,14 +70,14 @@ public class MainActivity extends AppCompatActivity {
         boolean isFirstRun = settingsPref.getBoolean(Config.FISRT_RUN, true);
         if (isFirstRun){
             settingsPref.edit().putBoolean(Config.FISRT_RUN, false).commit();
-            startActivity(new Intent(this, HelpActivity.class));
+            startActivity(new Intent(this, RulesActivity.class));
             finish();
             return;
         }
 
         boolean isLogin = settingsPref.getBoolean(Config.IS_LOGIN, false);
         if (isLogin == false){
-            startActivity(new Intent(this, RulesActivity.class));
+            startActivity(new Intent(this, HelpActivity.class));
             finish();
         }else {
             startActivity(new Intent(this, HomeActivity.class));

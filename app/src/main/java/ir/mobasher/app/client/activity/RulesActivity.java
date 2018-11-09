@@ -2,6 +2,7 @@ package ir.mobasher.app.client.activity;
 
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -11,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import ir.mobasher.app.client.R;
+import ir.mobasher.app.client.app.Config;
 
 public class RulesActivity extends AppCompatActivity {
 
@@ -33,11 +35,15 @@ public class RulesActivity extends AppCompatActivity {
     }
 
     public void disagreeOnClick(View v){
+        SharedPreferences settingsPref = getSharedPreferences(Config.SETTINGS_SHARED_PREF, MODE_PRIVATE);
+
+        boolean isFirstRun = settingsPref.getBoolean(Config.FISRT_RUN, true);
+        settingsPref.edit().putBoolean(Config.FISRT_RUN, true).commit();
         finish();
     }
 
     public void agreeOnClick(View v){
-        startActivity(new Intent(this, LoginActivity.class));
+        startActivity(new Intent(this, HelpActivity.class));
         finish();
     }
 
