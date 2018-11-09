@@ -98,21 +98,12 @@ public class HelpActivity extends AppCompatActivity {
                     signInOrSignUpBtn.setText(R.string.start);
                     isLastPage = true;
                     nextBtn.setVisibility(View.GONE);
-                    RelativeLayout.LayoutParams layoutParams =
-                            (RelativeLayout.LayoutParams)signInOrSignUpBtn.getLayoutParams();
-                    layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
-                    signInOrSignUpBtn.setLayoutParams(layoutParams);
                 } else {
                     nextBtn.setVisibility(View.VISIBLE);
                     nextBtn.setText(R.string.next);
                     isLastPage = false;
                     signInOrSignUpBtn.setVisibility(View.VISIBLE);
                     signInOrSignUpBtn.setText(R.string.signin_or_signup);
-
-                    RelativeLayout.LayoutParams layoutParams =
-                            (RelativeLayout.LayoutParams)signInOrSignUpBtn.getLayoutParams();
-                    layoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
-                    signInOrSignUpBtn.setLayoutParams(layoutParams);
 
                 }
             }
