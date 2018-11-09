@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".activity.RulesActivity">
 
-    <android.support.design.widget.AppBarLayout
+    <!--<android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay">
@@ -20,49 +20,67 @@
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </android.support.design.widget.AppBarLayout>
+-->
 
-
-    <ScrollView
+    <TextView
+        android:id="@+id/rulesTitleTv"
+        android:textSize="18sp"
+        android:textStyle="bold"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="?attr/actionBarSize">
+        android:layout_height="100dp"
+        android:gravity="center"
+        android:text="@string/app_rules_title" />
 
-        <FrameLayout
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_marginTop="100dp"
+        android:layout_height="match_parent">
+
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginBottom="110dp">
 
             <TextView
-                android:id="@+id/rulesTv"
+                android:lineSpacingExtra="3dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:gravity="top"
+                android:id="@+id/rulesTextTv"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginBottom="60dp"
-                android:text="@string/app_rules" />
+                android:text="@string/app_rules_text" />
+        </ScrollView>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:gravity="center|bottom"
-                android:layout_gravity="center|bottom">
 
-                <Button
-                    android:id="@+id/agreeBtn"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="@string/agree"
-                    android:onClick="agreeOnClick"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="vertical"
+            android:layout_gravity="center|bottom"
+            android:gravity="top|center">
 
-                <Button
-                    android:id="@+id/disagreeBtn"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="@string/disagree"
-                    android:onClick="disagreeOnClick"/>
-            </LinearLayout>
+            <Button
+                android:textColor="@color/white"
+                android:background="@color/turquoise_green"
+                android:id="@+id/agreeBtn"
+                android:layout_width="120dp"
+                android:layout_height="35dp"
+                android:onClick="agreeOnClick"
+                android:text="@string/agree" />
 
-        </FrameLayout>
+            <Button
+                android:layout_marginTop="10dp"
+                android:background="@null"
+                android:textColor="@color/black"
+                android:id="@+id/disagreeBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:onClick="disagreeOnClick"
+                android:text="@string/disagree" />
+        </LinearLayout>
 
-    </ScrollView>
+    </FrameLayout>
 
 </android.support.design.widget.CoordinatorLayout>

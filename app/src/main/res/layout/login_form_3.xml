@@ -33,12 +33,11 @@
 
     <EditText
         android:id="@+id/username"
-
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
         android:layout_marginTop="20dp"
+        android:layout_marginRight="10dp"
         android:background="@drawable/edittext_shape"
         android:hint="@string/username"
         android:inputType="text"
@@ -50,8 +49,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
         android:gravity="center"
         android:orientation="horizontal">
 
@@ -92,8 +91,8 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
         android:background="@drawable/edittext_shape"
         android:hint="@string/prompt_email"
         android:inputType="textEmailAddress"
@@ -105,13 +104,13 @@
     <Button
         android:id="@+id/login_button"
         style="?android:textAppearanceSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="35dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
         android:layout_marginTop="10dp"
-        android:background="@color/turquoise_green"
+        android:background="@color/coral"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:text="@string/action_sign_in"
+        android:text="@string/finish_submit"
         android:textColor="@color/white"
         android:textStyle="bold" />
 
