@@ -47,4 +47,12 @@ public class RulesActivity extends AppCompatActivity {
         finish();
     }
 
+    @Override
+    public void onBackPressed() {
+        SharedPreferences settingsPref = getSharedPreferences(Config.SETTINGS_SHARED_PREF, MODE_PRIVATE);
+
+        boolean isFirstRun = settingsPref.getBoolean(Config.FISRT_RUN, true);
+        settingsPref.edit().putBoolean(Config.FISRT_RUN, true).commit();
+        super.onBackPressed();
+    }
 }
