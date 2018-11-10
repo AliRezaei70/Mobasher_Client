@@ -11,14 +11,14 @@ import android.widget.TextView;
 
 import ir.mobasher.app.client.R;
 
-public class ViewPagerAdapter extends PagerAdapter {
+public class HomeViewPagerAdapter extends PagerAdapter {
 
     private Context context;
     private LayoutInflater layoutInflater;
     //    private Integer [] images = {R.mipmap.slide1,R.mipmap.slide2,R.mipmap.slide3};
     private Integer [] images;
 
-    public ViewPagerAdapter(Context context, Integer[] images) {
+    public HomeViewPagerAdapter(Context context, Integer[] images) {
         this.context = context;
         this.images = images;
     }

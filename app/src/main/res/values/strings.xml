@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Mobasher_Client</string>
+    <string name="app_name">موکل</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">ایمیل</string>

@@ -22,8 +22,7 @@ import java.util.HashMap;
 
 import ir.mobasher.app.client.R;
 import ir.mobasher.app.client.adapter.HomeNotifListAdapter;
-import ir.mobasher.app.client.adapter.ViewPagerAdapter;
-import ir.mobasher.app.client.adapter.helpViewPagerAdapter;
+import ir.mobasher.app.client.adapter.HomeViewPagerAdapter;
 import ir.mobasher.app.client.app.IntetnKey;
 
 public class Homefr extends Fragment implements AdapterView.OnItemClickListener{
@@ -145,7 +144,7 @@ public class Homefr extends Fragment implements AdapterView.OnItemClickListener{
     public void initViewPager(){
         Integer [] images = {R.mipmap.slide1,R.mipmap.slide2,R.mipmap.slide3};
 
-        ViewPagerAdapter helpViewPagerAdapter = new ViewPagerAdapter(getContext(),images);
+        HomeViewPagerAdapter helpViewPagerAdapter = new HomeViewPagerAdapter(getContext(),images);
 
         viewPager.setAdapter(helpViewPagerAdapter);
 
