@@ -15,7 +15,7 @@ import android.widget.TextView;
 import ir.mobasher.app.client.R;
 
 
-public class helpViewPagerAdapter extends PagerAdapter {
+public class HelpViewPagerAdapter extends PagerAdapter {
 
     private Context context;
     private LayoutInflater layoutInflater;
@@ -24,7 +24,7 @@ public class helpViewPagerAdapter extends PagerAdapter {
     private String [] tille;
     private String [] description;
     private Activity activity;
-    public helpViewPagerAdapter(Activity activity, Context context, Integer[] images, String [] title, String [] description) {
+    public HelpViewPagerAdapter(Activity activity, Context context, Integer[] images, String [] title, String [] description) {
         this.activity = activity;
         this.context = context;
         this.images = images;

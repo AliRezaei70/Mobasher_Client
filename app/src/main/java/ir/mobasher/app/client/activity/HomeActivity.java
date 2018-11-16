@@ -28,6 +28,7 @@ import ir.mobasher.app.client.R;
 import ir.mobasher.app.client.app.Config;
 import ir.mobasher.app.client.fragments.FavoriteLawyersFragment;
 import ir.mobasher.app.client.fragments.AddFileFragment;
+import ir.mobasher.app.client.fragments.HomeFragment;
 import ir.mobasher.app.client.fragments.Homefr;
 import ir.mobasher.app.client.fragments.ViewFileFragment;
 import ir.mobasher.app.client.fragments.WalletFragment;
@@ -99,7 +100,7 @@ public class HomeActivity extends AppCompatActivity
 //        progressDoalog.show();
 
         toolbar.setTitle(R.string.home);
-        fragment = new Homefr();
+        fragment = new HomeFragment();
         loadFragment(fragment);
 
         /*Create handle for the RetrofitInstance interface*/
@@ -145,7 +146,7 @@ public class HomeActivity extends AppCompatActivity
             switch (item.getItemId()) {
                 case R.id.navigation_home:
                     toolbar.setTitle(R.string.home);
-                    fragment = new Homefr();
+                    fragment = new HomeFragment();
                     loadFragment(fragment);
                     return true;
                 case R.id.navigation_view_files:

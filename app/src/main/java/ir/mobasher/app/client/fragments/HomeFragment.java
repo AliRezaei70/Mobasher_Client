@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,6 +52,14 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemClickLis
         initNotifList();
         forceRTLIfSupported();
 
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int height = displayMetrics.heightPixels;
+        int width = displayMetrics.widthPixels;
+
+//        viewPager.getLayoutParams().height = height/2;
+//        viewPager.getLayoutParams().width = width;
+
         return view;
 
 
@@ -78,7 +87,7 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemClickLis
     }
 
     public void initViewPager(){
-        Integer [] images = {R.mipmap.slide1,R.mipmap.slide2,R.mipmap.slide3};
+        Integer [] images = {R.mipmap.vakil1,R.mipmap.vakil2,R.mipmap.vakil3};
 
         HomeViewPagerAdapter helpViewPagerAdapter = new HomeViewPagerAdapter(getContext(),images);
 
@@ -100,7 +109,8 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemClickLis
 
         }
 
-        dots[0].setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.active_dot));
+        viewPager.setCurrentItem(0);
+        dots[dotscount - 1].setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.active_dot));
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -115,7 +125,7 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemClickLis
                     dots[i].setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.nonactive_dot));
                 }
 
-                dots[position].setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.active_dot));
+                dots[dotscount - position - 1].setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.active_dot));
             }
 
             @Override

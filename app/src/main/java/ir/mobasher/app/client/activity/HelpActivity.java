@@ -13,7 +13,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import ir.mobasher.app.client.R;
-import ir.mobasher.app.client.adapter.helpViewPagerAdapter;
+import ir.mobasher.app.client.adapter.HelpViewPagerAdapter;
 import ir.mobasher.app.client.app.Config;
 
 public class HelpActivity extends AppCompatActivity {
@@ -53,11 +53,11 @@ public class HelpActivity extends AppCompatActivity {
         String[] title = {this.getString(R.string.help_item_title_1), this.getString(R.string.help_item_title_2), this.getString(R.string.help_item_title_3)};
         String[] description = {this.getString(R.string.help_item_desc_1), this.getString(R.string.help_item_desc_2), this.getString(R.string.help_item_desc_3)};
 
-        helpViewPagerAdapter helpViewPagerAdapter = new helpViewPagerAdapter(this, this, images, title, description);
+        HelpViewPagerAdapter HelpViewPagerAdapter = new HelpViewPagerAdapter(this, this, images, title, description);
 
-        viewPager.setAdapter(helpViewPagerAdapter);
+        viewPager.setAdapter(HelpViewPagerAdapter);
 
-        dotscount = helpViewPagerAdapter.getCount();
+        dotscount = HelpViewPagerAdapter.getCount();
         dots = new ImageView[dotscount];
 
         for (int i = 0; i < dotscount; i++) {
