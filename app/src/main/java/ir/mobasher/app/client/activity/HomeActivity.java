@@ -155,9 +155,11 @@ public class HomeActivity extends AppCompatActivity
                     loadFragment(fragment);
                     return true;
                 case R.id.navigation_add_file:
-                    toolbar.setTitle(R.string.add_file);
-                    fragment = new AddFileFragment();
-                    loadFragment(fragment);
+//                    toolbar.setTitle(R.string.add_file);
+//                    fragment = new AddFileFragment();
+//                    loadFragment(fragment);
+                    Intent i = new Intent(HomeActivity.this, CreateFileActivity.class);
+                    startActivity(i);
                     return true;
                 case R.id.navigation_favorite_lawyers:
                     toolbar.setTitle(R.string.favorite_lawyers);

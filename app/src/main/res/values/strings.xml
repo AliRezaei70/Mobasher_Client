@@ -89,5 +89,10 @@
 
 
     </string>
+    <string name="title_activity_create_file">ایجاد پرونده</string>
+
+    <string name="file_title">عنوان پرونده</string>
+    <string name="file_desc">توضیحات پرونده</string>
+    <string name="continu">ادامه</string>
 
 </resources>

@@ -56,6 +56,10 @@
             android:name=".activity.RulesActivity"
             android:label="@string/title_activity_rules"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.CreateFileActivity"
+            android:label="@string/title_activity_create_file"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

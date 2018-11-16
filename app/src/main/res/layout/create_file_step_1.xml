@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/createFileTitleTv"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:text="@string/file_title"/>
+
+
+    <EditText
+        android:layout_marginTop="5dp"
+        android:padding="10dp"
+        android:layout_below="@id/createFileTitleTv"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:singleLine="true"
+        android:id="@+id/titleEt"
+        android:background="@drawable/edittext_shape"/>
+
+    <TextView
+        android:layout_below="@id/titleEt"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:id="@+id/createFileDescTv"
+        android:text="@string/file_desc"/>
+
+    <EditText
+        android:layout_marginTop="5dp"
+        android:padding="10dp"
+        android:layout_below="@id/createFileDescTv"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/descEt"
+        android:minLines="6"
+        android:maxLines="8"
+        android:background="@drawable/edittext_shape"/>
+
+
+    <Button
+        android:layout_alignParentBottom="true"
+        android:layout_margin="20dp"
+        android:textColor="@color/white"
+        android:background="@color/coral"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/continu"
+        android:onClick="continueBtnOnClick"
+        android:id="@+id/continueBtn"/>
+</RelativeLayout>
