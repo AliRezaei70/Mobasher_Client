@@ -94,5 +94,7 @@
     <string name="file_title">عنوان پرونده</string>
     <string name="file_desc">توضیحات پرونده</string>
     <string name="continu">ادامه</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="title_activity_credit">CreditActivity</string>
 
 </resources>

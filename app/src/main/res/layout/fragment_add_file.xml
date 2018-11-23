@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     tools:context=".fragments.AddFileFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+    <!-- TODO: Update blank fragment create_file_step_2 -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

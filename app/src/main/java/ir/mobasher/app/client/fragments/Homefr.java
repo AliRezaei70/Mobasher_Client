@@ -59,7 +59,7 @@ public class Homefr extends Fragment implements AdapterView.OnItemClickListener{
         initNotifList();
         stickyView = (TextView) view.findViewById(R.id.stickyView);
 
-        /* Inflate list header layout */
+        /* Inflate list header create_file_step_2 */
 
         LayoutInflater in = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
