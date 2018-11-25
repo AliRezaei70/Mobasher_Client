@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import ir.mobasher.app.client.R;
+import ir.mobasher.app.client.helper.DisplayInfo;
 
 
 public class HelpViewPagerAdapter extends PagerAdapter {
@@ -48,10 +49,10 @@ public class HelpViewPagerAdapter extends PagerAdapter {
 
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        activity.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        int height = displayMetrics.heightPixels;
-        int width = displayMetrics.widthPixels;
+//        DisplayMetrics displayMetrics = new DisplayMetrics();
+//        activity.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int height = DisplayInfo.getInstance(activity).getDisplayHeight();
+        int width = DisplayInfo.getInstance(activity).getDisplayWidth();
 
         View view = layoutInflater.inflate(R.layout.help_item_layout, null);
         ImageView imageView = (ImageView) view.findViewById(R.id.help_item_imageView);
