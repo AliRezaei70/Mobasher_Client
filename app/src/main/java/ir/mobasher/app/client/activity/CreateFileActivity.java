@@ -1,6 +1,7 @@
 package ir.mobasher.app.client.activity;
 
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -15,28 +16,22 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.nio.channels.FileLock;
+import java.util.ArrayList;
+
 import ir.mobasher.app.client.R;
 import ir.mobasher.app.client.adapter.CreateFileGridAdapter;
 import ir.mobasher.app.client.helper.DisplayInfo;
 
 public class CreateFileActivity extends AppCompatActivity {
 
+    Intent intent ;
     int stepNumber = 1;
     LinearLayout step2Layout;
     RelativeLayout step1Layout;
     GridView gridView;
-    static final String[ ] GRID_DATA = new String[] {
-            "Windows" ,
-            "iOS",
-            "Android" ,
-            "Blackberry",
-            "Java" ,
-            "JQuery",
-            "Phonegap",
-            "SQLite",
-            "Thread" ,
-            "Video"
-    };
+    ArrayList<String> gridData;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +44,10 @@ public class CreateFileActivity extends AppCompatActivity {
         step1Layout = (RelativeLayout) findViewById(R.id.step1Layout);
         step2Layout = (LinearLayout) findViewById(R.id.step2Layout);
 
+
+
         forceRTLIfSupported();
+
 
 
         gridView = (GridView) findViewById(R.id.filesGV);
@@ -58,7 +56,9 @@ public class CreateFileActivity extends AppCompatActivity {
 
         // Set custom adapter (GridAdapter) to gridview
 
-        gridView.setAdapter(  new CreateFileGridAdapter( this, GRID_DATA ) );
+        gridData = new ArrayList<String>();
+
+        gridView.setAdapter(  new CreateFileGridAdapter( this, gridData ) );
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -74,9 +74,43 @@ public class CreateFileActivity extends AppCompatActivity {
             }
         });
 
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.createFilefab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //intent = new Intent(Intent.ACTION_GET_CONTENT);
+                intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+                intent.addCategory(Intent.CATEGORY_OPENABLE);
+                intent.setType("*/*");
+                startActivityForResult(intent, 7);
+            }
+        });
+
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // TODO Auto-generated method stub
 
+        switch(requestCode){
+
+            case 7:
+
+                if(resultCode==RESULT_OK){
+
+                    String PathHolder = data.getData().getPath();
+
+                    Toast.makeText(CreateFileActivity.this, PathHolder , Toast.LENGTH_LONG).show();
+
+                    gridData.add(PathHolder);
+
+                    gridView.setAdapter(  new CreateFileGridAdapter( this, gridData ) );
+
+                }
+                break;
+
+        }
+    }
 
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)

@@ -8,15 +8,17 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import ir.mobasher.app.client.R;
 
 public class CreateFileGridAdapter extends BaseAdapter {
 
     private Context context;
-    private final String[] gridValues;
+    private final ArrayList<String> gridValues;
 
     //Constructor to initialize values
-    public CreateFileGridAdapter(Context context, String[ ] gridValues) {
+    public CreateFileGridAdapter(Context context, ArrayList<String> gridValues) {
 
         this.context        = context;
         this.gridValues     = gridValues;
@@ -26,7 +28,7 @@ public class CreateFileGridAdapter extends BaseAdapter {
     public int getCount() {
 
         // Number of times getView method call depends upon gridValues.length
-        return gridValues.length;
+        return gridValues.size();
     }
 
     @Override
@@ -58,7 +60,9 @@ public class CreateFileGridAdapter extends BaseAdapter {
 
             TextView textView = (TextView) gridView.findViewById(R.id.gridItemTextView);
 
-            textView.setText(gridValues[position]);
+            String data = gridValues.get(position);
+            String text = data.substring(data.lastIndexOf("/"));
+            textView.setText(text.substring(1,text.length()));
 
             // set image based on selected text
 
