@@ -1,11 +1,16 @@
 package ir.mobasher.app.client.activity;
 
 import android.annotation.TargetApi;
+import android.content.ContentResolver;
+import android.content.ContentUris;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -16,7 +21,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.nio.channels.FileLock;
 import java.util.ArrayList;
 
 import ir.mobasher.app.client.R;
@@ -31,6 +35,7 @@ public class CreateFileActivity extends AppCompatActivity {
     RelativeLayout step1Layout;
     GridView gridView;
     ArrayList<String> gridData;
+    ArrayList<Bitmap> bitmaps;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,8 +62,9 @@ public class CreateFileActivity extends AppCompatActivity {
         // Set custom adapter (GridAdapter) to gridview
 
         gridData = new ArrayList<String>();
+        bitmaps = new ArrayList<Bitmap>();
 
-        gridView.setAdapter(  new CreateFileGridAdapter( this, gridData ) );
+        gridView.setAdapter(  new CreateFileGridAdapter( this, gridData, bitmaps) );
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -74,14 +80,40 @@ public class CreateFileActivity extends AppCompatActivity {
             }
         });
 
+        final String[] mimeTypes =
+                {"application/msword","application/vnd.openxmlformats-officedocument.wordprocessingml.document", // .doc & .docx
+                        "application/vnd.ms-powerpoint","application/vnd.openxmlformats-officedocument.presentationml.presentation", // .ppt & .pptx
+                        "application/vnd.ms-excel","application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", // .xls & .xlsx
+                        "text/plain",
+                        "application/pdf",
+                        "application/zip",
+                        "image/*",
+                        "audio/*",
+                        "video/*"
+                };
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.createFilefab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 //intent = new Intent(Intent.ACTION_GET_CONTENT);
                 intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
                 intent.addCategory(Intent.CATEGORY_OPENABLE);
-                intent.setType("*/*");
+               // intent.setType("*/*");
+               // intent.setType("image/*|application/pdf|audio/*|application/x-excel|");
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                    intent.setType(mimeTypes.length == 1 ? mimeTypes[0] : "*/*");
+                    if (mimeTypes.length > 0) {
+                        intent.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes);
+                    }
+                } else {
+                    String mimeTypesStr = "";
+                    for (String mimeType : mimeTypes) {
+                        mimeTypesStr += mimeType + "|";
+                    }
+                    intent.setType(mimeTypesStr.substring(0,mimeTypesStr.length() - 1));
+                }
                 startActivityForResult(intent, 7);
             }
         });
@@ -104,7 +136,15 @@ public class CreateFileActivity extends AppCompatActivity {
 
                     gridData.add(PathHolder);
 
-                    gridView.setAdapter(  new CreateFileGridAdapter( this, gridData ) );
+
+                    ContentResolver crThumb = getContentResolver();
+                    BitmapFactory.Options options=new BitmapFactory.Options();
+                    options.inSampleSize = 1;
+                    Bitmap curThumb = MediaStore.Video.Thumbnails.getThumbnail(crThumb, ContentUris.parseId(intent.getData()), MediaStore.Video.Thumbnails.MICRO_KIND, options);
+
+                    bitmaps.add(curThumb);
+
+                    gridView.setAdapter(  new CreateFileGridAdapter( this, gridData, bitmaps) );
 
                 }
                 break;

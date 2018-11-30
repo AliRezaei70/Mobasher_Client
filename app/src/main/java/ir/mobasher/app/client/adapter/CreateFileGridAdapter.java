@@ -1,6 +1,11 @@
 package ir.mobasher.app.client.adapter;
 
+import android.content.ContentResolver;
+import android.content.ContentUris;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,12 +21,14 @@ public class CreateFileGridAdapter extends BaseAdapter {
 
     private Context context;
     private final ArrayList<String> gridValues;
+    private final ArrayList<Bitmap> bitmaps;
 
     //Constructor to initialize values
-    public CreateFileGridAdapter(Context context, ArrayList<String> gridValues) {
+    public CreateFileGridAdapter(Context context, ArrayList<String> gridValues, ArrayList<Bitmap> uris) {
 
         this.context        = context;
         this.gridValues     = gridValues;
+        this.bitmaps = uris;
     }
 
     @Override
@@ -66,9 +73,13 @@ public class CreateFileGridAdapter extends BaseAdapter {
 
             // set image based on selected text
 
+
             ImageView imageView = (ImageView) gridView.findViewById(R.id.gridItemImageView);
 
-            imageView.setImageResource(R.drawable.change_pic);
+            imageView.setImageBitmap(bitmaps.get(position));
+
+
+            //imageView.setImageResource(R.drawable.change_pic);
 
         } else {
 
