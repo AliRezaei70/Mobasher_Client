@@ -140,7 +140,7 @@ public class CreateFileActivity extends AppCompatActivity {
                     ContentResolver crThumb = getContentResolver();
                     BitmapFactory.Options options=new BitmapFactory.Options();
                     options.inSampleSize = 1;
-                    Bitmap curThumb = MediaStore.Video.Thumbnails.getThumbnail(crThumb, ContentUris.parseId(intent.getData()), MediaStore.Video.Thumbnails.MICRO_KIND, options);
+                    Bitmap curThumb = MediaStore.Video.Thumbnails.getThumbnail(crThumb, ContentUris.parseId(data.getData()), MediaStore.Video.Thumbnails.MICRO_KIND, options);
 
                     bitmaps.add(curThumb);
 
