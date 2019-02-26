@@ -2,6 +2,7 @@ package ir.mobasher.app.client.app;
 
 public class Config {
 
+    public static final String BASE_URL = "http://www.mostasharapp.ir/";
     // global topic to receive app wide push notifications
     public static final String TOPIC_GLOBAL = "global";
 
