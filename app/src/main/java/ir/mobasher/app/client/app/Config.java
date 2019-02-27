@@ -2,7 +2,7 @@ package ir.mobasher.app.client.app;
 
 public class Config {
 
-    public static final String BASE_URL = "http://31.184.135.213:8080";
+    public static final String BASE_URL = "https://jsonplaceholder.typicode.com";
     // global topic to receive app wide push notifications
     public static final String TOPIC_GLOBAL = "global";
 
