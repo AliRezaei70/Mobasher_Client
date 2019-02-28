@@ -22,19 +22,19 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.gson.JsonObject;
 import com.mikhaellopez.circularimageview.CircularImageView;
+
 import java.util.List;
 import ir.mobasher.app.client.R;
 import ir.mobasher.app.client.app.Config;
 import ir.mobasher.app.client.fragments.FavoriteLawyersFragment;
-import ir.mobasher.app.client.fragments.AddFileFragment;
 import ir.mobasher.app.client.fragments.HomeFragment;
-import ir.mobasher.app.client.fragments.Homefr;
 import ir.mobasher.app.client.fragments.ViewFileFragment;
 import ir.mobasher.app.client.fragments.WalletFragment;
-import ir.mobasher.app.client.intreface.GetDataService;
-import ir.mobasher.app.client.intreface.GetExampleService;
-import ir.mobasher.app.client.model.example.Example;
+import ir.mobasher.app.client.intreface.packs.PacksService;
+import ir.mobasher.app.client.model.pack.Packs;
 import ir.mobasher.app.client.model.photo.RetroPhoto;
 import ir.mobasher.app.client.network.RetrofitClientInstance;
 import retrofit2.Call;
@@ -106,18 +106,20 @@ public class HomeActivity extends AppCompatActivity
         loadFragment(fragment);
 
         /*Create handle for the RetrofitInstance interface*/
-        GetExampleService service = RetrofitClientInstance.getRetrofitInstance().create(GetExampleService.class);
-        Call<Example> call = service.getExample();
-        call.enqueue(new Callback<Example>() {
+        JsonObject packsObject = new JsonObject();
+        packsObject.addProperty("lawyerid","110c7528-1d44-4ae3-9dc0-c3b8213d45a6");
+        PacksService service = RetrofitClientInstance.getRetrofitInstance().create(PacksService.class);
+        Call<Packs> call = service.postJson(packsObject);
+        call.enqueue(new Callback<Packs>() {
             @Override
-            public void onResponse(Call<Example> call, Response<Example> response) {
-                Example example = response.body();
-                Toast.makeText(getBaseContext(), example.getUserId().toString(),Toast.LENGTH_LONG).show();
+            public void onResponse(Call<Packs> call, Response<Packs> response) {
+                Packs packs = response.body();
+                Toast.makeText(getBaseContext(), packs.getMessage().toString(),Toast.LENGTH_LONG).show();
             }
 
             @Override
-            public void onFailure(Call<Example> call, Throwable t) {
-
+            public void onFailure(Call<Packs> call, Throwable t) {
+                t.getMessage();
             }
         });
     }
