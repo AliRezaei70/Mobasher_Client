@@ -156,10 +156,10 @@ public class LoginActivity extends AppCompatActivity {
 
     public void getRegCodeOnClick(View v){
 
-        JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("phoneNumber", "09126664106");
+//        JsonObject jsonObject = new JsonObject();
+//        jsonObject.addProperty("phoneNumber", "09126664106");
         LoginService service = RetrofitClientInstance.getRetrofitInstance().create(LoginService.class);
-        Call<Login> call = service.postNumber(jsonObject);
+        Call<Login> call = service.postNumber("09126664106");
         call.enqueue(new Callback<Login>() {
             @Override
             public void onResponse(Call<Login> call, Response<Login> response) {

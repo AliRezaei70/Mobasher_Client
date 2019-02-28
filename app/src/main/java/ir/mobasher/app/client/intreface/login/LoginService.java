@@ -8,9 +8,10 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 public interface LoginService {
     @FormUrlEncoded
-    @POST("/api/v1/auth/login")
-    Call<Login> postNumber(JsonObject jsonObject);
+    @POST("/api/v1/auth/login?phoneNumber={phoneNum}")
+    Call<Login> postNumber(@Path("phoneNum") String phoneNum);
 }
