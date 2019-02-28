@@ -16,11 +16,24 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.gson.JsonObject;
+
+import org.json.JSONObject;
 
 import java.util.concurrent.TimeUnit;
 
 import ir.mobasher.app.client.R;
 import ir.mobasher.app.client.app.Config;
+import ir.mobasher.app.client.intreface.login.LoginService;
+import ir.mobasher.app.client.intreface.packs.PacksService;
+import ir.mobasher.app.client.model.login.Login;
+import ir.mobasher.app.client.model.pack.Packs;
+import ir.mobasher.app.client.network.RetrofitClientInstance;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A login screen that offers login via email/password.
@@ -142,6 +155,24 @@ public class LoginActivity extends AppCompatActivity {
 
 
     public void getRegCodeOnClick(View v){
+
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("phoneNumber", "09126664106");
+        LoginService service = RetrofitClientInstance.getRetrofitInstance().create(LoginService.class);
+        Call<Login> call = service.postNumber(jsonObject);
+        call.enqueue(new Callback<Login>() {
+            @Override
+            public void onResponse(Call<Login> call, Response<Login> response) {
+                Login login = response.body();
+                Toast.makeText(getBaseContext(), login.getMessage().toString(),Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onFailure(Call<Login> call, Throwable t) {
+                t.getMessage();
+            }
+        });
+
         if(phoneNumEt.getText().length() == 10){
             loginForm1.setVisibility(View.GONE);
             loginForm2.setVisibility(View.VISIBLE);
@@ -194,6 +225,7 @@ public class LoginActivity extends AppCompatActivity {
 
         }.start();
     }
+
 
 }
 
