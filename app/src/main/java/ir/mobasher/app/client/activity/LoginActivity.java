@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -18,13 +19,20 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import ir.mobasher.app.client.R;
+import ir.mobasher.app.client.api.APIInterface;
+import ir.mobasher.app.client.api.login.LoginErrorResponse;
+import ir.mobasher.app.client.api.login.LoginSuccessResponse;
+import ir.mobasher.app.client.app.AppTags;
 import ir.mobasher.app.client.app.Config;
 import ir.mobasher.app.client.intreface.login.LoginService;
 import ir.mobasher.app.client.intreface.packs.PacksService;
@@ -156,22 +164,8 @@ public class LoginActivity extends AppCompatActivity {
 
     public void getRegCodeOnClick(View v){
 
-//        JsonObject jsonObject = new JsonObject();
-//        jsonObject.addProperty("phoneNumber", "09126664106");
-        LoginService service = RetrofitClientInstance.getRetrofitInstance().create(LoginService.class);
-        Call<Login> call = service.postNumber("09126664106");
-        call.enqueue(new Callback<Login>() {
-            @Override
-            public void onResponse(Call<Login> call, Response<Login> response) {
-                Login login = response.body();
-                Toast.makeText(getBaseContext(), login.getMessage().toString(),Toast.LENGTH_LONG).show();
-            }
 
-            @Override
-            public void onFailure(Call<Login> call, Throwable t) {
-                t.getMessage();
-            }
-        });
+        postNumber(phoneNumEt.getText().toString());
 
         if(phoneNumEt.getText().length() == 10){
             loginForm1.setVisibility(View.GONE);
@@ -226,6 +220,44 @@ public class LoginActivity extends AppCompatActivity {
         }.start();
     }
 
+    public void postNumber(String phoneNum) {
+        APIInterface service = RetrofitClientInstance.getRetrofitInstance().create(APIInterface.class);
+        Call<LoginSuccessResponse> responseCall = service.loginUser(phoneNum);
+        responseCall.enqueue(new Callback<LoginSuccessResponse>() {
+            @Override
+            public void onResponse(Call<LoginSuccessResponse> call, Response<LoginSuccessResponse> response) {
+                if (response.isSuccessful()){
+                    LoginSuccessResponse loginResponse = response.body();
+                    Log.i(AppTags.POST_USER_NUMBER_RESPONSE, loginResponse.getMessage());
+                    Toast.makeText(getBaseContext(), loginResponse.getMessage(), Toast.LENGTH_SHORT).show();
+
+                    SharedPreferences.Editor settingsPrefEditor = getSharedPreferences(Config.SETTINGS_SHARED_PREF, MODE_PRIVATE).edit();
+                    settingsPrefEditor.putString(Config.USER_ID, loginResponse.getUserId());
+                    settingsPrefEditor.commit();
+
+                }else {
+                    Gson gson = new GsonBuilder().create();
+                    LoginErrorResponse errorResponse = new LoginErrorResponse();
+                    try {
+                        errorResponse = gson.fromJson(response.errorBody().string(), LoginErrorResponse.class);
+                        Log.i(AppTags.POST_USER_NUMBER_RESPONSE, errorResponse.getMessage());
+                        Toast.makeText(getBaseContext(), errorResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        Log.i(AppTags.POST_USER_NUMBER_RESPONSE, AppTags.UNKNOWN_ERROR);
+                    }
+
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<LoginSuccessResponse> call, Throwable t) {
+                Log.e(AppTags.POST_USER_NUMBER_RESPONSE, t.getMessage());
+            }
+        });
+    }
 
 }
 
