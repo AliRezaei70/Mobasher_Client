@@ -11,12 +11,12 @@ public interface APIInterface {
 
     //Post User PhoneNumber
     @FormUrlEncoded
-    @POST("/api/v1/auth/login")
+    @POST("/api/v1/clients/auth/login")
     Call<LoginSuccessResponse> loginUser(@Field("phoneNumber") String phoneNumber);
 
     //Post ValidationCode
     @FormUrlEncoded
-    @POST("/api/v1/client/auth/validateCode")
+    @POST("/api/v1/clients/auth/validatecode")
     Call<ValidationSuccessResponse> validateUser(@Field("userid") String userId, @Field("code") String code);
 
 
