@@ -13,9 +13,11 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,6 +38,7 @@ import ir.mobasher.app.client.app.AppTags;
 import ir.mobasher.app.client.app.Config;
 import ir.mobasher.app.client.intreface.login.LoginService;
 import ir.mobasher.app.client.intreface.packs.PacksService;
+import ir.mobasher.app.client.manager.ProgressBarManager;
 import ir.mobasher.app.client.model.login.Login;
 import ir.mobasher.app.client.model.pack.Packs;
 import ir.mobasher.app.client.network.RetrofitClientInstance;
@@ -163,23 +166,61 @@ public class LoginActivity extends AppCompatActivity {
 
 
     public void getRegCodeOnClick(View v){
+        final ProgressBarManager progressBarManager = new ProgressBarManager();
+        progressBarManager.showProgress((ProgressBar) mProgressView, this);
+
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
+        APIInterface service = RetrofitClientInstance.getRetrofitInstance().create(APIInterface.class);
+        Call<LoginSuccessResponse> responseCall = service.loginUser(phoneNumEt.getText().toString());
+        responseCall.enqueue(new Callback<LoginSuccessResponse>() {
+            @Override
+            public void onResponse(Call<LoginSuccessResponse> call, Response<LoginSuccessResponse> response) {
+                if (response.isSuccessful()){
+                    LoginSuccessResponse loginResponse = response.body();
+                    Log.i(AppTags.POST_USER_NUMBER_RESPONSE, loginResponse.getMessage());
+                    Toast.makeText(getBaseContext(), loginResponse.getMessage(), Toast.LENGTH_SHORT).show();
+
+                    SharedPreferences.Editor settingsPrefEditor = getSharedPreferences(Config.SETTINGS_SHARED_PREF, MODE_PRIVATE).edit();
+                    settingsPrefEditor.putString(Config.USER_ID, loginResponse.getUserId());
+                    settingsPrefEditor.commit();
+
+                    loginForm1.setVisibility(View.GONE);
+                    loginForm2.setVisibility(View.VISIBLE);
+                    loginForm3.setVisibility(View.GONE);
+
+                    showPhoneNumTv.setText(phoneNumEt.getText().toString());
+
+                    resetTimer();
+
+                }else {
+                    Gson gson = new GsonBuilder().create();
+                    LoginErrorResponse errorResponse = new LoginErrorResponse();
+                    try {
+                        errorResponse = gson.fromJson(response.errorBody().string(), LoginErrorResponse.class);
+                        Log.i(AppTags.POST_USER_NUMBER_RESPONSE, errorResponse.getMessage());
+                        Toast.makeText(getBaseContext(), errorResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        Log.i(AppTags.POST_USER_NUMBER_RESPONSE, AppTags.UNKNOWN_ERROR);
+                    }
 
 
-        postNumber(phoneNumEt.getText().toString());
+                }
 
-        if(phoneNumEt.getText().length() == 10){
-            loginForm1.setVisibility(View.GONE);
-            loginForm2.setVisibility(View.VISIBLE);
-            loginForm3.setVisibility(View.GONE);
+                progressBarManager.hideProgress((ProgressBar) mProgressView, LoginActivity.this);
 
-            showPhoneNumTv.setText(phoneNumEt.getText().toString());
+            }
 
-            resetTimer();
+            @Override
+            public void onFailure(Call<LoginSuccessResponse> call, Throwable t) {
+                Log.e(AppTags.POST_USER_NUMBER_RESPONSE, t.getMessage());
+                progressBarManager.hideProgress((ProgressBar) mProgressView, LoginActivity.this);
+            }
 
-        }else {
-            phoneNumEt.setError(getString(R.string.phone_num_err));
-        }
 
+        });
     }
 
     public void editNumOnClick(View v){
@@ -220,44 +261,6 @@ public class LoginActivity extends AppCompatActivity {
         }.start();
     }
 
-    public void postNumber(String phoneNum) {
-        APIInterface service = RetrofitClientInstance.getRetrofitInstance().create(APIInterface.class);
-        Call<LoginSuccessResponse> responseCall = service.loginUser(phoneNum);
-        responseCall.enqueue(new Callback<LoginSuccessResponse>() {
-            @Override
-            public void onResponse(Call<LoginSuccessResponse> call, Response<LoginSuccessResponse> response) {
-                if (response.isSuccessful()){
-                    LoginSuccessResponse loginResponse = response.body();
-                    Log.i(AppTags.POST_USER_NUMBER_RESPONSE, loginResponse.getMessage());
-                    Toast.makeText(getBaseContext(), loginResponse.getMessage(), Toast.LENGTH_SHORT).show();
-
-                    SharedPreferences.Editor settingsPrefEditor = getSharedPreferences(Config.SETTINGS_SHARED_PREF, MODE_PRIVATE).edit();
-                    settingsPrefEditor.putString(Config.USER_ID, loginResponse.getUserId());
-                    settingsPrefEditor.commit();
-
-                }else {
-                    Gson gson = new GsonBuilder().create();
-                    LoginErrorResponse errorResponse = new LoginErrorResponse();
-                    try {
-                        errorResponse = gson.fromJson(response.errorBody().string(), LoginErrorResponse.class);
-                        Log.i(AppTags.POST_USER_NUMBER_RESPONSE, errorResponse.getMessage());
-                        Toast.makeText(getBaseContext(), errorResponse.getMessage(), Toast.LENGTH_SHORT).show();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                        Log.i(AppTags.POST_USER_NUMBER_RESPONSE, AppTags.UNKNOWN_ERROR);
-                    }
-
-
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<LoginSuccessResponse> call, Throwable t) {
-                Log.e(AppTags.POST_USER_NUMBER_RESPONSE, t.getMessage());
-            }
-        });
-    }
 
 }
 
