@@ -43,7 +43,7 @@ import retrofit2.Response;
 /**
  * A login screen that offers login via email/password.
  */
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements TextView.OnEditorActionListener {
 
 
     private EditText userNameEt;
@@ -59,6 +59,7 @@ public class LoginActivity extends AppCompatActivity {
     private TextView timmerTv;
     private CountDownTimer countDownTimer;
     private EditText validationCodeEt;
+    private ProgressBarManager progressBarManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,43 +75,7 @@ public class LoginActivity extends AppCompatActivity {
         familyNameEt = (EditText) findViewById(R.id.familyNamEt);
 
         validationCodeEt = (EditText) findViewById(R.id.validationCodeEt);
-        validationCodeEt.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
-                if (actionId == EditorInfo.IME_ACTION_GO) {
-                    Toast.makeText(getBaseContext(), "Go",Toast.LENGTH_SHORT).show();
-                    return true;
-                }
-                return false;
-
-            }
-        });
-
-        Button mLoginButton = (Button) findViewById(R.id.login_button);
-        mLoginButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (attemptLogin()) {
-
-                    String username = userNameEt.getText().toString();
-                    String name = nameEt.getText().toString();
-                    String family = familyNameEt.getText().toString();
-
-                    SharedPreferences.Editor settingsPrefEditor = getSharedPreferences(Config.SETTINGS_SHARED_PREF, MODE_PRIVATE).edit();
-
-
-                    settingsPrefEditor.putString(Config.USERNAME, username);
-                    settingsPrefEditor.putString(Config.NAME, name);
-                    settingsPrefEditor.putString(Config.FAMILYNAME, family);
-                    settingsPrefEditor.putBoolean(Config.IS_LOGIN, true);
-                    settingsPrefEditor.commit();
-
-                    Intent i = new Intent(LoginActivity.this, HomeActivity.class);
-                    startActivity(i);
-                    finish();
-                }
-            }
-        });
+        validationCodeEt.setOnEditorActionListener(this);
 
         mProgressView = findViewById(R.id.login_progress);
 
@@ -120,6 +85,8 @@ public class LoginActivity extends AppCompatActivity {
         phoneNumEt = (EditText) findViewById(R.id.phoneNumEt);
         showPhoneNumTv = (TextView) findViewById(R.id.showPhoneNumTv);
         timmerTv = (TextView) findViewById(R.id.timmerTv);
+
+        progressBarManager = new ProgressBarManager();
 
     }
 
@@ -170,16 +137,89 @@ public class LoginActivity extends AppCompatActivity {
         return true;
     }
 
+    public void loginOnClick(View v) {
+        if (attemptLogin()) {
+
+            String username = userNameEt.getText().toString();
+            String name = nameEt.getText().toString();
+            String family = familyNameEt.getText().toString();
+
+            SharedPreferences.Editor settingsPrefEditor = getSharedPreferences(Config.SETTINGS_SHARED_PREF, MODE_PRIVATE).edit();
+
+
+            settingsPrefEditor.putString(Config.USERNAME, username);
+            settingsPrefEditor.putString(Config.NAME, name);
+            settingsPrefEditor.putString(Config.FAMILYNAME, family);
+            settingsPrefEditor.putBoolean(Config.IS_LOGIN, true);
+            settingsPrefEditor.commit();
+
+            Intent i = new Intent(LoginActivity.this, HomeActivity.class);
+            startActivity(i);
+            finish();
+        }
+    }
 
     public void getRegCodeOnClick(View v){
-        final ProgressBarManager progressBarManager = new ProgressBarManager();
+
         progressBarManager.showProgress((ProgressBar) mProgressView, this);
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                 WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
+        registerUser(phoneNumEt.getText().toString());
+    }
+
+    public void editNumOnClick(View v){
+        loginForm1.setVisibility(View.VISIBLE);
+        loginForm2.setVisibility(View.GONE);
+        loginForm3.setVisibility(View.GONE);
+
+    }
+
+    public void resendCodeOnClick(View v){
+        resetTimer();
+
+        loginForm1.setVisibility(View.GONE);
+        loginForm2.setVisibility(View.GONE);
+        loginForm3.setVisibility(View.VISIBLE);
+    }
+
+    public void resetTimer(){
+        if (countDownTimer != null)
+            countDownTimer.cancel();
+
+        countDownTimer = new CountDownTimer(90000, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+
+                timmerTv.setText(""+String.format("%02d:%02d",
+                        TimeUnit.MILLISECONDS.toMinutes( millisUntilFinished),
+                        TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) -
+                                TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished))));
+            }
+
+            public void onFinish() {
+                //timmerTv.setText("done!");
+                //resend the activation code automatically
+
+            }
+
+        }.start();
+    }
+
+    @Override
+    public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+        if (actionId == EditorInfo.IME_ACTION_GO) {
+            Toast.makeText(getBaseContext(), "Go",Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        return false;
+    }
+
+    //service call methods
+    public void registerUser(String phoneNumber){
         APIInterface service = RetrofitClientInstance.getRetrofitInstance().create(APIInterface.class);
-        Call<LoginSuccessResponse> responseCall = service.loginUser(phoneNumEt.getText().toString());
+        Call<LoginSuccessResponse> responseCall = service.loginUser(phoneNumber);
         responseCall.enqueue(new Callback<LoginSuccessResponse>() {
             @Override
             public void onResponse(Call<LoginSuccessResponse> call, Response<LoginSuccessResponse> response) {
@@ -234,44 +274,6 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    public void editNumOnClick(View v){
-        loginForm1.setVisibility(View.VISIBLE);
-        loginForm2.setVisibility(View.GONE);
-        loginForm3.setVisibility(View.GONE);
-
-    }
-
-    public void resendCodeOnClick(View v){
-        resetTimer();
-
-        loginForm1.setVisibility(View.GONE);
-        loginForm2.setVisibility(View.GONE);
-        loginForm3.setVisibility(View.VISIBLE);
-    }
-
-    public void resetTimer(){
-        if (countDownTimer != null)
-            countDownTimer.cancel();
-
-        countDownTimer = new CountDownTimer(90000, 1000) {
-
-            public void onTick(long millisUntilFinished) {
-
-                timmerTv.setText(""+String.format("%02d:%02d",
-                        TimeUnit.MILLISECONDS.toMinutes( millisUntilFinished),
-                        TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) -
-                                TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished))));
-            }
-
-            public void onFinish() {
-                //timmerTv.setText("done!");
-                //resend the activation code automatically
-
-            }
-
-        }.start();
-    }
-
+    public void validateUser(String validationCode){}
 
 }
-

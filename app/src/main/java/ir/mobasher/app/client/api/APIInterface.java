@@ -19,7 +19,7 @@ public interface APIInterface {
     //Post ValidationCode
     @FormUrlEncoded
     @POST("/api/v1/clients/auth/validatecode")
-    Call<ValidationSuccessResponse> validateUser(@Field("userid") String userId, @Field("code") String code);
+    Call<ValidationSuccessResponse> validateUser(@Field("clientId") String clientId, @Field("code") String code);
 
     /*user auth web services*/
 

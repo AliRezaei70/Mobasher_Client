@@ -112,6 +112,7 @@
         android:paddingRight="10dp"
         android:text="@string/finish_submit"
         android:textColor="@color/white"
+        android:onClick="loginOnClick"
         android:textStyle="bold" />
 
 
