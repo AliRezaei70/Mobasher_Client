@@ -9,15 +9,18 @@ import retrofit2.http.POST;
 
 public interface APIInterface {
 
+    /*user auth web services*/
+
     //Post User PhoneNumber
     @FormUrlEncoded
     @POST("/api/v1/clients/auth/login")
-    Call<LoginSuccessResponse> loginUser(@Field("phoneNumber") String phoneNumber);
+    Call<LoginSuccessResponse> loginUser(@Field("mobilenumber") String phoneNumber);
 
     //Post ValidationCode
     @FormUrlEncoded
     @POST("/api/v1/clients/auth/validatecode")
     Call<ValidationSuccessResponse> validateUser(@Field("userid") String userId, @Field("code") String code);
 
+    /*user auth web services*/
 
 }

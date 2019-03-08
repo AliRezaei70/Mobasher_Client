@@ -8,7 +8,6 @@ import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -23,9 +22,6 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
-
-import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -36,11 +32,7 @@ import ir.mobasher.app.client.api.login.LoginErrorResponse;
 import ir.mobasher.app.client.api.login.LoginSuccessResponse;
 import ir.mobasher.app.client.app.AppTags;
 import ir.mobasher.app.client.app.Config;
-import ir.mobasher.app.client.intreface.login.LoginService;
-import ir.mobasher.app.client.intreface.packs.PacksService;
 import ir.mobasher.app.client.manager.ProgressBarManager;
-import ir.mobasher.app.client.model.login.Login;
-import ir.mobasher.app.client.model.pack.Packs;
 import ir.mobasher.app.client.network.RetrofitClientInstance;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -183,9 +175,9 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(getBaseContext(), loginResponse.getMessage(), Toast.LENGTH_SHORT).show();
 
                     SharedPreferences.Editor settingsPrefEditor = getSharedPreferences(Config.SETTINGS_SHARED_PREF, MODE_PRIVATE).edit();
-                    settingsPrefEditor.putString(Config.USER_ID, loginResponse.getUserId());
+                    settingsPrefEditor.putString(Config.CLIENT_ID, loginResponse.getClientId());
                     settingsPrefEditor.commit();
-
+                    Toast.makeText(getBaseContext(), loginResponse.getMessage(), Toast.LENGTH_SHORT).show();
                     loginForm1.setVisibility(View.GONE);
                     loginForm2.setVisibility(View.VISIBLE);
                     loginForm3.setVisibility(View.GONE);
@@ -193,6 +185,10 @@ public class LoginActivity extends AppCompatActivity {
                     showPhoneNumTv.setText(phoneNumEt.getText().toString());
 
                     resetTimer();
+
+                    SharedPreferences settingsPref = getSharedPreferences(Config.SETTINGS_SHARED_PREF, MODE_PRIVATE);
+                    String userid = settingsPref.getString(Config.CLIENT_ID, Config.DEFAULT_STRING_NO_THING_FOUND);
+                    Toast.makeText(getBaseContext(), userid, Toast.LENGTH_SHORT).show();
 
                 }else {
                     Gson gson = new GsonBuilder().create();

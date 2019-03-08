@@ -8,8 +8,8 @@ public class LoginSuccessResponse {
     private Integer status;
     @SerializedName("message")
     private String message;
-    @SerializedName("userId")
-    private String userId;
+    @SerializedName("clientId")
+    private String clientId;
     @SerializedName("active")
     private Boolean active;
 
@@ -17,8 +17,8 @@ public class LoginSuccessResponse {
         return message;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getClientId() {
+        return clientId;
     }
 
     public Boolean getActive() {
