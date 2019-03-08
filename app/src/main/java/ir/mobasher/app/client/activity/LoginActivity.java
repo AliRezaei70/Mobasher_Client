@@ -10,9 +10,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -56,6 +58,7 @@ public class LoginActivity extends AppCompatActivity {
     private TextView showPhoneNumTv;
     private TextView timmerTv;
     private CountDownTimer countDownTimer;
+    private EditText validationCodeEt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +73,18 @@ public class LoginActivity extends AppCompatActivity {
         nameEt = (EditText) findViewById(R.id.nameEt);
         familyNameEt = (EditText) findViewById(R.id.familyNamEt);
 
+        validationCodeEt = (EditText) findViewById(R.id.validationCodeEt);
+        validationCodeEt.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+                if (actionId == EditorInfo.IME_ACTION_GO) {
+                    Toast.makeText(getBaseContext(), "Go",Toast.LENGTH_SHORT).show();
+                    return true;
+                }
+                return false;
 
+            }
+        });
 
         Button mLoginButton = (Button) findViewById(R.id.login_button);
         mLoginButton.setOnClickListener(new OnClickListener() {
@@ -212,6 +226,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<LoginSuccessResponse> call, Throwable t) {
                 Log.e(AppTags.POST_USER_NUMBER_RESPONSE, t.getMessage());
+                Toast.makeText(getBaseContext(), R.string.connection_error, Toast.LENGTH_SHORT).show();
                 progressBarManager.hideProgress((ProgressBar) mProgressView, LoginActivity.this);
             }
 

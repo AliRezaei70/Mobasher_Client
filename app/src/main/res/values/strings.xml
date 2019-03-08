@@ -96,5 +96,6 @@
     <string name="continu">ادامه</string>
     <string name="title_activity_main2">Main2Activity</string>
     <string name="title_activity_credit">CreditActivity</string>
+    <string name="connection_error">خطا در برقراری ارتباط با سرور</string>
 
 </resources>
