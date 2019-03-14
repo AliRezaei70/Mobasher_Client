@@ -1,6 +1,7 @@
 package ir.mobasher.app.client.activity;
 
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -11,8 +12,8 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -26,6 +27,9 @@ import ir.mobasher.app.client.R;
 import ir.mobasher.app.client.api.APIInterface;
 import ir.mobasher.app.client.api.login.LoginErrorResponse;
 import ir.mobasher.app.client.api.login.LoginSuccessResponse;
+import ir.mobasher.app.client.api.validateUser.JwtResponse;
+import ir.mobasher.app.client.api.validateUser.ValidationErrorResponse;
+import ir.mobasher.app.client.api.validateUser.ValidationSuccessResponse;
 import ir.mobasher.app.client.app.AppTags;
 import ir.mobasher.app.client.app.Config;
 import ir.mobasher.app.client.manager.ProgressBarManager;
@@ -52,6 +56,7 @@ public class LoginActivity extends AppCompatActivity implements TextView.OnEdito
     private CountDownTimer countDownTimer;
     private EditText validationCodeEt;
     private ProgressBarManager progressBarManager;
+    private SharedPreferences.Editor settingsPrefEditor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +84,8 @@ public class LoginActivity extends AppCompatActivity implements TextView.OnEdito
         timmerTv = (TextView) findViewById(R.id.timmerTv);
 
         progressBarManager = new ProgressBarManager();
+
+        settingsPrefEditor = getSharedPreferences(Config.SETTINGS_SHARED_PREF, MODE_PRIVATE).edit();
 
     }
 
@@ -136,8 +143,6 @@ public class LoginActivity extends AppCompatActivity implements TextView.OnEdito
             String name = nameEt.getText().toString();
             String family = familyNameEt.getText().toString();
 
-            SharedPreferences.Editor settingsPrefEditor = getSharedPreferences(Config.SETTINGS_SHARED_PREF, MODE_PRIVATE).edit();
-
 
             settingsPrefEditor.putString(Config.USERNAME, username);
             settingsPrefEditor.putString(Config.NAME, name);
@@ -155,9 +160,6 @@ public class LoginActivity extends AppCompatActivity implements TextView.OnEdito
 
         progressBarManager.showProgress((ProgressBar) mProgressView, this);
 
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-
         registerUser(phoneNumEt.getText().toString());
     }
 
@@ -171,9 +173,11 @@ public class LoginActivity extends AppCompatActivity implements TextView.OnEdito
     public void resendCodeOnClick(View v){
         resetTimer();
 
-        loginForm1.setVisibility(View.GONE);
-        loginForm2.setVisibility(View.GONE);
-        loginForm3.setVisibility(View.VISIBLE);
+        progressBarManager.showProgress((ProgressBar) mProgressView, this);
+
+        validateUser(validationCodeEt.getText().toString());
+
+
     }
 
     public void resetTimer(){
@@ -201,8 +205,17 @@ public class LoginActivity extends AppCompatActivity implements TextView.OnEdito
 
     @Override
     public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
-        if (actionId == EditorInfo.IME_ACTION_GO) {
-            Toast.makeText(getBaseContext(), "Go",Toast.LENGTH_SHORT).show();
+        if (actionId == EditorInfo.IME_ACTION_DONE) {
+
+            InputMethodManager inputManager =
+                    (InputMethodManager) getBaseContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(),
+                    InputMethodManager.HIDE_NOT_ALWAYS);
+
+            progressBarManager.showProgress((ProgressBar) mProgressView, this);
+
+            validateUser(validationCodeEt.getText().toString());
+
             return true;
         }
         return false;
@@ -220,9 +233,10 @@ public class LoginActivity extends AppCompatActivity implements TextView.OnEdito
                     Log.i(AppTags.POST_USER_NUMBER_RESPONSE, loginResponse.getMessage());
                     Toast.makeText(getBaseContext(), loginResponse.getMessage(), Toast.LENGTH_SHORT).show();
 
-                    SharedPreferences.Editor settingsPrefEditor = getSharedPreferences(Config.SETTINGS_SHARED_PREF, MODE_PRIVATE).edit();
+
                     settingsPrefEditor.putString(Config.CLIENT_ID, loginResponse.getClientId());
                     settingsPrefEditor.commit();
+
                     Toast.makeText(getBaseContext(), loginResponse.getMessage(), Toast.LENGTH_SHORT).show();
                     loginForm1.setVisibility(View.GONE);
                     loginForm2.setVisibility(View.VISIBLE);
@@ -232,9 +246,6 @@ public class LoginActivity extends AppCompatActivity implements TextView.OnEdito
 
                     resetTimer();
 
-                    SharedPreferences settingsPref = getSharedPreferences(Config.SETTINGS_SHARED_PREF, MODE_PRIVATE);
-                    String userid = settingsPref.getString(Config.CLIENT_ID, Config.DEFAULT_STRING_NO_THING_FOUND);
-                    Toast.makeText(getBaseContext(), userid, Toast.LENGTH_SHORT).show();
 
                 }else {
                     Gson gson = new GsonBuilder().create();
@@ -266,6 +277,56 @@ public class LoginActivity extends AppCompatActivity implements TextView.OnEdito
         });
     }
 
-    public void validateUser(String validationCode){}
+    public void validateUser(String validationCode){
+        SharedPreferences settingsPref = getSharedPreferences(Config.SETTINGS_SHARED_PREF, MODE_PRIVATE);
+        String clientId = settingsPref.getString(Config.CLIENT_ID, Config.DEFAULT_STRING_NO_THING_FOUND);
+
+        APIInterface service = RetrofitClientInstance.getRetrofitInstance().create(APIInterface.class);
+        Call<ValidationSuccessResponse> responseCall = service.validateUser(clientId, validationCode);
+        responseCall.enqueue(new Callback<ValidationSuccessResponse>() {
+            @Override
+            public void onResponse(Call<ValidationSuccessResponse> call, Response<ValidationSuccessResponse> response) {
+                if (response.isSuccessful()){
+                    ValidationSuccessResponse validationResponse = response.body();
+                    Log.i(AppTags.VALIDATE_USER_RESPONSE, validationResponse.getMessage());
+                    Toast.makeText(getBaseContext(), validationResponse.getMessage(), Toast.LENGTH_SHORT).show();
+
+                    JwtResponse jwtResponse = validationResponse.getJwtResponse();
+
+                    settingsPrefEditor.putString(Config.WALLET_ID, validationResponse.getWalletId());
+                    settingsPrefEditor.commit();
+
+                    settingsPrefEditor.putString(Config.JWT_TOKEN, jwtResponse.getToken());
+                    settingsPrefEditor.commit();
+
+                    loginForm1.setVisibility(View.GONE);
+                    loginForm2.setVisibility(View.GONE);
+                    loginForm3.setVisibility(View.VISIBLE);
+                }else {
+                    Gson gson = new GsonBuilder().create();
+                    ValidationErrorResponse errorResponse = new ValidationErrorResponse();
+                    try {
+                        errorResponse = gson.fromJson(response.errorBody().string(), ValidationErrorResponse.class);
+                        Log.i(AppTags.VALIDATE_USER_RESPONSE, errorResponse.getMessage());
+                        Toast.makeText(getBaseContext(), errorResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        Log.i(AppTags.VALIDATE_USER_RESPONSE, AppTags.UNKNOWN_ERROR);
+                    }
+
+
+                }
+
+                progressBarManager.hideProgress((ProgressBar) mProgressView, LoginActivity.this);
+            }
+
+            @Override
+            public void onFailure(Call<ValidationSuccessResponse> call, Throwable t) {
+                Log.e(AppTags.VALIDATE_USER_RESPONSE, t.getMessage());
+                Toast.makeText(getBaseContext(), R.string.connection_error, Toast.LENGTH_SHORT).show();
+                progressBarManager.hideProgress((ProgressBar) mProgressView, LoginActivity.this);
+            }
+        });
+    }
 
 }

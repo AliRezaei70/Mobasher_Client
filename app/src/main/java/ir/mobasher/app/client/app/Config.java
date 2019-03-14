@@ -25,6 +25,8 @@ public class Config {
     public static final String FAMILYNAME = "familyName";
     public static final String PASSWORD = "password";
     public static final String CLIENT_ID = "userId";
+    public static final String WALLET_ID = "walletId";
+    public static final String JWT_TOKEN = "jwtToken";
     public static final String DEFAULT_STRING_NO_THING_FOUND = "defaultStringNoThingFound";
 
 
