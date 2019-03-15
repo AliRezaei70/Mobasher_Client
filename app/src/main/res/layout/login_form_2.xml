@@ -98,7 +98,7 @@
 
 
     <EditText
-        android:imeOptions="actionDone"
+        android:imeOptions="actionGo"
         android:lines="1"
         android:id="@+id/validationCodeEt"
         android:layout_width="250dp"

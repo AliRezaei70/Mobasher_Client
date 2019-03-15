@@ -56,7 +56,6 @@
 
         <EditText
             android:id="@+id/nameEt"
-
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_weight="1"
@@ -69,8 +68,7 @@
 
 
         <EditText
-            android:id="@+id/familyNamEt"
-
+            android:id="@+id/familyNameEt"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_marginRight="10dp"

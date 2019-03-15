@@ -25,6 +25,8 @@ import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 import ir.mobasher.app.client.R;
 import ir.mobasher.app.client.api.APIInterface;
+import ir.mobasher.app.client.api.clientProfile.ClientProfileErrorResponse;
+import ir.mobasher.app.client.api.clientProfile.ClientProfileSuccessResponse;
 import ir.mobasher.app.client.api.login.LoginErrorResponse;
 import ir.mobasher.app.client.api.login.LoginSuccessResponse;
 import ir.mobasher.app.client.api.validateUser.JwtResponse;
@@ -33,6 +35,7 @@ import ir.mobasher.app.client.api.validateUser.ValidationSuccessResponse;
 import ir.mobasher.app.client.app.AppTags;
 import ir.mobasher.app.client.app.Config;
 import ir.mobasher.app.client.manager.ProgressBarManager;
+import ir.mobasher.app.client.model.clientProfile.ClientProfile;
 import ir.mobasher.app.client.network.RetrofitClientInstance;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -69,7 +72,7 @@ public class LoginActivity extends AppCompatActivity implements TextView.OnEdito
         // Set up the login form.
         userNameEt = (EditText) findViewById(R.id.username);
         nameEt = (EditText) findViewById(R.id.nameEt);
-        familyNameEt = (EditText) findViewById(R.id.familyNamEt);
+        familyNameEt = (EditText) findViewById(R.id.familyNameEt);
 
         validationCodeEt = (EditText) findViewById(R.id.validationCodeEt);
         validationCodeEt.setOnEditorActionListener(this);
@@ -143,16 +146,25 @@ public class LoginActivity extends AppCompatActivity implements TextView.OnEdito
             String name = nameEt.getText().toString();
             String family = familyNameEt.getText().toString();
 
+            SharedPreferences settingsPref = getSharedPreferences(Config.SETTINGS_SHARED_PREF, MODE_PRIVATE);
+            String clientId = settingsPref.getString(Config.CLIENT_ID, Config.DEFAULT_STRING_NO_THING_FOUND);
 
-            settingsPrefEditor.putString(Config.USERNAME, username);
-            settingsPrefEditor.putString(Config.NAME, name);
-            settingsPrefEditor.putString(Config.FAMILYNAME, family);
-            settingsPrefEditor.putBoolean(Config.IS_LOGIN, true);
-            settingsPrefEditor.commit();
+            ClientProfile cp = new ClientProfile();
+            cp.setAddress("Karaj");
+            cp.setBirthDate(1370);
+            cp.setClientId(clientId);
+            cp.setFatherName("hossein");
+            cp.setFieldOfStudy("a");
+            cp.setFirstName(name);
+            cp.setLastName(family);
+            cp.setJobTitle("programmer");
+            cp.setNationalId("1234567890");
+            cp.setMobileNumber(phoneNumEt.getText().toString());
+            cp.setPostalCode("9876543210");
+            cp.setTel("02633333333");
 
-            Intent i = new Intent(LoginActivity.this, HomeActivity.class);
-            startActivity(i);
-            finish();
+            progressBarManager.showProgress((ProgressBar) mProgressView, this);
+            registerUser(cp);
         }
     }
 
@@ -160,7 +172,7 @@ public class LoginActivity extends AppCompatActivity implements TextView.OnEdito
 
         progressBarManager.showProgress((ProgressBar) mProgressView, this);
 
-        registerUser(phoneNumEt.getText().toString());
+        signinUser(phoneNumEt.getText().toString());
     }
 
     public void editNumOnClick(View v){
@@ -205,7 +217,7 @@ public class LoginActivity extends AppCompatActivity implements TextView.OnEdito
 
     @Override
     public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
-        if (actionId == EditorInfo.IME_ACTION_DONE) {
+        if (actionId == EditorInfo.IME_ACTION_GO) {
 
             InputMethodManager inputManager =
                     (InputMethodManager) getBaseContext().getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -222,7 +234,7 @@ public class LoginActivity extends AppCompatActivity implements TextView.OnEdito
     }
 
     //service call methods
-    public void registerUser(String phoneNumber){
+    public void signinUser(String phoneNumber){
         APIInterface service = RetrofitClientInstance.getRetrofitInstance().create(APIInterface.class);
         Call<LoginSuccessResponse> responseCall = service.loginUser(phoneNumber);
         responseCall.enqueue(new Callback<LoginSuccessResponse>() {
@@ -329,4 +341,44 @@ public class LoginActivity extends AppCompatActivity implements TextView.OnEdito
         });
     }
 
+    public void registerUser(ClientProfile cp){
+        APIInterface service = RetrofitClientInstance.getRetrofitInstance().create(APIInterface.class);
+        Call<ClientProfileSuccessResponse> responseCall = service.signIn(cp);
+        responseCall.enqueue(new Callback<ClientProfileSuccessResponse>() {
+            @Override
+            public void onResponse(Call<ClientProfileSuccessResponse> call, Response<ClientProfileSuccessResponse> response) {
+                if (response.isSuccessful()){
+                    ClientProfileSuccessResponse cpSuccessResponse = response.body();
+                    Log.i(AppTags.VALIDATE_USER_RESPONSE, cpSuccessResponse.getMessage());
+                    Toast.makeText(getBaseContext(), cpSuccessResponse.getMessage(), Toast.LENGTH_SHORT).show();
+
+                    settingsPrefEditor.putBoolean(Config.IS_LOGIN, true).commit();
+
+                    Intent i = new Intent(LoginActivity.this, HomeActivity.class);
+                    startActivity(i);
+                    finish();
+                } else {
+                    Gson gson = new GsonBuilder().create();
+                    ClientProfileErrorResponse errorResponse = new ClientProfileErrorResponse();
+                    try {
+                        errorResponse = gson.fromJson(response.errorBody().string(), ClientProfileErrorResponse.class);
+                        Log.i(AppTags.REGISTER_USER_RESPONSE, errorResponse.getMessage());
+                        Toast.makeText(getBaseContext(), errorResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        Log.i(AppTags.REGISTER_USER_RESPONSE, AppTags.UNKNOWN_ERROR);
+                    }
+                }
+
+                progressBarManager.hideProgress((ProgressBar) mProgressView, LoginActivity.this);
+            }
+
+            @Override
+            public void onFailure(Call<ClientProfileSuccessResponse> call, Throwable t) {
+                Log.e(AppTags.REGISTER_USER_RESPONSE, t.getMessage());
+                Toast.makeText(getBaseContext(), R.string.connection_error, Toast.LENGTH_SHORT).show();
+                progressBarManager.hideProgress((ProgressBar) mProgressView, LoginActivity.this);
+            }
+        });
+    }
 }

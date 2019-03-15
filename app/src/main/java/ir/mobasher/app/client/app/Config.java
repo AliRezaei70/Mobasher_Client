@@ -18,13 +18,10 @@ public class Config {
 
 
     public static final String SETTINGS_SHARED_PREF = "settings_pref";
-    public static final String FISRT_RUN = "firstRun";
+    public static final String FIRST_RUN = "firstRun";
     public static final String IS_LOGIN = "isLogin";
-    public static final String USERNAME = "username";
-    public static final String NAME = "name";
-    public static final String FAMILYNAME = "familyName";
-    public static final String PASSWORD = "password";
     public static final String CLIENT_ID = "userId";
+    public static final String MOBILE_NUMBER = "mobileNum";
     public static final String WALLET_ID = "walletId";
     public static final String JWT_TOKEN = "jwtToken";
     public static final String DEFAULT_STRING_NO_THING_FOUND = "defaultStringNoThingFound";

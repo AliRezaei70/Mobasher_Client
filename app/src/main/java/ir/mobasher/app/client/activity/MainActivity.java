@@ -67,9 +67,9 @@ public class MainActivity extends AppCompatActivity {
     public void launch(){
         SharedPreferences settingsPref = getSharedPreferences(Config.SETTINGS_SHARED_PREF, MODE_PRIVATE);
 
-        boolean isFirstRun = settingsPref.getBoolean(Config.FISRT_RUN, true);
+        boolean isFirstRun = settingsPref.getBoolean(Config.FIRST_RUN, true);
         if (isFirstRun){
-            settingsPref.edit().putBoolean(Config.FISRT_RUN, false).commit();
+            settingsPref.edit().putBoolean(Config.FIRST_RUN, false).commit();
             startActivity(new Intent(this, RulesActivity.class));
             finish();
             return;

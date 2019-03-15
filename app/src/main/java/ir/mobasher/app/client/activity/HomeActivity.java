@@ -16,24 +16,36 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
+import java.io.IOException;
 import java.util.List;
 import ir.mobasher.app.client.R;
+import ir.mobasher.app.client.api.APIInterface;
+import ir.mobasher.app.client.api.clientProfile.GetProfileErrorResponse;
+import ir.mobasher.app.client.api.clientProfile.GetProfileSuccessResponse;
+import ir.mobasher.app.client.api.validateUser.ValidationErrorResponse;
+import ir.mobasher.app.client.api.validateUser.ValidationSuccessResponse;
+import ir.mobasher.app.client.app.AppTags;
 import ir.mobasher.app.client.app.Config;
 import ir.mobasher.app.client.fragments.FavoriteLawyersFragment;
 import ir.mobasher.app.client.fragments.HomeFragment;
 import ir.mobasher.app.client.fragments.ViewFileFragment;
 import ir.mobasher.app.client.fragments.WalletFragment;
 import ir.mobasher.app.client.intreface.packs.PacksService;
+import ir.mobasher.app.client.manager.ProgressBarManager;
 import ir.mobasher.app.client.model.pack.Packs;
 import ir.mobasher.app.client.model.photo.RetroPhoto;
 import ir.mobasher.app.client.network.RetrofitClientInstance;
@@ -52,6 +64,8 @@ public class HomeActivity extends AppCompatActivity
     CircularImageView profileImageView;
     TextView userNameTv;
     TextView phoneNumTv;
+    ProgressBarManager progressBarManager;
+    View mProgressView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +75,8 @@ public class HomeActivity extends AppCompatActivity
         toolbar.setTitleTextColor(0x000000);
         setSupportActionBar(toolbar);
         forceRTLIfSupported();
+
+        progressBarManager = new ProgressBarManager();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -83,47 +99,25 @@ public class HomeActivity extends AppCompatActivity
         ImageView menuRefreshBtn = (ImageView) headerView.findViewById(R.id.menuRefreshBtn);
         menuRefreshBtn.setOnClickListener(menuRefreshOnClick);
 
-        scoreTv.setText(this.getString(R.string.score) + " " + 6570);
-        creditTv.setText(this.getString(R.string.wallet) + " " + 50000);
-        userNameTv.setText("Ali Rezaei");
-        phoneNumTv.setText("09126664106");
+
+
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-
-
-
-        SharedPreferences settingsPref = getSharedPreferences(Config.SETTINGS_SHARED_PREF, MODE_PRIVATE);
-        String username = settingsPref.getString(Config.USERNAME, Config.DEFAULT_STRING_NO_THING_FOUND);
-        Toast.makeText(getBaseContext(), username, Toast.LENGTH_SHORT).show();
-
-//        progressDoalog = new ProgressDialog(HomeActivity.this);
-//        progressDoalog.setMessage("Loading....");
-//        progressDoalog.show();
 
         toolbar.setTitle(R.string.home);
         fragment = new HomeFragment();
         loadFragment(fragment);
 
-        /*Create handle for the RetrofitInstance interface*/
-        JsonObject packsObject = new JsonObject();
-        packsObject.addProperty("lawyerid","110c7528-1d44-4ae3-9dc0-c3b8213d45a6");
-        PacksService service = RetrofitClientInstance.getRetrofitInstance().create(PacksService.class);
-        Call<Packs> call = service.postJson(packsObject);
-        call.enqueue(new Callback<Packs>() {
-            @Override
-            public void onResponse(Call<Packs> call, Response<Packs> response) {
-                Packs packs = response.body();
-                Toast.makeText(getBaseContext(), packs.getMessage().toString(),Toast.LENGTH_LONG).show();
-            }
+        mProgressView = findViewById(R.id.home_progress);
 
-            @Override
-            public void onFailure(Call<Packs> call, Throwable t) {
-                t.getMessage();
-            }
-        });
+        SharedPreferences settingsPref = getSharedPreferences(Config.SETTINGS_SHARED_PREF, MODE_PRIVATE);
+        String clientId = settingsPref.getString(Config.CLIENT_ID, Config.DEFAULT_STRING_NO_THING_FOUND);
+
+      //  initProfile(clientId);
+
+
     }
-
 
     private View.OnClickListener menuSettingsOnClick = new View.OnClickListener() {
         @Override
@@ -285,5 +279,47 @@ public class HomeActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    //service call methods
+    public void initProfile(String clientId){
+        progressBarManager.showProgress((ProgressBar) mProgressView, HomeActivity.this);
+
+        APIInterface service = RetrofitClientInstance.getRetrofitInstance().create(APIInterface.class);
+        Call<GetProfileSuccessResponse> responseCall = service.getProfile(clientId);
+        responseCall.enqueue(new Callback<GetProfileSuccessResponse>() {
+            @Override
+            public void onResponse(Call<GetProfileSuccessResponse> call, Response<GetProfileSuccessResponse> response) {
+                if (response.isSuccessful()){
+                    GetProfileSuccessResponse getProfileResponse = response.body();
+                    Log.i(AppTags.GET_PROFILE_RESPONSE, getProfileResponse.getMessage());
+
+                    scoreTv.setText(HomeActivity.this.getString(R.string.score) + " " + 6570);
+                    creditTv.setText(HomeActivity.this.getString(R.string.wallet) + " " + 50000);
+                    userNameTv.setText(getProfileResponse.getFirstName() + " " + getProfileResponse.getLastName());
+                    phoneNumTv.setText(getProfileResponse.getMobileNumber());
+                }else {
+                    Gson gson = new GsonBuilder().create();
+                    GetProfileErrorResponse errorResponse = new GetProfileErrorResponse();
+                    try {
+                        errorResponse = gson.fromJson(response.errorBody().string(), GetProfileErrorResponse.class);
+                        Log.i(AppTags.GET_PROFILE_RESPONSE, errorResponse.getMessage());
+                        Toast.makeText(getBaseContext(), errorResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        Log.i(AppTags.GET_PROFILE_RESPONSE, AppTags.UNKNOWN_ERROR);
+                    }
+                }
+
+                progressBarManager.hideProgress((ProgressBar) mProgressView, HomeActivity.this);
+            }
+
+            @Override
+            public void onFailure(Call<GetProfileSuccessResponse> call, Throwable t) {
+                Log.e(AppTags.GET_PROFILE_RESPONSE, t.getMessage());
+                Toast.makeText(getBaseContext(), R.string.connection_error, Toast.LENGTH_SHORT).show();
+                progressBarManager.hideProgress((ProgressBar) mProgressView, HomeActivity.this);
+            }
+        });
     }
 }
