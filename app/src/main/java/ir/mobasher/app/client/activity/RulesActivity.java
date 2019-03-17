@@ -36,7 +36,7 @@ public class RulesActivity extends AppCompatActivity {
             input.read(buffer);
             input.close();
             String text = new String(buffer);
-            rulesTextView.setText(text);
+            rulesTextView.setText(text, true);
         } catch (IOException e) {
             e.printStackTrace();
         }
