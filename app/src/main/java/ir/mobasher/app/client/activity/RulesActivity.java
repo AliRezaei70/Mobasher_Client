@@ -7,9 +7,15 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.webkit.WebView;
+import android.widget.TextView;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 import ir.mobasher.app.client.R;
 import ir.mobasher.app.client.app.Config;
+import ir.mobasher.app.client.libraries.TextViewEx;
 
 public class RulesActivity extends AppCompatActivity {
 
@@ -20,6 +26,21 @@ public class RulesActivity extends AppCompatActivity {
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);
         forceRTLIfSupported();
+
+        TextViewEx rulesTextView = (TextViewEx) findViewById(R.id.rulesTextTv);
+        InputStream input = null;
+        try {
+            input = getAssets().open("rules.txt");
+            int size = input.available();
+            byte[] buffer = new byte[size];
+            input.read(buffer);
+            input.close();
+            String text = new String(buffer);
+            rulesTextView.setText(text);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
 
     }
 
@@ -42,14 +63,41 @@ public class RulesActivity extends AppCompatActivity {
     public void agreeOnClick(View v){
         startActivity(new Intent(this, HelpActivity.class));
         finish();
+        setFirstRun(false);
+    }
+
+    public void setFirstRun(boolean firstRun){
+        SharedPreferences settingsPref = getSharedPreferences(Config.SETTINGS_SHARED_PREF, MODE_PRIVATE);
+
+        boolean isFirstRun = settingsPref.getBoolean(Config.FIRST_RUN, true);
+        settingsPref.edit().putBoolean(Config.FIRST_RUN, firstRun).commit();
+
     }
 
     @Override
     public void onBackPressed() {
-        SharedPreferences settingsPref = getSharedPreferences(Config.SETTINGS_SHARED_PREF, MODE_PRIVATE);
-
-        boolean isFirstRun = settingsPref.getBoolean(Config.FIRST_RUN, true);
-        settingsPref.edit().putBoolean(Config.FIRST_RUN, true).commit();
+        setFirstRun(true);
         super.onBackPressed();
+    }
+
+    @Override
+    protected void onRestart() {
+        setFirstRun(true);
+        super.onRestart();
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        setFirstRun(true);
+        super.onDestroy();
+
+    }
+
+    @Override
+    protected void onResume() {
+        setFirstRun(true);
+        super.onResume();
+
     }
 }

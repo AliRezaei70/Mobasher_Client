@@ -23,17 +23,21 @@
 -->
 
     <TextView
+        android:layout_marginTop="10dp"
         android:id="@+id/rulesTitleTv"
         android:textSize="18sp"
         android:textStyle="bold"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:gravity="center"
+        android:visibility="gone"
         android:text="@string/app_rules_title" />
+
+
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_marginTop="100dp"
+        android:paddingTop="0dp"
         android:layout_height="match_parent">
 
         <ScrollView
@@ -41,7 +45,9 @@
             android:layout_height="match_parent"
             android:layout_marginBottom="110dp">
 
-            <TextView
+
+
+            <ir.mobasher.app.client.libraries.TextViewEx
                 android:lineSpacingExtra="3dp"
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
@@ -49,8 +55,9 @@
                 android:id="@+id/rulesTextTv"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="@string/app_rules_text" />
+                 />
         </ScrollView>
+
 
 
         <LinearLayout
