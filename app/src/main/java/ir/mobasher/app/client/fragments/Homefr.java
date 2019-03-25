@@ -142,7 +142,7 @@ public class Homefr extends Fragment implements AdapterView.OnItemClickListener{
     }
 
     public void initViewPager(){
-        Integer [] images = {R.mipmap.slide1,R.mipmap.slide2,R.mipmap.slide3};
+        Integer [] images = {R.drawable.slide1,R.drawable.slide2,R.drawable.slide3};
 
         HomeViewPagerAdapter helpViewPagerAdapter = new HomeViewPagerAdapter(getContext(),images);
 

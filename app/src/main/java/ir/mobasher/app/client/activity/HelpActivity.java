@@ -49,7 +49,7 @@ public class HelpActivity extends AppCompatActivity {
 
         sliderDotspanel = (LinearLayout) findViewById(R.id.SliderDots);
 
-        Integer[] images = {R.mipmap.slide1, R.mipmap.slide2, R.mipmap.slide3};
+        Integer[] images = {R.drawable.slide1, R.drawable.slide2, R.drawable.slide3};
         String[] title = {this.getString(R.string.help_item_title_1), this.getString(R.string.help_item_title_2), this.getString(R.string.help_item_title_3)};
         String[] description = {this.getString(R.string.help_item_desc_1), this.getString(R.string.help_item_desc_2), this.getString(R.string.help_item_desc_3)};
 
