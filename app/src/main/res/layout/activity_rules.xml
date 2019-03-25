@@ -47,15 +47,14 @@
 
 
 
-            <ir.mobasher.app.client.libraries.TextViewEx
+            <TextView
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
                 android:gravity="top"
                 android:id="@+id/rulesTextTv"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-
-                 />
+                android:lineSpacingMultiplier="1.5"/>
         </ScrollView>
 
 

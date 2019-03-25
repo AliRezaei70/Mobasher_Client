@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Layout;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.TextView;
@@ -19,6 +21,7 @@ import ir.mobasher.app.client.libraries.TextViewEx;
 
 public class RulesActivity extends AppCompatActivity {
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,7 +30,7 @@ public class RulesActivity extends AppCompatActivity {
 //        setSupportActionBar(toolbar);
         forceRTLIfSupported();
 
-        TextViewEx rulesTextView = (TextViewEx) findViewById(R.id.rulesTextTv);
+        TextView rulesTextView = (TextView) findViewById(R.id.rulesTextTv);
         InputStream input = null;
         try {
             input = getAssets().open("rules.txt");
@@ -36,7 +39,9 @@ public class RulesActivity extends AppCompatActivity {
             input.read(buffer);
             input.close();
             String text = new String(buffer);
-            rulesTextView.setText(text, true);
+            //rulesTextView.setText(text, true);
+            rulesTextView.setText(text);
+            rulesTextView.setJustificationMode(Layout.JUSTIFICATION_MODE_INTER_WORD);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -69,7 +74,7 @@ public class RulesActivity extends AppCompatActivity {
     public void setFirstRun(boolean firstRun){
         SharedPreferences settingsPref = getSharedPreferences(Config.SETTINGS_SHARED_PREF, MODE_PRIVATE);
 
-        boolean isFirstRun = settingsPref.getBoolean(Config.FIRST_RUN, true);
+        boolean isFirstRun = settingsPref.getBoolean(Config.FIRST_RUN, firstRun);
         settingsPref.edit().putBoolean(Config.FIRST_RUN, firstRun).commit();
 
     }
