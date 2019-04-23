@@ -114,7 +114,7 @@ public class HomeActivity extends AppCompatActivity
         SharedPreferences settingsPref = getSharedPreferences(Config.SETTINGS_SHARED_PREF, MODE_PRIVATE);
         String clientId = settingsPref.getString(Config.CLIENT_ID, Config.DEFAULT_STRING_NO_THING_FOUND);
 
-      //  initProfile(clientId);
+        initProfile(clientId);
 
 
     }
