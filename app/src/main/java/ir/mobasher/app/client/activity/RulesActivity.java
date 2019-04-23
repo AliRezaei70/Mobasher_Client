@@ -81,27 +81,27 @@ public class RulesActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        setFirstRun(true);
+        //setFirstRun(true);
         super.onBackPressed();
     }
 
     @Override
     protected void onRestart() {
-        setFirstRun(true);
+        //setFirstRun(true);
         super.onRestart();
 
     }
 
     @Override
     protected void onDestroy() {
-        setFirstRun(true);
+        //setFirstRun(true);
         super.onDestroy();
 
     }
 
     @Override
     protected void onResume() {
-        setFirstRun(true);
+        //setFirstRun(true);
         super.onResume();
 
     }

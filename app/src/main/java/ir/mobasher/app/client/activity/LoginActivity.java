@@ -184,9 +184,13 @@ public class LoginActivity extends AppCompatActivity implements TextView.OnEdito
 
     public void getRegCodeOnClick(View v){
 
-        progressBarManager.showProgress((ProgressBar) mProgressView, this);
+//        progressBarManager.showProgress((ProgressBar) mProgressView, this);
+//
+//        signinUser(phoneNumEt.getText().toString());
 
-        signinUser(phoneNumEt.getText().toString());
+        loginForm1.setVisibility(View.GONE);
+        loginForm2.setVisibility(View.GONE);
+        loginForm3.setVisibility(View.VISIBLE);
     }
 
     public void editNumOnClick(View v){
