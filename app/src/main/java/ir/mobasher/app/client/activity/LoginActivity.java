@@ -119,9 +119,9 @@ public class LoginActivity extends AppCompatActivity implements TextView.OnEdito
         ImagePickerActivity.clearCache(this);
 
 
-        loginForm1.setVisibility(View.GONE);
-        loginForm2.setVisibility(View.GONE);
-        loginForm3.setVisibility(View.VISIBLE);
+//        loginForm1.setVisibility(View.GONE);
+//        loginForm2.setVisibility(View.GONE);
+//        loginForm3.setVisibility(View.VISIBLE);
 
     }
 
