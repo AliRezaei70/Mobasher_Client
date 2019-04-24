@@ -27,6 +27,8 @@ public class Config {
     public static final String JWT_TOKEN = "jwtToken";
     public static final String DEFAULT_STRING_NO_THING_FOUND = "defaultStringNoThingFound";
 
+    public static final int REQUEST_IMAGE = 300;
+
 
 }
 
