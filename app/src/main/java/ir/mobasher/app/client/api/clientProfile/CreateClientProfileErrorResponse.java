@@ -3,7 +3,7 @@ package ir.mobasher.app.client.api.clientProfile;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class ClientProfileErrorResponse {
+public class CreateClientProfileErrorResponse {
 
     @SerializedName("timestamp")
     @Expose

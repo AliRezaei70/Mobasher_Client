@@ -4,16 +4,12 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class GetProfileSuccessResponse {
-
     @SerializedName("status")
     @Expose
     private Integer status;
     @SerializedName("message")
     @Expose
     private String message;
-    @SerializedName("walletId")
-    @Expose
-    private String walletId;
     @SerializedName("active")
     @Expose
     private Boolean active;
@@ -26,36 +22,15 @@ public class GetProfileSuccessResponse {
     @SerializedName("lastName")
     @Expose
     private String lastName;
-    @SerializedName("fatherName")
-    @Expose
-    private String fatherName;
-    @SerializedName("nationalId")
-    @Expose
-    private String nationalId;
-    @SerializedName("birthDate")
-    @Expose
-    private Integer birthDate;
     @SerializedName("score")
     @Expose
     private Integer score;
     @SerializedName("mobileNumber")
     @Expose
     private Integer mobileNumber;
-    @SerializedName("jobTitle")
+    @SerializedName("walletId")
     @Expose
-    private String jobTitle;
-    @SerializedName("address")
-    @Expose
-    private String address;
-    @SerializedName("postalCode")
-    @Expose
-    private String postalCode;
-    @SerializedName("fieldOfStudy")
-    @Expose
-    private String fieldOfStudy;
-    @SerializedName("tel")
-    @Expose
-    private Integer tel;
+    private String walletId;
 
     public Integer getStatus() {
         return status;
@@ -71,14 +46,6 @@ public class GetProfileSuccessResponse {
 
     public void setMessage(String message) {
         this.message = message;
-    }
-
-    public String getWalletId() {
-        return walletId;
-    }
-
-    public void setWalletId(String walletId) {
-        this.walletId = walletId;
     }
 
     public Boolean getActive() {
@@ -113,30 +80,6 @@ public class GetProfileSuccessResponse {
         this.lastName = lastName;
     }
 
-    public String getFatherName() {
-        return fatherName;
-    }
-
-    public void setFatherName(String fatherName) {
-        this.fatherName = fatherName;
-    }
-
-    public String getNationalId() {
-        return nationalId;
-    }
-
-    public void setNationalId(String nationalId) {
-        this.nationalId = nationalId;
-    }
-
-    public Integer getBirthDate() {
-        return birthDate;
-    }
-
-    public void setBirthDate(Integer birthDate) {
-        this.birthDate = birthDate;
-    }
-
     public Integer getScore() {
         return score;
     }
@@ -153,44 +96,12 @@ public class GetProfileSuccessResponse {
         this.mobileNumber = mobileNumber;
     }
 
-    public String getJobTitle() {
-        return jobTitle;
+    public String getWalletId() {
+        return walletId;
     }
 
-    public void setJobTitle(String jobTitle) {
-        this.jobTitle = jobTitle;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getPostalCode() {
-        return postalCode;
-    }
-
-    public void setPostalCode(String postalCode) {
-        this.postalCode = postalCode;
-    }
-
-    public String getFieldOfStudy() {
-        return fieldOfStudy;
-    }
-
-    public void setFieldOfStudy(String fieldOfStudy) {
-        this.fieldOfStudy = fieldOfStudy;
-    }
-
-    public Integer getTel() {
-        return tel;
-    }
-
-    public void setTel(Integer tel) {
-        this.tel = tel;
+    public void setWalletId(String walletId) {
+        this.walletId = walletId;
     }
 
 }

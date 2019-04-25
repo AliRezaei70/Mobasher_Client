@@ -5,58 +5,24 @@ import com.google.gson.annotations.SerializedName;
 
 public class ClientProfile {
 
-    @SerializedName("address")
-    @Expose
-    private String address;
-    @SerializedName("birthDate")
-    @Expose
-    private Integer birthDate;
     @SerializedName("clientId")
     @Expose
     private String clientId;
-    @SerializedName("fatherName")
+    @SerializedName("email")
     @Expose
-    private String fatherName;
-    @SerializedName("fieldOfStudy")
-    @Expose
-    private String fieldOfStudy;
+    private String email;
     @SerializedName("firstName")
     @Expose
     private String firstName;
-    @SerializedName("jobTitle")
-    @Expose
-    private String jobTitle;
     @SerializedName("lastName")
     @Expose
     private String lastName;
-    @SerializedName("mobileNumber")
+    @SerializedName("registerationcomplete")
     @Expose
-    private String mobileNumber;
-    @SerializedName("nationalId")
+    private Boolean registerationcomplete;
+    @SerializedName("userName")
     @Expose
-    private String nationalId;
-    @SerializedName("postalCode")
-    @Expose
-    private String postalCode;
-    @SerializedName("tel")
-    @Expose
-    private String tel;
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public Integer getBirthDate() {
-        return birthDate;
-    }
-
-    public void setBirthDate(Integer birthDate) {
-        this.birthDate = birthDate;
-    }
+    private String userName;
 
     public String getClientId() {
         return clientId;
@@ -66,20 +32,12 @@ public class ClientProfile {
         this.clientId = clientId;
     }
 
-    public String getFatherName() {
-        return fatherName;
+    public String getEmail() {
+        return email;
     }
 
-    public void setFatherName(String fatherName) {
-        this.fatherName = fatherName;
-    }
-
-    public String getFieldOfStudy() {
-        return fieldOfStudy;
-    }
-
-    public void setFieldOfStudy(String fieldOfStudy) {
-        this.fieldOfStudy = fieldOfStudy;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getFirstName() {
@@ -90,14 +48,6 @@ public class ClientProfile {
         this.firstName = firstName;
     }
 
-    public String getJobTitle() {
-        return jobTitle;
-    }
-
-    public void setJobTitle(String jobTitle) {
-        this.jobTitle = jobTitle;
-    }
-
     public String getLastName() {
         return lastName;
     }
@@ -106,36 +56,20 @@ public class ClientProfile {
         this.lastName = lastName;
     }
 
-    public String getMobileNumber() {
-        return mobileNumber;
+    public Boolean getRegisterationcomplete() {
+        return registerationcomplete;
     }
 
-    public void setMobileNumber(String mobileNumber) {
-        this.mobileNumber = mobileNumber;
+    public void setRegisterationcomplete(Boolean registerationcomplete) {
+        this.registerationcomplete = registerationcomplete;
     }
 
-    public String getNationalId() {
-        return nationalId;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setNationalId(String nationalId) {
-        this.nationalId = nationalId;
-    }
-
-    public String getPostalCode() {
-        return postalCode;
-    }
-
-    public void setPostalCode(String postalCode) {
-        this.postalCode = postalCode;
-    }
-
-    public String getTel() {
-        return tel;
-    }
-
-    public void setTel(String tel) {
-        this.tel = tel;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
 }

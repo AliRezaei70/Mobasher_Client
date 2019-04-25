@@ -38,8 +38,8 @@ import java.util.concurrent.TimeUnit;
 import butterknife.ButterKnife;
 import ir.mobasher.app.client.R;
 import ir.mobasher.app.client.api.APIInterface;
-import ir.mobasher.app.client.api.clientProfile.ClientProfileErrorResponse;
-import ir.mobasher.app.client.api.clientProfile.ClientProfileSuccessResponse;
+import ir.mobasher.app.client.api.clientProfile.CreateClientProfileErrorResponse;
+import ir.mobasher.app.client.api.clientProfile.CreateClientProfileSuccessResponse;
 import ir.mobasher.app.client.api.login.LoginErrorResponse;
 import ir.mobasher.app.client.api.login.LoginSuccessResponse;
 import ir.mobasher.app.client.api.validateUser.JwtResponse;
@@ -67,6 +67,7 @@ public class LoginActivity extends AppCompatActivity implements TextView.OnEdito
     private EditText userNameEt;
     private EditText nameEt;
     private EditText familyNameEt;
+    private EditText emailEt;
     private View mProgressView;
     private View mLoginFormView;
     private LinearLayout loginForm1;
@@ -94,6 +95,7 @@ public class LoginActivity extends AppCompatActivity implements TextView.OnEdito
         userNameEt = (EditText) findViewById(R.id.username);
         nameEt = (EditText) findViewById(R.id.nameEt);
         familyNameEt = (EditText) findViewById(R.id.familyNameEt);
+        emailEt = (EditText) findViewById(R.id.emailEt);
 
         validationCodeEt = (EditText) findViewById(R.id.validationCodeEt);
         validationCodeEt.setOnEditorActionListener(this);
@@ -140,11 +142,13 @@ public class LoginActivity extends AppCompatActivity implements TextView.OnEdito
         userNameEt.setError(null);
         nameEt.setError(null);
         familyNameEt.setError(null);
+        emailEt.setError(null);
 
         // Store values at the time of the login attempt.
         String userName = userNameEt.getText().toString();
         String name = nameEt.getText().toString();
         String family = familyNameEt.getText().toString();
+        String email = emailEt.getText().toString();
 
         View focusView = null;
 
@@ -169,6 +173,12 @@ public class LoginActivity extends AppCompatActivity implements TextView.OnEdito
             return false;
         }
 
+        if (TextUtils.isEmpty(email)) {
+            emailEt.setError(getString(R.string.error_field_required));
+            focusView = emailEt;
+            return false;
+        }
+
         return true;
     }
 
@@ -178,23 +188,18 @@ public class LoginActivity extends AppCompatActivity implements TextView.OnEdito
             String username = userNameEt.getText().toString();
             String name = nameEt.getText().toString();
             String family = familyNameEt.getText().toString();
+            String email = emailEt.getText().toString();
 
             SharedPreferences settingsPref = getSharedPreferences(Config.SETTINGS_SHARED_PREF, MODE_PRIVATE);
             String clientId = settingsPref.getString(Config.CLIENT_ID, Config.DEFAULT_STRING_NO_THING_FOUND);
 
             ClientProfile cp = new ClientProfile();
-            cp.setAddress("Karaj");
-            cp.setBirthDate(1370);
             cp.setClientId(clientId);
-            cp.setFatherName("hossein");
-            cp.setFieldOfStudy("a");
             cp.setFirstName(name);
             cp.setLastName(family);
-            cp.setJobTitle("programmer");
-            cp.setNationalId("1234567890");
-            cp.setMobileNumber(phoneNumEt.getText().toString());
-            cp.setPostalCode("9876543210");
-            cp.setTel("02633333333");
+            cp.setUserName(username);
+            cp.setEmail(email);
+            cp.setRegisterationcomplete(true);
 
             progressBarManager.showProgress((ProgressBar) mProgressView, this);
             registerUser(cp);
@@ -328,13 +333,14 @@ public class LoginActivity extends AppCompatActivity implements TextView.OnEdito
 
     public void getRegCodeOnClick(View v){
 
-//        progressBarManager.showProgress((ProgressBar) mProgressView, this);
-//
-//        signinUser(phoneNumEt.getText().toString());
+        progressBarManager.showProgress((ProgressBar) mProgressView, this);
 
-        loginForm1.setVisibility(View.GONE);
-        loginForm2.setVisibility(View.GONE);
-        loginForm3.setVisibility(View.VISIBLE);
+        signinUser(phoneNumEt.getText().toString());
+
+        //TODO should be delete
+//        loginForm1.setVisibility(View.GONE);
+//        loginForm2.setVisibility(View.GONE);
+//        loginForm3.setVisibility(View.VISIBLE);
     }
 
     public void editNumOnClick(View v){
@@ -347,9 +353,11 @@ public class LoginActivity extends AppCompatActivity implements TextView.OnEdito
     public void resendCodeOnClick(View v){
         resetTimer();
 
-        progressBarManager.showProgress((ProgressBar) mProgressView, this);
+       // progressBarManager.showProgress((ProgressBar) mProgressView, this);
 
-        validateUser(validationCodeEt.getText().toString());
+       // validateUser(validationCodeEt.getText().toString());
+
+        getRegCodeOnClick(null);
 
 
     }
@@ -541,12 +549,12 @@ public class LoginActivity extends AppCompatActivity implements TextView.OnEdito
 
     public void registerUser(ClientProfile cp){
         APIInterface service = RetrofitClientInstance.getRetrofitInstance().create(APIInterface.class);
-        Call<ClientProfileSuccessResponse> responseCall = service.signIn(cp);
-        responseCall.enqueue(new Callback<ClientProfileSuccessResponse>() {
+        Call<CreateClientProfileSuccessResponse> responseCall = service.signIn(cp);
+        responseCall.enqueue(new Callback<CreateClientProfileSuccessResponse>() {
             @Override
-            public void onResponse(Call<ClientProfileSuccessResponse> call, Response<ClientProfileSuccessResponse> response) {
+            public void onResponse(Call<CreateClientProfileSuccessResponse> call, Response<CreateClientProfileSuccessResponse> response) {
                 if (response.isSuccessful()){
-                    ClientProfileSuccessResponse cpSuccessResponse = response.body();
+                    CreateClientProfileSuccessResponse cpSuccessResponse = response.body();
                     Log.i(AppTags.VALIDATE_USER_RESPONSE, cpSuccessResponse.getMessage());
                     Toast.makeText(getBaseContext(), cpSuccessResponse.getMessage(), Toast.LENGTH_SHORT).show();
 
@@ -557,9 +565,9 @@ public class LoginActivity extends AppCompatActivity implements TextView.OnEdito
                     finish();
                 } else {
                     Gson gson = new GsonBuilder().create();
-                    ClientProfileErrorResponse errorResponse = new ClientProfileErrorResponse();
+                    CreateClientProfileErrorResponse errorResponse = new CreateClientProfileErrorResponse();
                     try {
-                        errorResponse = gson.fromJson(response.errorBody().string(), ClientProfileErrorResponse.class);
+                        errorResponse = gson.fromJson(response.errorBody().string(), CreateClientProfileErrorResponse.class);
                         Log.i(AppTags.REGISTER_USER_RESPONSE, errorResponse.getMessage());
                         Toast.makeText(getBaseContext(), errorResponse.getMessage(), Toast.LENGTH_SHORT).show();
                     } catch (IOException e) {
@@ -572,7 +580,7 @@ public class LoginActivity extends AppCompatActivity implements TextView.OnEdito
             }
 
             @Override
-            public void onFailure(Call<ClientProfileSuccessResponse> call, Throwable t) {
+            public void onFailure(Call<CreateClientProfileSuccessResponse> call, Throwable t) {
                 Log.e(AppTags.REGISTER_USER_RESPONSE, t.getMessage());
                 Toast.makeText(getBaseContext(), R.string.connection_error, Toast.LENGTH_SHORT).show();
                 progressBarManager.hideProgress((ProgressBar) mProgressView, LoginActivity.this);
