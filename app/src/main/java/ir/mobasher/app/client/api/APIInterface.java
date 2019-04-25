@@ -31,7 +31,7 @@ public interface APIInterface {
 
     //get user profile
     @FormUrlEncoded
-    @POST("/api/v1/clients/profile")
+    @POST("/api/v1/docs/resumedocs")
     Call<GetProfileSuccessResponse> getProfile(@Field("clientid") String clientId);
 
 }

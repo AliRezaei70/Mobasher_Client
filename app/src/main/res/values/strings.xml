@@ -98,4 +98,19 @@
     <string name="title_activity_credit">CreditActivity</string>
     <string name="connection_error">خطا در برقراری ارتباط با سرور</string>
 
+
+    <string name="profile_desc">Rowan Sebastian Atkinson CBE is an English actor,  comedian and screenwriter</string>
+    <string name="profile_title">Mr Bean</string>
+    <string name="posts">posts</string>
+    <string name="followers">followers</string>
+    <string name="following">following</string>
+    <string name="msg_error_unable_select_profile_pic">Unable to set profile image. Please try again!</string>
+    <string name="set_profile_photo">انتخاب تصویر پروفایل</string>
+    <string name="take_camera_picture">دوربین</string>
+    <string name="choose_from_gallery">گالری</string>
+    <string name="toast_image_intent_null">Image picker option is missing!</string>
+    <string name="dialog_permission_title">Grant Permissions</string>
+    <string name="dialog_permission_message">This app needs permission to use this feature. You can grant them in app settings.</string>
+    <string name="go_to_settings">GOTO SETTINGS</string>
+
 </resources>

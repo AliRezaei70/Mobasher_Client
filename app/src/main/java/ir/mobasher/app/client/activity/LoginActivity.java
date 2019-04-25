@@ -1,5 +1,6 @@
 package ir.mobasher.app.client.activity;
 
+import android.Manifest;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
@@ -18,18 +19,23 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.MultiplePermissionsReport;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.mikhaellopez.circularimageview.CircularImageView;
-
-import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
+import butterknife.ButterKnife;
 import ir.mobasher.app.client.R;
 import ir.mobasher.app.client.api.APIInterface;
 import ir.mobasher.app.client.api.clientProfile.ClientProfileErrorResponse;
@@ -47,6 +53,12 @@ import ir.mobasher.app.client.network.RetrofitClientInstance;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import android.app.Activity;
+import android.graphics.Bitmap;
+import android.provider.Settings;
+import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 
 
 public class LoginActivity extends AppCompatActivity implements TextView.OnEditorActionListener {
@@ -67,6 +79,8 @@ public class LoginActivity extends AppCompatActivity implements TextView.OnEdito
     private EditText validationCodeEt;
     private ProgressBarManager progressBarManager;
     private SharedPreferences.Editor settingsPrefEditor;
+
+    private static final String TAG = LoginActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,6 +110,18 @@ public class LoginActivity extends AppCompatActivity implements TextView.OnEdito
         progressBarManager = new ProgressBarManager();
 
         settingsPrefEditor = getSharedPreferences(Config.SETTINGS_SHARED_PREF, MODE_PRIVATE).edit();
+
+
+        ButterKnife.bind(this);
+        // Clearing older images from cache directory
+        // don't call this line if you want to choose multiple images in the same activity
+        // call this once the bitmap(s) usage is over
+        ImagePickerActivity.clearCache(this);
+
+
+//        loginForm1.setVisibility(View.GONE);
+//        loginForm2.setVisibility(View.GONE);
+//        loginForm3.setVisibility(View.VISIBLE);
 
     }
 
@@ -176,10 +202,128 @@ public class LoginActivity extends AppCompatActivity implements TextView.OnEdito
     }
 
     public void changePickOnClick(View v) {
-        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        intent.addCategory(Intent.CATEGORY_OPENABLE);
-        intent.setType("image/*");
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"),Config.REQUEST_GET_SINGLE_FILE);
+//        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+//        intent.addCategory(Intent.CATEGORY_OPENABLE);
+//        intent.setType("image/*");
+//        startActivityForResult(Intent.createChooser(intent, "Select Picture"),Config.REQUEST_GET_SINGLE_FILE);
+
+
+        Dexter.withActivity(this)
+                .withPermissions(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                .withListener(new MultiplePermissionsListener() {
+                    @Override
+                    public void onPermissionsChecked(MultiplePermissionsReport report) {
+                        if (report.areAllPermissionsGranted()) {
+                            showImagePickerOptions();
+                        }
+
+                        if (report.isAnyPermissionPermanentlyDenied()) {
+                            showSettingsDialog();
+                        }
+                    }
+
+                    @Override
+                    public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
+                        token.continuePermissionRequest();
+                    }
+                }).check();
+    }
+
+    private void showImagePickerOptions() {
+        ImagePickerActivity.showImagePickerOptions(this, new ImagePickerActivity.PickerOptionListener() {
+            @Override
+            public void onTakeCameraSelected() {
+                launchCameraIntent();
+            }
+
+            @Override
+            public void onChooseGallerySelected() {
+                launchGalleryIntent();
+            }
+        });
+    }
+
+    private void launchCameraIntent() {
+        Intent intent = new Intent(LoginActivity.this, ImagePickerActivity.class);
+        intent.putExtra(ImagePickerActivity.INTENT_IMAGE_PICKER_OPTION, ImagePickerActivity.REQUEST_IMAGE_CAPTURE);
+
+        // setting aspect ratio
+        intent.putExtra(ImagePickerActivity.INTENT_LOCK_ASPECT_RATIO, true);
+        intent.putExtra(ImagePickerActivity.INTENT_ASPECT_RATIO_X, 1); // 16x9, 1x1, 3:4, 3:2
+        intent.putExtra(ImagePickerActivity.INTENT_ASPECT_RATIO_Y, 1);
+
+        // setting maximum bitmap width and height
+        intent.putExtra(ImagePickerActivity.INTENT_SET_BITMAP_MAX_WIDTH_HEIGHT, true);
+        intent.putExtra(ImagePickerActivity.INTENT_BITMAP_MAX_WIDTH, 1000);
+        intent.putExtra(ImagePickerActivity.INTENT_BITMAP_MAX_HEIGHT, 1000);
+
+        startActivityForResult(intent, Config.REQUEST_IMAGE);
+    }
+
+    private void launchGalleryIntent() {
+        Intent intent = new Intent(LoginActivity.this, ImagePickerActivity.class);
+        intent.putExtra(ImagePickerActivity.INTENT_IMAGE_PICKER_OPTION, ImagePickerActivity.REQUEST_GALLERY_IMAGE);
+
+        // setting aspect ratio
+        intent.putExtra(ImagePickerActivity.INTENT_LOCK_ASPECT_RATIO, true);
+        intent.putExtra(ImagePickerActivity.INTENT_ASPECT_RATIO_X, 1); // 16x9, 1x1, 3:4, 3:2
+        intent.putExtra(ImagePickerActivity.INTENT_ASPECT_RATIO_Y, 1);
+        startActivityForResult(intent, Config.REQUEST_IMAGE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (requestCode == Config.REQUEST_IMAGE) {
+            if (resultCode == Activity.RESULT_OK) {
+                Uri uri = data.getParcelableExtra("path");
+                try {
+                    // You can update this bitmap to your server
+                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
+
+                    // loading profile image from local cache
+                    loadProfile(uri.toString());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    private void loadProfile(String url) {
+        Log.d(TAG, "Image cache path: " + url);
+
+        CircularImageView profileImageView = (CircularImageView) findViewById(R.id.profileImageView);
+
+
+        Glide.with(this).load(url)
+                .into(profileImageView);
+        profileImageView.setColorFilter(ContextCompat.getColor(this, android.R.color.transparent));
+    }
+
+    /**
+     * Showing Alert Dialog with Settings option
+     * Navigates user to app settings
+     * NOTE: Keep proper title and message depending on your app
+     */
+    private void showSettingsDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+        builder.setTitle(getString(R.string.dialog_permission_title));
+        builder.setMessage(getString(R.string.dialog_permission_message));
+        builder.setPositiveButton(getString(R.string.go_to_settings), (dialog, which) -> {
+            dialog.cancel();
+            openSettings();
+        });
+        builder.setNegativeButton(getString(android.R.string.cancel), (dialog, which) -> dialog.cancel());
+        builder.show();
+
+    }
+
+    // navigating user to app settings
+    private void openSettings() {
+        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+        Uri uri = Uri.fromParts("package", getPackageName(), null);
+        intent.setData(uri);
+        startActivityForResult(intent, 101);
     }
 
     public void getRegCodeOnClick(View v){
@@ -251,28 +395,29 @@ public class LoginActivity extends AppCompatActivity implements TextView.OnEdito
         return false;
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        try {
-            if (resultCode == RESULT_OK) {
-                if (requestCode == Config.REQUEST_GET_SINGLE_FILE) {
-                    Uri selectedImageUri = data.getData();
-                    // Get the path from the Uri
-                    final String path = getPathFromURI(selectedImageUri);
-                    if (path != null) {
-                        File f = new File(path);
-                        selectedImageUri = Uri.fromFile(f);
-                    }
-                    // Set the image in ImageView
-                    CircularImageView profileImageView = (CircularImageView) findViewById(R.id.profileImageView);
-                    profileImageView.setImageURI(selectedImageUri);
-                }
-            }
-        } catch (Exception e) {
-            Log.e("FileSelectorActivity", "File select error", e);
-        }
-    }
+    //old
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        try {
+//            if (resultCode == RESULT_OK) {
+//                if (requestCode == Config.REQUEST_GET_SINGLE_FILE) {
+//                    Uri selectedImageUri = data.getData();
+//                    // Get the path from the Uri
+//                    final String path = getPathFromURI(selectedImageUri);
+//                    if (path != null) {
+//                        File f = new File(path);
+//                        selectedImageUri = Uri.fromFile(f);
+//                    }
+//                    // Set the image in ImageView
+//                    CircularImageView profileImageView = (CircularImageView) findViewById(R.id.profileImageView);
+//                    profileImageView.setImageURI(selectedImageUri);
+//                }
+//            }
+//        } catch (Exception e) {
+//            Log.e("FileSelectorActivity", "File select error", e);
+//        }
+//    }
 
     public String getPathFromURI(Uri contentUri) {
         String res = null;

@@ -8,10 +8,9 @@
     android:orientation="vertical"
     android:visibility="gone">
 
-    <RelativeLayout
+    <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
         android:layout_gravity="center">
 
         <com.mikhaellopez.circularimageview.CircularImageView
@@ -24,14 +23,13 @@
 
         <Button
             android:id="@+id/changePicBtn"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_alignBottom="@id/profileImageView"
-            android:layout_alignParentLeft="true"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="bottom|right"
             android:background="@drawable/change_pic"
             android:onClick="changePickOnClick"/>
 
-    </RelativeLayout>
+    </FrameLayout>
 
 
     <EditText
