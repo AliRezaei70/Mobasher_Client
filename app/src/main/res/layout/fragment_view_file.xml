@@ -22,6 +22,7 @@
             android:orientation="horizontal">
 
             <LinearLayout
+                android:id="@+id/viewFileLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
@@ -42,15 +43,16 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:padding="10dp"
                     android:text="@string/view_file"
                     android:textStyle="bold" />
 
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/phoneConsultantLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
@@ -71,9 +73,9 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:padding="10dp"
                     android:text="@string/phone_consultant"
                     android:textStyle="bold" />
 
@@ -93,6 +95,7 @@
             android:orientation="horizontal">
 
             <LinearLayout
+                android:id="@+id/recentConsultantLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
@@ -108,14 +111,14 @@
                     android:layout_margin="30dp"
                     android:layout_weight="4"
                     android:background="@drawable/recent_consultant"
-                    android:scaleType="fitStart" />
+                    android:scaleType="fitCenter" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:padding="10dp"
                     android:text="@string/recent_consultant"
                     android:textStyle="bold" />
 
@@ -123,6 +126,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/faivoritesConsultantLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
@@ -143,9 +147,9 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:padding="10dp"
                     android:text="@string/faivorites_consultant"
                     android:textStyle="bold" />
 
@@ -184,9 +188,9 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:padding="10dp"
                     android:text="@string/share"
                     android:textStyle="bold" />
 
@@ -214,9 +218,9 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:padding="10dp"
                     android:text="@string/consulting"
                     android:textStyle="bold" />
 
