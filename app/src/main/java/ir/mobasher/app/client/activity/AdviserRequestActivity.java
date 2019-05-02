@@ -47,21 +47,13 @@ public class AdviserRequestActivity extends AppCompatActivity {
 
             @Override
             public void onGroupExpand(int groupPosition) {
-                if (lastExpandedPosition != -1
-                        && groupPosition != lastExpandedPosition) {
+                if (lastExpandedPosition != -1 && groupPosition != lastExpandedPosition) {
                     expListView.collapseGroup(lastExpandedPosition);
                 }
                 lastExpandedPosition = groupPosition;
             }
         });
 
-        expListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
-            @Override
-            public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
-                lastExpandedPosition = groupPosition;
-                return false;
-            }
-        });
 
     }
 
