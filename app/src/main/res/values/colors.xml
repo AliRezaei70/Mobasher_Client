@@ -14,8 +14,8 @@
     <color name="peachy_pink">#ff9887</color>
 
 
-    <color name="colorPrimary">#5770f3</color>
-    <color name="colorPrimaryDark">#5770f3</color>
+    <color name="colorPrimary">#ffffff</color>
+    <color name="colorPrimaryDark">#204e75</color>
     <color name="colorAccent">#D81B60</color>
     <color name="gradient_start">#5770f3</color>
     <color name="gradient_end">#8e5aeb</color>

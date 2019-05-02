@@ -1,6 +1,7 @@
 package ir.mobasher.app.client.activity;
 
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
@@ -9,7 +10,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
-
 import ir.mobasher.app.client.R;
 import ir.mobasher.app.client.app.IntetnKey;
 
@@ -51,7 +51,8 @@ public class FileRequestsActivity extends AppCompatActivity implements View.OnCl
                 Toast.makeText(this, getText(R.string.view_file), Toast.LENGTH_SHORT).show();
                 return;
             case R.id.phoneConsultantLayout:
-                Toast.makeText(this, getText(R.string.phone_consultant), Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(this, AdviserRequestActivity.class);
+                startActivity(i);
                 return;
             case R.id.recentConsultantLayout:
                 Toast.makeText(this, getText(R.string.recent_consultant), Toast.LENGTH_SHORT).show();
