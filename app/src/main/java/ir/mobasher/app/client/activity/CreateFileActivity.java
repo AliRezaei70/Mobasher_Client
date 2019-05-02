@@ -316,6 +316,9 @@ public class CreateFileActivity extends AppCompatActivity {
     }
 
     public void createFileBtnOnClick(View v){
+        Intent i = new Intent(this, FileRequestsActivity.class);
+        startActivity(i);
+        finish();
 
     }
 

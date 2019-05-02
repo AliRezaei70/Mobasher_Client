@@ -70,6 +70,10 @@
             android:label="@string/title_activity_create_file"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:name=".activity.FileRequestsActivity"
+            android:label="@string/title_activity_create_file"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".activity.CreditActivity"
             android:label="@string/title_activity_credit"
             android:theme="@style/AppTheme.NoActionBar" /> <!-- uCrop cropping activity -->
