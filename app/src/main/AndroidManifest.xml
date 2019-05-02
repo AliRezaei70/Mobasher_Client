@@ -75,6 +75,11 @@
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
+            android:name=".activity.WaitForRequestActivity"
+            android:label="@string/title_activity_create_file"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
             android:name=".activity.AdviserRequestActivity"
             android:label="@string/phone_consultant"
             android:theme="@style/AppTheme.NoActionBar" />
