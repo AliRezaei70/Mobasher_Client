@@ -73,6 +73,12 @@
             android:name=".activity.FileRequestsActivity"
             android:label="@string/title_activity_create_file"
             android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".activity.AdviserRequestActivity"
+            android:label="@string/phone_consultant"
+            android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".activity.CreditActivity"
             android:label="@string/title_activity_credit"

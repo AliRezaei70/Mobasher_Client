@@ -3,15 +3,10 @@ package ir.mobasher.app.client.activity;
 import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.content.ContentResolver;
-import android.content.ContentUris;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -20,7 +15,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -32,23 +26,19 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.bumptech.glide.Glide;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
-import com.mikhaellopez.circularimageview.CircularImageView;
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 import butterknife.ButterKnife;
 import ir.mobasher.app.client.R;
 import ir.mobasher.app.client.adapter.CreateFileGridAdapter;
 import ir.mobasher.app.client.app.Config;
+import ir.mobasher.app.client.app.IntetnKey;
 import ir.mobasher.app.client.helper.DisplayInfo;
 
 public class CreateFileActivity extends AppCompatActivity {
@@ -61,6 +51,8 @@ public class CreateFileActivity extends AppCompatActivity {
     ArrayList<String> gridData;
     ArrayList<String> fileNames;
     ArrayList<Uri> uris;
+    EditText fileTitleEt;
+    EditText fileDescEt;
 
     private static final String TAG = CreateFileActivity.class.getSimpleName();
 
@@ -69,18 +61,16 @@ public class CreateFileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_file_activity);
         Toolbar toolbar = (Toolbar) findViewById(R.id.createFileToolbar);
-//        toolbar.setTitleTextColor(0x000000);
         toolbar.setTitle(R.string.title_activity_create_file);
         setSupportActionBar(toolbar);
 
         step1Layout = (RelativeLayout) findViewById(R.id.step1Layout);
         step2Layout = (LinearLayout) findViewById(R.id.step2Layout);
 
-
+        fileTitleEt = (EditText) findViewById(R.id.titleEt);
+        fileDescEt = (EditText) findViewById(R.id.descEt);
 
         forceRTLIfSupported();
-
-
 
         gridView = (GridView) findViewById(R.id.filesGV);
 
@@ -139,7 +129,6 @@ public class CreateFileActivity extends AppCompatActivity {
                                 token.continuePermissionRequest();
                             }
                         }).check();
-
             }
         });
 
@@ -197,7 +186,6 @@ public class CreateFileActivity extends AppCompatActivity {
         });
         builder.setNegativeButton(getString(android.R.string.cancel), (dialog, which) -> dialog.cancel());
         builder.show();
-
     }
 
     // navigating user to app settings
@@ -261,47 +249,6 @@ public class CreateFileActivity extends AppCompatActivity {
         }
     }
 
-    private void loadProfile(String url) {
-        Log.d(TAG, "Image cache path: " + url);
-
-//        Glide.with(this).load(url)
-//                .into(profileImageView);
-//        profileImageView.setColorFilter(ContextCompat.getColor(this, android.R.color.transparent));
-    }
-
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        // TODO Auto-generated method stub
-//
-//        switch(requestCode){
-//
-//            case 7:
-//
-//                if(resultCode==RESULT_OK){
-//
-//                    String PathHolder = data.getData().getPath();
-//
-//                    Toast.makeText(CreateFileActivity.this, PathHolder , Toast.LENGTH_LONG).show();
-//
-//                    gridData.add(PathHolder);
-//
-//
-//                    ContentResolver crThumb = getContentResolver();
-//                    BitmapFactory.Options options=new BitmapFactory.Options();
-//                    options.inSampleSize = 1;
-//                    Bitmap curThumb = MediaStore.Video.Thumbnails.getThumbnail(crThumb, ContentUris.parseId(data.getData()), MediaStore.Video.Thumbnails.MICRO_KIND, options);
-//
-//                    bitmaps.add(curThumb);
-//
-//                    gridView.setAdapter(  new CreateFileGridAdapter( this, gridData, bitmaps) );
-//
-//                }
-//                break;
-//
-//        }
-//    }
-
-
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     private void forceRTLIfSupported() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
@@ -310,6 +257,17 @@ public class CreateFileActivity extends AppCompatActivity {
     }
 
     public void continueBtnOnClick(View v){
+
+        if (TextUtils.isEmpty(fileTitleEt.getText().toString())) {
+            fileTitleEt.setError(this.getString(R.string.error_field_required));
+            return;
+        }
+
+        if (TextUtils.isEmpty(fileDescEt.getText().toString())) {
+            fileDescEt.setError(this.getString(R.string.error_field_required));
+            return;
+        }
+
         step1Layout.setVisibility(View.GONE);
         step2Layout.setVisibility(View.VISIBLE);
         stepNumber = 2;
@@ -317,9 +275,10 @@ public class CreateFileActivity extends AppCompatActivity {
 
     public void createFileBtnOnClick(View v){
         Intent i = new Intent(this, FileRequestsActivity.class);
+        i.putExtra(IntetnKey.KEY_FILE_TITLE, fileTitleEt.getText().toString());
+        i.putExtra(IntetnKey.KEY_FILE_NUMBER, 135248);
         startActivity(i);
         finish();
-
     }
 
     @Override
@@ -331,6 +290,5 @@ public class CreateFileActivity extends AppCompatActivity {
         }else if(stepNumber == 1){
             finish();
         }
-
     }
 }

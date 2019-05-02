@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import ir.mobasher.app.client.R;
+import ir.mobasher.app.client.app.IntetnKey;
 
 public class FileRequestsActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -19,8 +20,14 @@ public class FileRequestsActivity extends AppCompatActivity implements View.OnCl
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_request_files);
+
+        String fileName = getIntent().getExtras().getString(IntetnKey.KEY_FILE_TITLE);
+        String fileNumber = getIntent().getExtras().getString(IntetnKey.KEY_FILE_NUMBER);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.fileRequestsToolbar);
+        toolbar.setTitle(fileName);
         setSupportActionBar(toolbar);
+
         forceRTLIfSupported();
 
         LinearLayout viewFileLayout = (LinearLayout) findViewById(R.id.viewFileLayout);

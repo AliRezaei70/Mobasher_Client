@@ -1,31 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white_three"
-    tools:context=".fragments.FavoriteLawyersFragment"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
+        android:background="@drawable/metro_background"
         android:orientation="horizontal">
 
         <TextView
-            android:textColor="@color/reddish"
+            android:id="@+id/fileNumberTv"
             android:layout_width="0dp"
             android:layout_weight="1.5"
             android:layout_height="wrap_content"
             android:gravity="right"
-            android:text="@string/file_number"
+            android:text="1254876"
             android:textStyle="bold"
             android:padding="10dp" />
 
         <TextView
-            android:text="@string/file_title"
-            android:textColor="@color/reddish"
+            android:text="مشکل با کارفرما و عدک تمکین به رای دادگاه"
             android:id="@+id/fileNameTv"
             android:layout_width="0dp"
             android:layout_weight="4"
@@ -37,13 +34,4 @@
             android:padding="10dp" />
 
     </LinearLayout>
-
-    <ListView
-        android:id="@+id/files_list"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:divider="@null"
-        android:dividerHeight="0dp"
-        android:scrollbars="none"></ListView>
-
 </LinearLayout>

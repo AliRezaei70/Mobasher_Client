@@ -23,4 +23,6 @@
     <color name="bg_meta_container">#000000</color>
     <color name="profile_default_tint">#e0e0e0</color>
     <color name="white_three">#fafafa</color>
+    <color name="white_four">#f5f5f5</color>
+    <color name="reddish">#c14242</color>
 </resources>
