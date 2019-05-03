@@ -1,10 +1,7 @@
 package ir.mobasher.app.client.helper;
 
 import android.app.Activity;
-import android.content.Context;
 import android.util.DisplayMetrics;
-
-import ir.mobasher.app.client.core.DatabaseHelper;
 
 public class DisplayInfo {
 

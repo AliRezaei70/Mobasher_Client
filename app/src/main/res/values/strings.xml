@@ -116,5 +116,10 @@
     <string name="consulting">درخواست مشاوره حضوری</string>
     <string name="select_adviser_types">حوزه مشاور را انتخاب نمایید</string>
 
+    <string name="adviser_req_wait_text">مشاورین باید پرونده شما را بررسی نمایند
+.این امر به مقداری زمان نیاز دارد
+از صبر و شکیبایی شما کمال سپاسگزاری را داریم</string>
+    <string name="cancel_request">لغو درخواست</string>
+
 
 </resources>

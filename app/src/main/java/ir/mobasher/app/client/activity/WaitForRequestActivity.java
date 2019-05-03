@@ -1,11 +1,17 @@
 package ir.mobasher.app.client.activity;
 
 import android.annotation.TargetApi;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;import ir.mobasher.app.client.R;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import com.bumptech.glide.Glide;
+import ir.mobasher.app.client.R;
+import ir.mobasher.app.client.helper.DisplayInfo;
 
 public class WaitForRequestActivity extends AppCompatActivity {
 
@@ -16,20 +22,24 @@ public class WaitForRequestActivity extends AppCompatActivity {
         setContentView(R.layout.activity_wait_for_reaquest);
         forceRTLIfSupported();
 
-//        ImageView waitImageView = (ImageView) findViewById(R.id.waitImageView);
-//        Glide
-//                .with(this) // replace with 'this' if it's in activity
-//                .load("http://www.google.com/.../image.gif")
-//                .asGif()
-//                .error(R.drawable.bookmark) // show error drawable if the image is not a gif
-//                .into(R.id.waitImageView);
+        ImageView waitImageView = (ImageView) findViewById(R.id.waitImageView);
+
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT);
+
+        params.height = DisplayInfo.getInstance(this).getDisplayHeight()/3;
+
+        waitImageView.setLayoutParams(params);
+
+        String urlGif = "https://cdn.dribbble.com/users/263558/screenshots/1337078/dvsd.gif";
+        Uri uri = Uri.parse(urlGif);
+        Glide.with(getApplicationContext()).load(uri).into(waitImageView);
 
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
-    private void forceRTLIfSupported()
-    {
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1){
+    private void forceRTLIfSupported() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
         }
     }
