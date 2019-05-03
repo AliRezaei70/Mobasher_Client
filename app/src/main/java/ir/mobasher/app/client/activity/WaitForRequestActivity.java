@@ -14,7 +14,6 @@ import android.widget.LinearLayout;
 import com.bumptech.glide.Glide;
 import java.util.Timer;
 import java.util.TimerTask;
-
 import ir.mobasher.app.client.R;
 import ir.mobasher.app.client.helper.DisplayInfo;
 
