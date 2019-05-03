@@ -18,7 +18,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.ImagePickerActivity"></activity>
+        <activity
+            android:name=".activity.ChooseAdviserActivity"
+            android:label="@string/choose_adviser"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".activity.ImagePickerActivity" />
 
         <meta-data
             android:name="com.google.android.actions"
@@ -38,7 +42,7 @@
             android:name=".activity.LoginActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustResize"/>
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".activity.HomeActivity"
             android:label="@string/app_name"
@@ -73,17 +77,14 @@
             android:name=".activity.FileRequestsActivity"
             android:label="@string/title_activity_create_file"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".activity.WaitForRequestActivity"
             android:label="@string/title_activity_create_file"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".activity.AdviserRequestActivity"
             android:label="@string/phone_consultant"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".activity.CreditActivity"
             android:label="@string/title_activity_credit"

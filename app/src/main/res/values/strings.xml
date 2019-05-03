@@ -120,6 +120,7 @@
 .این امر به مقداری زمان نیاز دارد
 از صبر و شکیبایی شما کمال سپاسگزاری را داریم</string>
     <string name="cancel_request">لغو درخواست</string>
-
+    <string name="choose_adviser">انتخاب مشاور</string>
+    <string name="connect">ارتباط</string>
 
 </resources>
