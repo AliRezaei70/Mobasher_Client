@@ -15,6 +15,6 @@ public class IntetnKey {
     public static final String KEY_LEVEL = "level";
     public static final String KEY_PRICE = "price";
     public static final String KEY_STATUS = "status";
-    public static final String KEY_ONLINE_OR_OFFLINE = "online_or_offline";
+    public static final String IS_ONLINE = "isOnline";
 
 }

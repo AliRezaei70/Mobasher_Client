@@ -27,6 +27,12 @@
                 android:padding="15dp"
                 android:src="@mipmap/gray_circle" />
 
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/isOnlineImageView"
+                android:visibility="gone"/>
+
 
         </LinearLayout>
 
@@ -70,7 +76,7 @@
                 android:numStars="5"
                 android:paddingTop="5dp"
                 android:rating="3"
-                android:paddingRight="10dp"
+                android:layout_marginRight="10dp"
                 android:stepSize="0.1" />
 
 

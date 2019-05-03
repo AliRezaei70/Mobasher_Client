@@ -12,6 +12,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -26,6 +27,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
@@ -94,6 +96,11 @@ public class HomeActivity extends AppCompatActivity
         userNameTv = (TextView) headerView.findViewById(R.id.usernameTv);
         phoneNumTv = (TextView) headerView.findViewById(R.id.phoneNumTv);
         profileImageView = (CircularImageView) headerView.findViewById(R.id.profileImageView);
+        String url = "https://www.gravatar.com/avatar/d713829a7d72f9237e0850caf6f2cb48?s=328&d=identicon&r=PG";
+        Glide.with(this).load(url)
+                .into(profileImageView);
+        profileImageView.setColorFilter(ContextCompat.getColor(this, android.R.color.transparent));
+
 
         ImageView menuSettingBtn = (ImageView) headerView.findViewById(R.id.menuSettingBtn);
         menuSettingBtn.setOnClickListener(menuSettingsOnClick);

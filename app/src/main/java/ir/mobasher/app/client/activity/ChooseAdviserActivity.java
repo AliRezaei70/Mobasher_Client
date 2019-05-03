@@ -34,24 +34,46 @@ public class ChooseAdviserActivity extends AppCompatActivity {
 
         chooseAdviserListView = (ListView) findViewById(R.id.chooseAdviserList);
 
-        initFilesList();
+        initList();
     }
 
-    public void initFilesList(){
+    public void initList(){
         data = new ArrayList<HashMap<String, String>>();
 
         adviserListAdapter = new ChooseAdviserAdapter(this, data,
-                R.layout.files_list_row, new String[] {
-                IntetnKey.KEY_FILE_NUMBER,
-                IntetnKey.KEY_FILE_TITLE}, new int[] {
-                R.id.fileNumberTv,
-                R.id.fileNameTv});
+                R.layout.choose_adviser_list_row, new String[] {
+                IntetnKey.KEY_SCORE,
+                IntetnKey.KEY_RATE,
+                IntetnKey.KEY_NAME,
+                IntetnKey.KEY_ADVISER_TYPE,
+                IntetnKey.KEY_PHOTO_URL,
+                IntetnKey.KEY_LEVEL,
+                IntetnKey.KEY_PRICE,
+                IntetnKey.KEY_STATUS,
+                IntetnKey.IS_ONLINE}, new int[] {
+                R.id.lawyerScore,
+                R.id.lawyerRatingBar,
+                R.id.lawyerName,
+                R.id.lawyerAdviserType,
+                R.id.lawyerImage,
+                R.id.lawyerLevel,
+                R.id.lawyerPrice,
+                R.id.requestBtn,
+                R.id.isOnlineImageView});
 
         for (int i=0; i<15; i++){
             map = new HashMap<String, String>();
 
-            map.put(IntetnKey.KEY_FILE_NUMBER, "125849");
-            map.put(IntetnKey.KEY_FILE_TITLE, "مشکل با کارفرما و عدم تمکین به رای دادگاه");
+            map.put(IntetnKey.KEY_SCORE, "امتیازکل: 70");
+            map.put(IntetnKey.KEY_RATE, "4.5");
+            map.put(IntetnKey.KEY_NAME, "علی محمدرضایی");
+            map.put(IntetnKey.KEY_ADVISER_TYPE, "مشاور حقوقی");
+            map.put(IntetnKey.KEY_PHOTO_URL, "");
+            map.put(IntetnKey.KEY_LEVEL, "سطح یک");
+            map.put(IntetnKey.KEY_PRICE, "7000 تومان");
+            map.put(IntetnKey.KEY_STATUS, "ارتباط");
+            map.put(IntetnKey.IS_ONLINE, "");
+
             data.add(map);
         }
 
