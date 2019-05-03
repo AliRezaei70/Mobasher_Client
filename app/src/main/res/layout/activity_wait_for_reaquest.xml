@@ -41,6 +41,7 @@
             android:id="@+id/cancelRequestBtn"
             android:adjustViewBounds="true"
             android:scaleX="1"
+            android:textColor="@color/white"
             android:scaleY="1"/>
 
 

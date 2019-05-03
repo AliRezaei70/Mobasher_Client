@@ -28,6 +28,8 @@ public class ChooseAdviserActivity extends AppCompatActivity {
         setContentView(R.layout.activity_choose_adviser);
         Toolbar toolbar = (Toolbar) findViewById(R.id.chooseAdviserToolbar);
         setSupportActionBar(toolbar);
+        this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        this.getSupportActionBar().setHomeAsUpIndicator(R.drawable.x);
         forceRTLIfSupported();
 
         chooseAdviserListView = (ListView) findViewById(R.id.chooseAdviserList);

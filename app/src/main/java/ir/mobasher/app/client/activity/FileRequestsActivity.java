@@ -53,6 +53,7 @@ public class FileRequestsActivity extends AppCompatActivity implements View.OnCl
             case R.id.phoneConsultantLayout:
                 Intent i = new Intent(this, AdviserRequestActivity.class);
                 startActivity(i);
+                finish();
                 return;
             case R.id.recentConsultantLayout:
                 Toast.makeText(this, getText(R.string.recent_consultant), Toast.LENGTH_SHORT).show();

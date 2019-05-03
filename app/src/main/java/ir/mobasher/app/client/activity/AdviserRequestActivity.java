@@ -69,6 +69,7 @@ public class AdviserRequestActivity extends AppCompatActivity {
                         .show();
 
                 Intent i = new Intent(AdviserRequestActivity.this, WaitForRequestActivity.class);
+                finish();
                 startActivity(i);
                 return false;
             }
