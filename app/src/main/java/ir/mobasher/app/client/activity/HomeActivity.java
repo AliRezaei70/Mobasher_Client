@@ -204,28 +204,6 @@ public class HomeActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
     }
 
-    /*Method to generate List of data using RecyclerView with custom adapter*/
-    private void generateDataList(List<RetroPhoto> photoList) {
-//        TextView mainTv = (TextView) findViewById(R.id.help_item_textview);
-//        mainTv.setText(photoList.get(0).getTitle() + " " + photoList.get(1).getTitle());
-//
-//        ImageView imageView = (ImageView) findViewById(R.id.help_item_imageView);
-//
-//        Picasso.Builder builder = new Picasso.Builder(this);
-//        builder.downloader(new OkHttp3Downloader(this));
-//        builder.build().load(photoList.get(0).getThumbnailUrl())
-//                .placeholder((R.drawable.ic_launcher_background))
-//                .error(R.drawable.ic_launcher_background)
-//                .into(imageView);
-
-
-//        recyclerView = findViewById(R.id.customRecyclerView);
-//        adapter = new CustomAdapter(this,photoList);
-//        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(HomeActivity.this);
-//        recyclerView.setLayoutManager(layoutManager);
-//        recyclerView.setAdapter(adapter);
-    }
-
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     private void forceRTLIfSupported() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
@@ -252,9 +230,6 @@ public class HomeActivity extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
@@ -276,14 +251,14 @@ public class HomeActivity extends AppCompatActivity
         } else if (id == R.id.account_report) {
 
         } else if (id == R.id.add_credit) {
+            startActivity(new Intent(this, IncreaseCreditActivity.class));
 
         } else if (id == R.id.invite) {
 
         } else if (id == R.id.discount_code) {
 
         } else if (id == R.id.help_usage) {
-            Intent i = new Intent(this, HelpActivity.class);
-            startActivity(i);
+            startActivity(new Intent(this, HelpActivity.class));
 
         } else if (id == R.id.about_us) {
 

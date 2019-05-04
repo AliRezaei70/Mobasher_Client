@@ -60,7 +60,7 @@
 
     <string name="call_report">گزارش تماس</string>
     <string name="account_report">گزارش حساب</string>
-    <string name="add_credit">افزایش اعتبار</string>
+    <string name="increase_credit">افزایش اعتبار</string>
     <string name="invite">دعوت از دوستان</string>
     <string name="discount_code">کد تخفیف</string>
     <string name="help_usage">راهنمای استفاده</string>
@@ -122,5 +122,8 @@
     <string name="cancel_request">لغو درخواست</string>
     <string name="choose_adviser">انتخاب مشاور</string>
     <string name="connect">ارتباط</string>
+    <string name="credit_cash">مبلغ افزایش اعتبار</string>
+    <string name="rials">ریال</string>
+    <string name="connect_to_bank_and_pay">اتصال به بانک و پرداخت آنلاین</string>
 
 </resources>
