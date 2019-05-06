@@ -1,7 +1,6 @@
 package ir.mobasher.app.client.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +15,7 @@ import com.mikhaellopez.circularimageview.CircularImageView;
 import java.util.List;
 import java.util.Map;
 import ir.mobasher.app.client.R;
-import ir.mobasher.app.client.app.IntetnKey;
+import ir.mobasher.app.client.app.AppKey;
 
 public class ChooseAdviserAdapter extends SimpleAdapter {
     Context context;
@@ -40,15 +39,15 @@ public class ChooseAdviserAdapter extends SimpleAdapter {
             v = vi.inflate(R.layout.choose_adviser_list_row, null);
         }
 
-        String score = data.get(position).get(IntetnKey.KEY_SCORE);
-        String rate = data.get(position).get(IntetnKey.KEY_RATE);
-        String name = data.get(position).get(IntetnKey.KEY_NAME);
-        String type = data.get(position).get(IntetnKey.KEY_ADVISER_TYPE);
-        String photoUrl = data.get(position).get(IntetnKey.KEY_PHOTO_URL);
-        String level = data.get(position).get(IntetnKey.KEY_LEVEL);
-        String price = data.get(position).get(IntetnKey.KEY_PRICE);
-        String status = data.get(position).get(IntetnKey.KEY_STATUS);
-        String isOnline = data.get(position).get(IntetnKey.IS_ONLINE);
+        String score = data.get(position).get(AppKey.KEY_SCORE);
+        String rate = data.get(position).get(AppKey.KEY_RATE);
+        String name = data.get(position).get(AppKey.KEY_NAME);
+        String type = data.get(position).get(AppKey.KEY_ADVISER_TYPE);
+        String photoUrl = data.get(position).get(AppKey.KEY_PHOTO_URL);
+        String level = data.get(position).get(AppKey.KEY_LEVEL);
+        String price = data.get(position).get(AppKey.KEY_PRICE);
+        String status = data.get(position).get(AppKey.KEY_STATUS);
+        String isOnline = data.get(position).get(AppKey.KEY_IS_ONLINE);
 
 
         CircularImageView lawyerImage = (CircularImageView) v.findViewById(R.id.lawyerImage);

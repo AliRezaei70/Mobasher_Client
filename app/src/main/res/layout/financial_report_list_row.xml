@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/metro_background"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/dateAndTimeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/reddish">
+
+            <TextView
+                android:id="@+id/dateAndTimeTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:padding="10dp"
+                android:text="پنجشنبه 25 مهر 98 | 02:00"
+                android:textColor="@color/white"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/numberTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:padding="10dp"
+                android:text="فاکتور 6570"
+                android:textColor="@color/white"
+                android:textSize="13sp" />
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white">
+
+            <TextView
+                android:id="@+id/operationTypeTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:padding="10dp"
+                android:text="@string/operation_type"
+                android:textColor="@color/warm_grey_two"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/increaseOrDecreaseTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:padding="10dp"
+                android:text="@string/increase_credit"
+                android:textColor="@color/black"
+                android:textSize="13sp"
+                android:layout_below="@id/operationTypeTv"/>
+
+            <TextView
+                android:minWidth="150dp"
+                android:gravity="right"
+                android:id="@+id/priceTitleTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:padding="10dp"
+                android:text="@string/price"
+                android:textColor="@color/warm_grey_two"
+                android:textSize="13sp" />
+
+
+            <TextView
+                android:minWidth="150dp"
+                android:gravity="right"
+                android:id="@+id/priceTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:padding="10dp"
+                android:text="12000 تومان"
+                android:textColor="@color/black"
+                android:textSize="13sp"
+                android:layout_below="@id/priceTitleTv"/>
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/descTitleTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="@string/desc"
+            android:layout_gravity="right"
+            android:textColor="@color/warm_grey_two"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/descTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="10dp"
+            android:text="بابت درخواست شماره 1717"
+            android:textColor="@color/black"
+            android:layout_gravity="right"
+            android:textSize="13sp"/>
+
+
+    </LinearLayout>
+</LinearLayout>

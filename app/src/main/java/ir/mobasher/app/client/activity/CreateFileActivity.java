@@ -38,7 +38,7 @@ import butterknife.ButterKnife;
 import ir.mobasher.app.client.R;
 import ir.mobasher.app.client.adapter.CreateFileGridAdapter;
 import ir.mobasher.app.client.app.Config;
-import ir.mobasher.app.client.app.IntetnKey;
+import ir.mobasher.app.client.app.AppKey;
 import ir.mobasher.app.client.helper.DisplayInfo;
 
 public class CreateFileActivity extends AppCompatActivity {
@@ -275,8 +275,8 @@ public class CreateFileActivity extends AppCompatActivity {
 
     public void createFileBtnOnClick(View v){
         Intent i = new Intent(this, FileRequestsActivity.class);
-        i.putExtra(IntetnKey.KEY_FILE_TITLE, fileTitleEt.getText().toString());
-        i.putExtra(IntetnKey.KEY_FILE_NUMBER, 135248);
+        i.putExtra(AppKey.KEY_FILE_TITLE, fileTitleEt.getText().toString());
+        i.putExtra(AppKey.KEY_FILE_NUMBER, 135248);
         startActivity(i);
         finish();
     }

@@ -125,5 +125,13 @@
     <string name="credit_cash">مبلغ افزایش اعتبار</string>
     <string name="rials">ریال</string>
     <string name="connect_to_bank_and_pay">اتصال به بانک و پرداخت آنلاین</string>
+    <string name="available_credit">اعتبار موجود</string>
+    <string name="finacial_report">گزارش حساب</string>
+    <string name="operation_type">نوع عملیات</string>
+    <string name="decrease_credit">کاهش اعتبار</string>
+    <string name="price">مبلغ</string>
+    <string name="desc">شرح</string>
+    <string name="factor">فاکتور</string>
+    <string name="transaction_num">شماره تراکنش</string>
 
 </resources>

@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import ir.mobasher.app.client.R;
 import ir.mobasher.app.client.adapter.ChooseAdviserAdapter;
-import ir.mobasher.app.client.app.IntetnKey;
+import ir.mobasher.app.client.app.AppKey;
 
 public class ChooseAdviserActivity extends AppCompatActivity {
 
@@ -42,15 +42,15 @@ public class ChooseAdviserActivity extends AppCompatActivity {
 
         adviserListAdapter = new ChooseAdviserAdapter(this, data,
                 R.layout.choose_adviser_list_row, new String[] {
-                IntetnKey.KEY_SCORE,
-                IntetnKey.KEY_RATE,
-                IntetnKey.KEY_NAME,
-                IntetnKey.KEY_ADVISER_TYPE,
-                IntetnKey.KEY_PHOTO_URL,
-                IntetnKey.KEY_LEVEL,
-                IntetnKey.KEY_PRICE,
-                IntetnKey.KEY_STATUS,
-                IntetnKey.IS_ONLINE}, new int[] {
+                AppKey.KEY_SCORE,
+                AppKey.KEY_RATE,
+                AppKey.KEY_NAME,
+                AppKey.KEY_ADVISER_TYPE,
+                AppKey.KEY_PHOTO_URL,
+                AppKey.KEY_LEVEL,
+                AppKey.KEY_PRICE,
+                AppKey.KEY_STATUS,
+                AppKey.KEY_IS_ONLINE}, new int[] {
                 R.id.lawyerScore,
                 R.id.lawyerRatingBar,
                 R.id.lawyerName,
@@ -64,15 +64,15 @@ public class ChooseAdviserActivity extends AppCompatActivity {
         for (int i=0; i<15; i++){
             map = new HashMap<String, String>();
 
-            map.put(IntetnKey.KEY_SCORE, "امتیازکل: 70");
-            map.put(IntetnKey.KEY_RATE, "4.5");
-            map.put(IntetnKey.KEY_NAME, "علی محمدرضایی");
-            map.put(IntetnKey.KEY_ADVISER_TYPE, "مشاور حقوقی");
-            map.put(IntetnKey.KEY_PHOTO_URL, "");
-            map.put(IntetnKey.KEY_LEVEL, "سطح یک");
-            map.put(IntetnKey.KEY_PRICE, "7000 تومان");
-            map.put(IntetnKey.KEY_STATUS, "ارتباط");
-            map.put(IntetnKey.IS_ONLINE, "");
+            map.put(AppKey.KEY_SCORE, "امتیازکل: 70");
+            map.put(AppKey.KEY_RATE, "4.5");
+            map.put(AppKey.KEY_NAME, "علی محمدرضایی");
+            map.put(AppKey.KEY_ADVISER_TYPE, "مشاور حقوقی");
+            map.put(AppKey.KEY_PHOTO_URL, "");
+            map.put(AppKey.KEY_LEVEL, "سطح یک");
+            map.put(AppKey.KEY_PRICE, "7000 تومان");
+            map.put(AppKey.KEY_STATUS, "ارتباط");
+            map.put(AppKey.KEY_IS_ONLINE, "");
 
             data.add(map);
         }

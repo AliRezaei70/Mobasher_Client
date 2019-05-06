@@ -9,7 +9,7 @@ import android.widget.TextView;
 import java.util.List;
 import java.util.Map;
 import ir.mobasher.app.client.R;
-import ir.mobasher.app.client.app.IntetnKey;
+import ir.mobasher.app.client.app.AppKey;
 
 public class HomeNotifListAdapter extends SimpleAdapter {
     Context context;
@@ -37,8 +37,8 @@ public class HomeNotifListAdapter extends SimpleAdapter {
         TextView homeNotifTimeTv = (TextView) v.findViewById(R.id.homeNotifTimeTv);
 
 
-        String tittle = data.get(position).get(IntetnKey.KEY_NOTIF_TITLLE);
-        String time = data.get(position).get(IntetnKey.KEY_NOTIF_TIME);
+        String tittle = data.get(position).get(AppKey.KEY_NOTIF_TITLLE);
+        String time = data.get(position).get(AppKey.KEY_NOTIF_TIME);
 
         homeNotifTittleTv.setText(tittle);
         homeNotifTimeTv.setText(time);

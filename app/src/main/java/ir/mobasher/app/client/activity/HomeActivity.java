@@ -30,27 +30,22 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
 import java.io.IOException;
-import java.util.List;
+
 import ir.mobasher.app.client.R;
+import ir.mobasher.app.client.adapter.FinancialReportListAdapter;
 import ir.mobasher.app.client.api.APIInterface;
 import ir.mobasher.app.client.api.clientProfile.GetProfileErrorResponse;
 import ir.mobasher.app.client.api.clientProfile.GetProfileSuccessResponse;
-import ir.mobasher.app.client.api.validateUser.ValidationErrorResponse;
-import ir.mobasher.app.client.api.validateUser.ValidationSuccessResponse;
 import ir.mobasher.app.client.app.AppTags;
 import ir.mobasher.app.client.app.Config;
 import ir.mobasher.app.client.fragments.FavoriteLawyersFragment;
 import ir.mobasher.app.client.fragments.HomeFragment;
 import ir.mobasher.app.client.fragments.ViewFileFragment;
 import ir.mobasher.app.client.fragments.WalletFragment;
-import ir.mobasher.app.client.intreface.packs.PacksService;
 import ir.mobasher.app.client.manager.ProgressBarManager;
-import ir.mobasher.app.client.model.pack.Packs;
-import ir.mobasher.app.client.model.photo.RetroPhoto;
 import ir.mobasher.app.client.network.RetrofitClientInstance;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -248,7 +243,8 @@ public class HomeActivity extends AppCompatActivity
 
         if (id == R.id.call_report) {
             // Handle the camera action
-        } else if (id == R.id.account_report) {
+        } else if (id == R.id.financial_report) {
+            startActivity(new Intent(this, FinancialReportActivity.class));
 
         } else if (id == R.id.add_credit) {
             startActivity(new Intent(this, IncreaseCreditActivity.class));

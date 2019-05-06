@@ -23,7 +23,7 @@ import java.util.HashMap;
 import ir.mobasher.app.client.R;
 import ir.mobasher.app.client.adapter.HomeNotifListAdapter;
 import ir.mobasher.app.client.adapter.HomeViewPagerAdapter;
-import ir.mobasher.app.client.app.IntetnKey;
+import ir.mobasher.app.client.app.AppKey;
 
 public class Homefr extends Fragment implements AdapterView.OnItemClickListener{
 
@@ -125,16 +125,16 @@ public class Homefr extends Fragment implements AdapterView.OnItemClickListener{
 
         homeNotifListAdapter = new HomeNotifListAdapter(getActivity(), notifArr,
                 R.layout.home_notif_list_row, new String[] {
-                IntetnKey.KEY_NOTIF_TITLLE,
-                IntetnKey.KEY_NOTIF_TIME,}, new int[] {
+                AppKey.KEY_NOTIF_TITLLE,
+                AppKey.KEY_NOTIF_TIME,}, new int[] {
                 R.id.homeNotifTittleTv,
                 R.id.homeNotifTimeTv});
 
         for (int i=0; i<10; i++){
             notifMap = new HashMap<String, String>();
 
-            notifMap.put(IntetnKey.KEY_NOTIF_TITLLE, "first notification");
-            notifMap.put(IntetnKey.KEY_NOTIF_TIME, "10:22");
+            notifMap.put(AppKey.KEY_NOTIF_TITLLE, "first notification");
+            notifMap.put(AppKey.KEY_NOTIF_TIME, "10:22");
             notifArr.add(notifMap);
         }
 

@@ -9,7 +9,7 @@ import android.widget.TextView;
 import java.util.List;
 import java.util.Map;
 import ir.mobasher.app.client.R;
-import ir.mobasher.app.client.app.IntetnKey;
+import ir.mobasher.app.client.app.AppKey;
 
 public class FilesListAdapter extends SimpleAdapter {
     Context context;
@@ -37,8 +37,8 @@ public class FilesListAdapter extends SimpleAdapter {
         TextView fileNameTv = (TextView) v.findViewById(R.id.fileNameTv);
 
 
-        String number = data.get(position).get(IntetnKey.KEY_FILE_NUMBER);
-        String title = data.get(position).get(IntetnKey.KEY_FILE_TITLE);
+        String number = data.get(position).get(AppKey.KEY_FILE_NUMBER);
+        String title = data.get(position).get(AppKey.KEY_FILE_TITLE);
 
         fileNumberTv.setText(number);
         fileNameTv.setText(title);

@@ -1,6 +1,6 @@
 package ir.mobasher.app.client.app;
 
-public class IntetnKey {
+public class AppKey {
     public static final String KEY_NOTIF_TITLLE = "notif_tittle";
     public static final String KEY_NOTIF_TIME = "notif_time";
     public static final String KEY_FILE_TITLE = "file_title";
@@ -15,6 +15,10 @@ public class IntetnKey {
     public static final String KEY_LEVEL = "level";
     public static final String KEY_PRICE = "price";
     public static final String KEY_STATUS = "status";
-    public static final String IS_ONLINE = "isOnline";
+    public static final String KEY_IS_ONLINE = "isOnline";
+
+    public static final String KEY_DATE_AND_TIME= "dateAndTime";
+    public static final String KEY_DESCRIPTION = "desc";
+    public static final String KEY_NUMBER = "number";
 
 }

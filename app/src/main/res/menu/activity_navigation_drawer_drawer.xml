@@ -9,7 +9,7 @@
             android:title="@string/call_report" />
 
         <item
-            android:id="@+id/account_report"
+            android:id="@+id/financial_report"
             android:title="@string/account_report" />
 
     </group>
