@@ -242,7 +242,7 @@ public class HomeActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.call_report) {
-            // Handle the camera action
+            startActivity(new Intent(this, CallReportActivity.class));
         } else if (id == R.id.financial_report) {
             startActivity(new Intent(this, FinancialReportActivity.class));
 

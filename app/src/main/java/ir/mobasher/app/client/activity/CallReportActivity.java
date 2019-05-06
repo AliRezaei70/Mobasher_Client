@@ -1,7 +1,6 @@
 package ir.mobasher.app.client.activity;
 
 import android.annotation.TargetApi;
-import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
@@ -13,30 +12,35 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.HashMap;
 import ir.mobasher.app.client.R;
-import ir.mobasher.app.client.adapter.FinancialReportListAdapter;
+import ir.mobasher.app.client.adapter.CallReportAdapter;
 import ir.mobasher.app.client.app.AppKey;
 
-public class FinancialReportActivity extends AppCompatActivity {
+public class CallReportActivity extends AppCompatActivity {
 
     ArrayList<HashMap<String, String>> data;
     HashMap<String, String> map;
-    FinancialReportListAdapter financialReportListAdapter;
-    ListView financialReportListView;
-    TextView availableCreditTv;
+    CallReportAdapter callReportListAdapter;
+    ListView callReportListView;
+    TextView totalRequestsTv;
+    TextView totalCallsTv;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_financial_report);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.financialReportToolbar);
+        setContentView(R.layout.activity_call_report);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         forceRTLIfSupported();
 
-        financialReportListView = (ListView) findViewById(R.id.finacialReportListView);
-        availableCreditTv = (TextView) findViewById(R.id.availableCreditTv);
-        availableCreditTv.setText(this.getString(R.string.available_credit) + " " + "10000" + " " + this.getString(R.string.rials));
+        callReportListView = (ListView) findViewById(R.id.callReportListView);
+
+        totalRequestsTv = (TextView) findViewById(R.id.totalRequestTv);
+        totalRequestsTv.setText("7");
+
+        totalCallsTv = (TextView) findViewById(R.id.totalCallTv);
+        totalCallsTv.setText("12:30:50");
 
         initList();
     }
@@ -44,29 +48,32 @@ public class FinancialReportActivity extends AppCompatActivity {
     public void initList(){
         data = new ArrayList<HashMap<String, String>>();
 
-        financialReportListAdapter = new FinancialReportListAdapter(this, data,
+        callReportListAdapter = new CallReportAdapter(this, data,
                 R.layout.financial_report_list_row, new String[] {
                 AppKey.KEY_DATE_AND_TIME,
-                AppKey.KEY_DESCRIPTION,
-                AppKey.KEY_NUMBER,
-                AppKey.KEY_PRICE}, new int[] {
+                AppKey.KEY_FILE_NAME,
+                AppKey.KEY_LAWYER_NAME,
+                AppKey.KEY_PRICE,
+                AppKey.KEY_TOTAL_TIME}, new int[] {
                 R.id.dateAndTimeTv,
-                R.id.descTv,
+                R.id.fileNameTv,
+                R.id.lawyerNameTv,
                 R.id.priceTv,
-                R.id.numberTv}, true);
+                R.id.totalTimeTv});
 
         for (int i=0; i<15; i++){
             map = new HashMap<String, String>();
 
-            map.put(AppKey.KEY_DATE_AND_TIME, "پنجشنبه 25 مهر 98 | 02:00");
-            map.put(AppKey.KEY_DESCRIPTION, "بابت درخواست شماره 1717");
-            map.put(AppKey.KEY_NUMBER, "6570");
-            map.put(AppKey.KEY_PRICE, "12000" + " " + this.getString(R.string.rials));
+            map.put(AppKey.KEY_DATE_AND_TIME, "شنبه 25 مهر 98 | 02:00");
+            map.put(AppKey.KEY_FILE_NAME, "مشکل با کارفرما");
+            map.put(AppKey.KEY_LAWYER_NAME, "علی رضایی");
+            map.put(AppKey.KEY_PRICE, "15000" + " " + this.getString(R.string.rials));
+            map.put(AppKey.KEY_TOTAL_TIME, "20" + " " + this.getString(R.string.minute));
 
             data.add(map);
         }
 
-        financialReportListView.setAdapter(financialReportListAdapter);
+        callReportListView.setAdapter(callReportListAdapter);
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
@@ -74,10 +81,6 @@ public class FinancialReportActivity extends AppCompatActivity {
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1){
             getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
         }
-    }
-
-    public void increaseCreditOnClick(View v){
-        startActivity(new Intent(this, IncreaseCreditActivity.class));
     }
 
     @Override

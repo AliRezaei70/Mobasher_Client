@@ -133,5 +133,10 @@
     <string name="desc">شرح</string>
     <string name="factor">فاکتور</string>
     <string name="transaction_num">شماره تراکنش</string>
+    <string name="totlal_calls">دقایق تماس</string>
+    <string name="request_count">تعداد درخواست‌ها</string>
+    <string name="file">پرونده</string>
+    <string name="lawyer">مشاور</string>
+    <string name="minute">دقیقه</string>
 
 </resources>

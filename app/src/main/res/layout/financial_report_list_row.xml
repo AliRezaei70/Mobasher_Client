@@ -25,7 +25,7 @@
                 android:layout_centerVertical="true"
                 android:padding="10dp"
                 android:text="پنجشنبه 25 مهر 98 | 02:00"
-                android:textColor="@color/white"
+                android:textColor="@color/white_two"
                 android:textSize="13sp" />
 
             <TextView
@@ -36,7 +36,7 @@
                 android:layout_centerVertical="true"
                 android:padding="10dp"
                 android:text="فاکتور 6570"
-                android:textColor="@color/white"
+                android:textColor="@color/white_two"
                 android:textSize="13sp" />
 
         </RelativeLayout>
@@ -45,7 +45,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white">
+            android:background="@color/white_two">
 
             <TextView
                 android:id="@+id/operationTypeTv"

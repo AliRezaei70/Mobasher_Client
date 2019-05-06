@@ -110,7 +110,7 @@
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:text="@string/finish_submit"
-        android:textColor="@color/white"
+        android:textColor="@color/white_two"
         android:onClick="loginOnClick"
         android:textStyle="bold" />
 

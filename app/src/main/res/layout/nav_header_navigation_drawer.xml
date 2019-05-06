@@ -84,7 +84,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/score"
-            android:textColor="@color/white" />
+            android:textColor="@color/white_two" />
 
         <TextView
             android:id="@+id/creditTv"
@@ -92,7 +92,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/wallet"
-            android:textColor="@color/white" />
+            android:textColor="@color/white_two" />
 
         <ImageView
             android:id="@+id/menuRefreshBtn"

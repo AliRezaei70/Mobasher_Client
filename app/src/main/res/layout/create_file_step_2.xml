@@ -47,7 +47,7 @@
             android:background="@color/coral"
             android:onClick="createFileBtnOnClick"
             android:text="@string/title_activity_create_file"
-            android:textColor="@color/white" />
+            android:textColor="@color/white_two" />
 
     </RelativeLayout>
 </LinearLayout>

@@ -20,5 +20,8 @@ public class AppKey {
     public static final String KEY_DATE_AND_TIME= "dateAndTime";
     public static final String KEY_DESCRIPTION = "desc";
     public static final String KEY_NUMBER = "number";
+    public static final String KEY_TOTAL_TIME = "time";
+    public static final String KEY_FILE_NAME = "fileName";
+    public static final String KEY_LAWYER_NAME = "lawyerName";
 
 }

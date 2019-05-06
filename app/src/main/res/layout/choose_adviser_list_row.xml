@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
-    android:background="@color/white"
+    android:background="@color/white_two"
     android:orientation="vertical">
 
     <LinearLayout
@@ -168,7 +168,7 @@
             android:minHeight="30dp"
             android:padding="10dp"
             android:text="@string/connect"
-            android:textColor="@color/white" />
+            android:textColor="@color/white_two" />
 
     </RelativeLayout>
 
