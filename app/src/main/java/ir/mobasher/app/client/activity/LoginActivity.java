@@ -88,6 +88,7 @@ public class LoginActivity extends AppCompatActivity implements TextView.OnEdito
     private EditText validationCodeEt;
     private ProgressBarManager progressBarManager;
     private SharedPreferences.Editor settingsPrefEditor;
+    TelephonyManager telephonyManager;
 
     private static final String TAG = LoginActivity.class.getSimpleName();
 
@@ -116,6 +117,8 @@ public class LoginActivity extends AppCompatActivity implements TextView.OnEdito
         phoneNumEt = (EditText) findViewById(R.id.phoneNumEt);
         showPhoneNumTv = (TextView) findViewById(R.id.showPhoneNumTv);
         timmerTv = (TextView) findViewById(R.id.timmerTv);
+
+        deviceId();
 
         progressBarManager = new ProgressBarManager();
 
@@ -200,10 +203,11 @@ public class LoginActivity extends AppCompatActivity implements TextView.OnEdito
             String clientId = settingsPref.getString(Config.CLIENT_ID, Config.DEFAULT_STRING_NO_THING_FOUND);
 
             TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
-           // String deviceId = telephonyManager.getDeviceId();
+
 
 
             String fireBaseId = settingsPref.getString(Config.FIRE_BASE_ID, Config.DEFAULT_STRING_NO_THING_FOUND);
+            String imei = settingsPref.getString(Config.IMEI, Config.DEFAULT_STRING_NO_THING_FOUND);
 
             ClientProfile cp = new ClientProfile();
             cp.setClientId(clientId);
@@ -213,10 +217,39 @@ public class LoginActivity extends AppCompatActivity implements TextView.OnEdito
             cp.setEmail(email);
             cp.setFirebaseid(fireBaseId);
             cp.setRegisterationcomplete(true);
-            cp.setImei("sdfas");
+            cp.setImei(imei);
 
             progressBarManager.showProgress((ProgressBar) mProgressView, this);
             registerUser(cp);
+        }
+    }
+
+    private void deviceId() {
+        telephonyManager = (TelephonyManager) getSystemService(this.TELEPHONY_SERVICE);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_PHONE_STATE}, 101);
+            return;
+        }
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults){
+        switch (requestCode) {
+            case 101:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_PHONE_STATE}, 101);
+                        return;
+                    }
+                    String imeiNumber = telephonyManager.getDeviceId();
+                   // Toast.makeText(this,imeiNumber,Toast.LENGTH_LONG).show();
+                    settingsPrefEditor.putString(Config.IMEI, imeiNumber).commit();
+                } else {
+                    Toast.makeText(this,"Without permission we check",Toast.LENGTH_LONG).show();
+                    finish();
+                }
+                break;
+            default:
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
 
@@ -416,30 +449,6 @@ public class LoginActivity extends AppCompatActivity implements TextView.OnEdito
         }
         return false;
     }
-
-    //old
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        try {
-//            if (resultCode == RESULT_OK) {
-//                if (requestCode == Config.REQUEST_GET_SINGLE_FILE) {
-//                    Uri selectedImageUri = data.getData();
-//                    // Get the path from the Uri
-//                    final String path = getPathFromURI(selectedImageUri);
-//                    if (path != null) {
-//                        File f = new File(path);
-//                        selectedImageUri = Uri.fromFile(f);
-//                    }
-//                    // Set the image in ImageView
-//                    CircularImageView profileImageView = (CircularImageView) findViewById(R.id.profileImageView);
-//                    profileImageView.setImageURI(selectedImageUri);
-//                }
-//            }
-//        } catch (Exception e) {
-//            Log.e("FileSelectorActivity", "File select error", e);
-//        }
-//    }
 
     public String getPathFromURI(Uri contentUri) {
         String res = null;

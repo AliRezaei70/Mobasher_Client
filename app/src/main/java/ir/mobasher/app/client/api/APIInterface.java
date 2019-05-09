@@ -34,4 +34,7 @@ public interface APIInterface {
     @POST("/api/v1/clients/profile")
     Call<GetProfileSuccessResponse> getProfile(@Field("clientid") String clientId);
 
+    @FormUrlEncoded
+    @POST("/api/v1/clients/auth/signout")
+    Call<GetProfileSuccessResponse> signOut(@Field("mobilenumber") String mobileNumber);
 }
