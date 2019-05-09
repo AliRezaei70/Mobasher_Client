@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
-        //displayFirebaseRegId();
+       // displayFirebaseRegId();
         launch();
     }
 
@@ -90,10 +90,11 @@ public class MainActivity extends AppCompatActivity {
     // Fetches reg id from shared preferences
     // and displays on the screen
     private void displayFirebaseRegId() {
-        SharedPreferences pref = getApplicationContext().getSharedPreferences(Config.SHARED_PREF, 0);
-        String regId = pref.getString("regId", null);
+        SharedPreferences pref = getApplicationContext().getSharedPreferences(Config.SETTINGS_SHARED_PREF, 0);
+        String regId = pref.getString(Config.FIRE_BASE_ID, null);
 
         Log.e(TAG, "Firebase reg id: " + regId);
+        Toast.makeText(getBaseContext(), regId, Toast.LENGTH_SHORT).show();
 
         if (!TextUtils.isEmpty(regId))
             txtRegId.setText("Firebase Reg Id: " + regId);

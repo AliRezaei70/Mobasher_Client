@@ -11,9 +11,15 @@ public class ClientProfile {
     @SerializedName("email")
     @Expose
     private String email;
+    @SerializedName("firebaseid")
+    @Expose
+    private String firebaseid;
     @SerializedName("firstName")
     @Expose
     private String firstName;
+    @SerializedName("imei")
+    @Expose
+    private String imei;
     @SerializedName("lastName")
     @Expose
     private String lastName;
@@ -40,12 +46,28 @@ public class ClientProfile {
         this.email = email;
     }
 
+    public String getFirebaseid() {
+        return firebaseid;
+    }
+
+    public void setFirebaseid(String firebaseid) {
+        this.firebaseid = firebaseid;
+    }
+
     public String getFirstName() {
         return firstName;
     }
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
+    }
+
+    public String getImei() {
+        return imei;
+    }
+
+    public void setImei(String imei) {
+        this.imei = imei;
     }
 
     public String getLastName() {

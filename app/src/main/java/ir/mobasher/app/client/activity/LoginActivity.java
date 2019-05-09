@@ -1,17 +1,21 @@
 package ir.mobasher.app.client.activity;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.CountDownTimer;
 import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -23,6 +27,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -32,9 +37,11 @@ import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.mikhaellopez.circularimageview.CircularImageView;
+
 import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+
 import butterknife.ButterKnife;
 import ir.mobasher.app.client.R;
 import ir.mobasher.app.client.api.APIInterface;
@@ -53,6 +60,7 @@ import ir.mobasher.app.client.network.RetrofitClientInstance;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.provider.Settings;
@@ -128,9 +136,8 @@ public class LoginActivity extends AppCompatActivity implements TextView.OnEdito
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
-    private void forceRTLIfSupported()
-    {
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1){
+    private void forceRTLIfSupported() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
         }
     }
@@ -151,7 +158,6 @@ public class LoginActivity extends AppCompatActivity implements TextView.OnEdito
         String email = emailEt.getText().toString();
 
         View focusView = null;
-
 
 
         // Check for a valid userName address.
@@ -193,13 +199,21 @@ public class LoginActivity extends AppCompatActivity implements TextView.OnEdito
             SharedPreferences settingsPref = getSharedPreferences(Config.SETTINGS_SHARED_PREF, MODE_PRIVATE);
             String clientId = settingsPref.getString(Config.CLIENT_ID, Config.DEFAULT_STRING_NO_THING_FOUND);
 
+            TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+           // String deviceId = telephonyManager.getDeviceId();
+
+
+            String fireBaseId = settingsPref.getString(Config.FIRE_BASE_ID, Config.DEFAULT_STRING_NO_THING_FOUND);
+
             ClientProfile cp = new ClientProfile();
             cp.setClientId(clientId);
             cp.setFirstName(name);
             cp.setLastName(family);
             cp.setUserName(username);
             cp.setEmail(email);
+            cp.setFirebaseid(fireBaseId);
             cp.setRegisterationcomplete(true);
+            cp.setImei("sdfas");
 
             progressBarManager.showProgress((ProgressBar) mProgressView, this);
             registerUser(cp);
@@ -517,9 +531,21 @@ public class LoginActivity extends AppCompatActivity implements TextView.OnEdito
                     settingsPrefEditor.putString(Config.JWT_TOKEN, jwtResponse.getToken());
                     settingsPrefEditor.commit();
 
-                    loginForm1.setVisibility(View.GONE);
-                    loginForm2.setVisibility(View.GONE);
-                    loginForm3.setVisibility(View.VISIBLE);
+                    boolean isRegistrationCompelete = validationResponse.getRegisterationcomplete();
+
+                    if (!isRegistrationCompelete){
+                        loginForm1.setVisibility(View.GONE);
+                        loginForm2.setVisibility(View.GONE);
+                        loginForm3.setVisibility(View.VISIBLE);
+                    }else {
+                        settingsPrefEditor.putBoolean(Config.IS_LOGIN, true).commit();
+
+                        Intent i = new Intent(LoginActivity.this, HomeActivity.class);
+                        startActivity(i);
+                        finish();
+                    }
+
+
                 }else {
                     Gson gson = new GsonBuilder().create();
                     ValidationErrorResponse errorResponse = new ValidationErrorResponse();

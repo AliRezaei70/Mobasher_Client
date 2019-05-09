@@ -20,12 +20,14 @@ public class Config {
 
     public static final String SETTINGS_SHARED_PREF = "settings_pref";
     public static final String FIRST_RUN = "firstRun";
+    public static final String FIRE_BASE_ID = "fireBaseID";
     public static final String IS_LOGIN = "isLogin";
-    public static final String CLIENT_ID = "userId";
+    public static final String CLIENT_ID = "clientId";
     public static final String MOBILE_NUMBER = "mobileNum";
     public static final String WALLET_ID = "walletId";
     public static final String JWT_TOKEN = "jwtToken";
     public static final String DEFAULT_STRING_NO_THING_FOUND = "defaultStringNoThingFound";
+    public static final String USER_ID = "userId";
 
     public static final int REQUEST_IMAGE = 300;
 

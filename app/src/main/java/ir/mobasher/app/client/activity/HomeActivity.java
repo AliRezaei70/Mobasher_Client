@@ -64,6 +64,7 @@ public class HomeActivity extends AppCompatActivity
     TextView phoneNumTv;
     ProgressBarManager progressBarManager;
     View mProgressView;
+    SharedPreferences settingsPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,7 +115,7 @@ public class HomeActivity extends AppCompatActivity
 
         mProgressView = findViewById(R.id.home_progress);
 
-        SharedPreferences settingsPref = getSharedPreferences(Config.SETTINGS_SHARED_PREF, MODE_PRIVATE);
+        settingsPref = getSharedPreferences(Config.SETTINGS_SHARED_PREF, MODE_PRIVATE);
         String clientId = settingsPref.getString(Config.CLIENT_ID, Config.DEFAULT_STRING_NO_THING_FOUND);
 
         initProfile(clientId);
@@ -280,10 +281,15 @@ public class HomeActivity extends AppCompatActivity
                     GetProfileSuccessResponse getProfileResponse = response.body();
                     Log.i(AppTags.GET_PROFILE_RESPONSE, getProfileResponse.getMessage());
 
-                    scoreTv.setText(HomeActivity.this.getString(R.string.score) + " " + 6570);
+                    scoreTv.setText(HomeActivity.this.getString(R.string.score) + " " + 6570);/**/
                     creditTv.setText(HomeActivity.this.getString(R.string.wallet) + " " + 50000);
                     userNameTv.setText(getProfileResponse.getFirstName() + " " + getProfileResponse.getLastName());
                     phoneNumTv.setText(getProfileResponse.getMobileNumber());
+
+                    settingsPref.edit().putString(Config.MOBILE_NUMBER, getProfileResponse.getMobileNumber()+"").commit();
+
+
+
                 }else {
                     Gson gson = new GsonBuilder().create();
                     GetProfileErrorResponse errorResponse = new GetProfileErrorResponse();
