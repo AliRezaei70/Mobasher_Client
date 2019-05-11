@@ -4,23 +4,33 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class GetProfileSuccessResponse {
+
     @SerializedName("status")
+    @Expose
     private Integer status;
     @SerializedName("message")
+    @Expose
     private String message;
     @SerializedName("active")
+    @Expose
     private Boolean active;
     @SerializedName("clientId")
+    @Expose
     private String clientId;
     @SerializedName("firstName")
+    @Expose
     private String firstName;
     @SerializedName("lastName")
+    @Expose
     private String lastName;
     @SerializedName("score")
+    @Expose
     private Integer score;
     @SerializedName("mobileNumber")
+    @Expose
     private Integer mobileNumber;
     @SerializedName("walletId")
+    @Expose
     private String walletId;
 
     public Integer getStatus() {
@@ -94,5 +104,4 @@ public class GetProfileSuccessResponse {
     public void setWalletId(String walletId) {
         this.walletId = walletId;
     }
-
 }
