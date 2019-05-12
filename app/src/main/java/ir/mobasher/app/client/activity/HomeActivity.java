@@ -251,7 +251,7 @@ public class HomeActivity extends AppCompatActivity
             startActivity(new Intent(this, IncreaseCreditActivity.class));
 
         } else if (id == R.id.invite) {
-
+            startActivity(new Intent(this, ShareActivity.class));
         } else if (id == R.id.discount_code) {
 
         } else if (id == R.id.help_usage) {

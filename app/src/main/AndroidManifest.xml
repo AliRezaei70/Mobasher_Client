@@ -19,9 +19,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.CallReportActivity"
+        <activity android:name=".activity.ShareActivity"
+            android:label="@string/share"
+            android:theme="@style/AppTheme.NoActionBar" ></activity>
+        <activity
+            android:name=".activity.CallReportActivity"
             android:label="@string/call_report"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.FinancialReportActivity"
             android:label="@string/finacial_report"
@@ -104,7 +108,7 @@
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" /> <!-- cache directory file provider paths -->
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar" /> <!-- cache directory file provider paths -->
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="${applicationId}.provider"

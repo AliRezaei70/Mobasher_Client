@@ -113,6 +113,7 @@
     <string name="recent_consultant"> درخواست از مشاورین قبلی </string>
     <string name="faivorites_consultant">درخواست از مشاورین محبوب</string>
     <string name="share">اشتراک گذاری</string>
+    <string name="share_using">اشتراک گذاری با</string>
     <string name="consulting">درخواست مشاوره حضوری</string>
     <string name="select_adviser_types">حوزه مشاور را انتخاب نمایید</string>
 
