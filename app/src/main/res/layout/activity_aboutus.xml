@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.RulesActivity">
+    tools:context=".activity.AboutUsActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -24,12 +24,13 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="110dp">
+            android:layout_marginBottom="?attr/actionBarSize">
 
             <TextView
+                android:paddingTop="10dp"
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
-                android:gravity="top"
+                android:gravity="center_vertical"
                 android:id="@+id/aboutUsTv"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

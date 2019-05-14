@@ -15,19 +15,20 @@ import ir.mobasher.app.client.R;
 
 public class AboutUsActivity  extends AppCompatActivity {
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_rules);
+        setContentView(R.layout.activity_aboutus);
         Toolbar toolbar = (Toolbar) findViewById(R.id.aboutUsToolbar);
         setSupportActionBar(toolbar);
+        this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         forceRTLIfSupported();
 
         TextView aboutUsTv = (TextView) findViewById(R.id.aboutUsTv);
         InputStream input = null;
         try {
-            input = getAssets().open("rules.txt");
+            input = getAssets().open("aboutus.txt");
             int size = input.available();
             byte[] buffer = new byte[size];
             input.read(buffer);
@@ -55,5 +56,12 @@ public class AboutUsActivity  extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         finish();
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return super.onSupportNavigateUp();
+
     }
 }

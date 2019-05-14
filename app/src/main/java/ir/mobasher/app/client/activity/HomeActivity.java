@@ -253,14 +253,15 @@ public class HomeActivity extends AppCompatActivity
         } else if (id == R.id.invite) {
             startActivity(new Intent(this, ShareActivity.class));
         } else if (id == R.id.discount_code) {
-
+            startActivity(new Intent(this, DiscontCodeActivity.class));
         } else if (id == R.id.help_usage) {
             startActivity(new Intent(this, HelpActivity.class));
 
         } else if (id == R.id.about_us) {
-
+            startActivity(new Intent(this, AboutUsActivity.class));
         } else if (id == R.id.exit) {
-
+            settingsPref.edit().putBoolean(Config.IS_LOGIN, false).commit();
+            finish();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
