@@ -3,7 +3,6 @@ package ir.mobasher.app.client.adapter;
 import java.util.HashMap;
 import java.util.List;
 import android.content.Context;
-import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,20 +14,21 @@ import ir.mobasher.app.client.R;
 public class AdviserTypesExpandableListAdapter extends BaseExpandableListAdapter {
 
     private Context _context;
-    private List<String> listDataParent; // header titles
+    private List<String> parentList; // header titles
     // child data in format of header title, child title
-    private HashMap<String, List<String>> listDataChild;
+    private HashMap<String, List<String>> childList;
+    HashMap<String, List<String>> childAdviseTypeId;
 
-    public AdviserTypesExpandableListAdapter(Context context, List<String> listDataHeader,
-                                             HashMap<String, List<String>> listChildData) {
+    public AdviserTypesExpandableListAdapter(Context context, List<String> parent, HashMap<String, List<String>> child, HashMap<String, List<String>> childAdviseTypeId) {
         this._context = context;
-        this.listDataParent = listDataHeader;
-        this.listDataChild = listChildData;
+        this.parentList = parent;
+        this.childList = child;
+        this.childAdviseTypeId = childAdviseTypeId;
     }
 
     @Override
     public Object getChild(int groupPosition, int childPosititon) {
-        return this.listDataChild.get(this.listDataParent.get(groupPosition))
+        return this.childList.get(this.parentList.get(groupPosition))
                 .get(childPosititon);
     }
 
@@ -49,8 +49,7 @@ public class AdviserTypesExpandableListAdapter extends BaseExpandableListAdapter
             convertView = infalInflater.inflate(R.layout.adviser_types_child, null);
         }
 
-        TextView txtListChild = (TextView) convertView
-                .findViewById(R.id.adviserTypesChild);
+        TextView txtListChild = (TextView) convertView.findViewById(R.id.adviserTypesChild);
 
         txtListChild.setText(childText);
         return convertView;
@@ -58,18 +57,18 @@ public class AdviserTypesExpandableListAdapter extends BaseExpandableListAdapter
 
     @Override
     public int getChildrenCount(int groupPosition) {
-        return this.listDataChild.get(this.listDataParent.get(groupPosition))
+        return this.childList.get(this.parentList.get(groupPosition))
                 .size();
     }
 
     @Override
     public Object getGroup(int groupPosition) {
-        return this.listDataParent.get(groupPosition);
+        return this.parentList.get(groupPosition);
     }
 
     @Override
     public int getGroupCount() {
-        return this.listDataParent.size();
+        return this.parentList.size();
     }
 
     @Override

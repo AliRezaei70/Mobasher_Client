@@ -16,6 +16,14 @@ import java.util.HashMap;
 import java.util.List;
 import ir.mobasher.app.client.R;
 import ir.mobasher.app.client.adapter.AdviserTypesExpandableListAdapter;
+import ir.mobasher.app.client.api.APIInterface;
+import ir.mobasher.app.client.api.adviseType.AdviseTypeParents;
+import ir.mobasher.app.client.api.adviseType.AdviseTypeChild;
+import ir.mobasher.app.client.api.adviseType.AdviseType;
+import ir.mobasher.app.client.network.RetrofitClientInstance;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class AdviserRequestActivity extends AppCompatActivity {
 
@@ -23,7 +31,10 @@ public class AdviserRequestActivity extends AppCompatActivity {
     ExpandableListView expListView;
     List<String> listDataHeader;
     HashMap<String, List<String>> listDataChild;
+    HashMap<String, List<String>> listDataId;
     private int lastExpandedPosition = -1;
+    private AdviseType adviseTypeList;
+    private List<AdviseTypeParents> parents;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -38,9 +49,71 @@ public class AdviserRequestActivity extends AppCompatActivity {
         expListView = (ExpandableListView) findViewById(R.id.adviserTypesExpList);
 
         // preparing list data
-        prepareListData();
+       // prepareListData();
 
-        listAdapter = new AdviserTypesExpandableListAdapter(this, listDataHeader, listDataChild);
+        getAdviseTypes();
+
+     }
+
+    private void prepareListData() {
+
+        listDataHeader = new ArrayList<String>();
+        listDataChild = new HashMap<String, List<String>>();
+        listDataId = new HashMap<String, List<String>>();
+
+//        // Adding child data
+//        listDataHeader.add("Top 250");
+//        listDataHeader.add("Now Showing");
+//        listDataHeader.add("Coming Soon..");
+//
+//        // Adding child data
+//        List<String> top250 = new ArrayList<String>();
+//        top250.add("The Shawshank Redemption");
+//        top250.add("The Godfather");
+//        top250.add("The Godfather: Part II");
+//        top250.add("Pulp Fiction");
+//        top250.add("The Good, the Bad and the Ugly");
+//        top250.add("The Dark Knight");
+//        top250.add("12 Angry Men");
+//
+//        List<String> nowShowing = new ArrayList<String>();
+//        nowShowing.add("The Conjuring");
+//        nowShowing.add("Despicable Me 2");
+//        nowShowing.add("Turbo");
+//        nowShowing.add("Grown Ups 2");
+//        nowShowing.add("Red 2");
+//        nowShowing.add("The Wolverine");
+//
+//        List<String> comingSoon = new ArrayList<String>();
+//        comingSoon.add("2 Guns");
+//        comingSoon.add("The Smurfs 2");
+//        comingSoon.add("The Spectacular Now");
+//        comingSoon.add("The Canyons");
+//        comingSoon.add("Europa Report");
+//
+//        listDataChild.put(listDataHeader.get(0), top250); // Header, Child data
+//        listDataChild.put(listDataHeader.get(1), nowShowing);
+//        listDataChild.put(listDataHeader.get(2), comingSoon);
+
+        parents = adviseTypeList.getData();
+
+        for (int i = 0; i < parents.size(); i++) {
+            listDataHeader.add(parents.get(i).getName());
+            List<AdviseTypeChild> child = parents.get(i).getData();
+            List<String> childsName = new ArrayList<String>();
+            List<String> childAdviseTypeId = new ArrayList<String>();
+            for (int j = 0 ; j < child.size(); j++) {
+                childsName.add(child.get(j).getName());
+                childAdviseTypeId.add(child.get(j).getAdviceTypeId());
+            }
+
+            listDataChild.put(listDataHeader.get(i), childsName);
+            listDataId.put(listDataHeader.get(i), childAdviseTypeId);
+
+        }
+
+
+        listAdapter = new AdviserTypesExpandableListAdapter(this, listDataHeader, listDataChild, listDataId);
 
         // setting list adapter
         expListView.setAdapter(listAdapter);
@@ -64,8 +137,10 @@ public class AdviserRequestActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),
                         listDataHeader.get(groupPosition)
                                 + " : "
-                                + listDataChild.get(listDataHeader.get(groupPosition)).get(
-                                childPosition), Toast.LENGTH_SHORT)
+                                + listDataChild.get(listDataHeader.get(groupPosition)).get(childPosition)
+                                + " : "
+                                + listDataId.get(listDataHeader.get(groupPosition)).get(childPosition)
+                                , Toast.LENGTH_SHORT)
                         .show();
 
                 Intent i = new Intent(AdviserRequestActivity.this, WaitForRequestActivity.class);
@@ -74,47 +149,6 @@ public class AdviserRequestActivity extends AppCompatActivity {
                 return false;
             }
         });
-
-
-    }
-
-    private void prepareListData() {
-        listDataHeader = new ArrayList<String>();
-        listDataChild = new HashMap<String, List<String>>();
-
-        // Adding child data
-        listDataHeader.add("Top 250");
-        listDataHeader.add("Now Showing");
-        listDataHeader.add("Coming Soon..");
-
-        // Adding child data
-        List<String> top250 = new ArrayList<String>();
-        top250.add("The Shawshank Redemption");
-        top250.add("The Godfather");
-        top250.add("The Godfather: Part II");
-        top250.add("Pulp Fiction");
-        top250.add("The Good, the Bad and the Ugly");
-        top250.add("The Dark Knight");
-        top250.add("12 Angry Men");
-
-        List<String> nowShowing = new ArrayList<String>();
-        nowShowing.add("The Conjuring");
-        nowShowing.add("Despicable Me 2");
-        nowShowing.add("Turbo");
-        nowShowing.add("Grown Ups 2");
-        nowShowing.add("Red 2");
-        nowShowing.add("The Wolverine");
-
-        List<String> comingSoon = new ArrayList<String>();
-        comingSoon.add("2 Guns");
-        comingSoon.add("The Smurfs 2");
-        comingSoon.add("The Spectacular Now");
-        comingSoon.add("The Canyons");
-        comingSoon.add("Europa Report");
-
-        listDataChild.put(listDataHeader.get(0), top250); // Header, Child data
-        listDataChild.put(listDataHeader.get(1), nowShowing);
-        listDataChild.put(listDataHeader.get(2), comingSoon);
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
@@ -129,6 +163,29 @@ public class AdviserRequestActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         finish();
+    }
+
+    public void getAdviseTypes(){
+        APIInterface service = RetrofitClientInstance.getRetrofitInstance().create(APIInterface.class);
+        Call<AdviseType> responseCall = service.getAdviseTypes();
+
+        responseCall.enqueue(new Callback<AdviseType>() {
+            @Override
+            public void onResponse(Call<AdviseType> call, Response<AdviseType> response) {
+                if (response.isSuccessful()){
+                    adviseTypeList = response.body();
+                    prepareListData();
+
+                }else {
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AdviseType> call, Throwable t) {
+
+            }
+        });
     }
 }
 

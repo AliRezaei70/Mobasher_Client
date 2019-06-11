@@ -1,5 +1,6 @@
 package ir.mobasher.app.client.api;
 
+import ir.mobasher.app.client.api.adviseType.AdviseType;
 import ir.mobasher.app.client.api.clientProfile.CreateClientProfileSuccessResponse;
 import ir.mobasher.app.client.api.clientProfile.GetProfileSuccessResponse;
 import ir.mobasher.app.client.api.login.LoginSuccessResponse;
@@ -9,6 +10,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 public interface APIInterface {
@@ -37,4 +39,7 @@ public interface APIInterface {
     @FormUrlEncoded
     @POST("/api/v1/clients/auth/signout")
     Call<GetProfileSuccessResponse> signOut(@Field("mobilenumber") String mobileNumber);
+
+    @GET("/api/v1/advicetypes/tree")
+    Call<AdviseType> getAdviseTypes();
 }

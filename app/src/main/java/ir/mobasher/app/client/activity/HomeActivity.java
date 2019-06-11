@@ -26,14 +26,11 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.mikhaellopez.circularimageview.CircularImageView;
-
 import java.io.IOException;
-
 import ir.mobasher.app.client.R;
 import ir.mobasher.app.client.adapter.FinancialReportListAdapter;
 import ir.mobasher.app.client.api.APIInterface;

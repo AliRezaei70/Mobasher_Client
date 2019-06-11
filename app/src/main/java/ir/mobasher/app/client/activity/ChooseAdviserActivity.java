@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.HashMap;
+
 import ir.mobasher.app.client.R;
 import ir.mobasher.app.client.adapter.ChooseAdviserAdapter;
 import ir.mobasher.app.client.app.AppKey;
@@ -93,4 +94,6 @@ public class ChooseAdviserActivity extends AppCompatActivity {
         super.onBackPressed();
         finish();
     }
+
+
 }
