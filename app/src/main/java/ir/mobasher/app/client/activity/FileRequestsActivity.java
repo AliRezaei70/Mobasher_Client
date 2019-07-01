@@ -49,6 +49,8 @@ public class FileRequestsActivity extends AppCompatActivity implements View.OnCl
         switch (v.getId()) {
             case R.id.viewFileLayout:
                 Toast.makeText(this, getText(R.string.view_file), Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(this, FilePreviewActivity.class));
+
                 return;
             case R.id.phoneConsultantLayout:
                 Intent i = new Intent(this, AdviserRequestActivity.class);

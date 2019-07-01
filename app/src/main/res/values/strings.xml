@@ -140,5 +140,8 @@
     <string name="file">پرونده</string>
     <string name="lawyer">مشاور</string>
     <string name="minute">دقیقه</string>
+    <string name="title_activity_file_preview">FilePreviewActivity</string>
+
+    <string name="preiview_file">مشاهده پرونده</string>
 
 </resources>
