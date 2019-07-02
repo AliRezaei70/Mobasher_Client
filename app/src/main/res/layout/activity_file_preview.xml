@@ -22,12 +22,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:tabMode="fixed"
-            app:tabGravity="fill"/>
+            android:background="@color/white_two"
+            app:tabGravity="fill"
+            app:tabIndicatorColor="@color/reddish"
+            app:tabTextColor="@color/black"
+            app:tabSelectedTextColor="@color/reddish"/>
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layoutDirection="rtl"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"  />
 </android.support.design.widget.CoordinatorLayout>

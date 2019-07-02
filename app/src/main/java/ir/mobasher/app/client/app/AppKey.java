@@ -16,6 +16,7 @@ public class AppKey {
     public static final String KEY_PRICE = "price";
     public static final String KEY_STATUS = "status";
     public static final String KEY_IS_ONLINE = "isOnline";
+    public static final String KEY_COMMENT = "comment";
 
     public static final String KEY_DATE_AND_TIME= "dateAndTime";
     public static final String KEY_DESCRIPTION = "desc";

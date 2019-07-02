@@ -3,13 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.DocumentsFragment">
+    tools:context=".fragments.LaywerDocsFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/docs"
-        android:gravity="center"/>
+        android:text="@string/lawyer_docs"
+        android:gravity="center" />
 
 </FrameLayout>

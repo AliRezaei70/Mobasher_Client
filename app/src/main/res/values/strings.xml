@@ -144,4 +144,13 @@
 
     <string name="preiview_file">مشاهده پرونده</string>
 
+    <string name="discription">توضیحات</string>
+    <string name="docs">مستندات</string>
+    <string name="lawyer_docs">مستندات مشاور</string>
+    <string name="lawyer_comment">نظر مشاور</string>
+
+    <string name="sample_comment">
+        مشاور حقوقی با دانشی که به قوانین و اصول حقوقی دارد می تواند کمک شایانی به سازمان ها، ادارات و شرکت های خصوصی داشته باشد. مدیران و کسانی که صاحب نفع در آن سازمان می باشند
+    </string>
+
 </resources>
