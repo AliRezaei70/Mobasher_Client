@@ -58,11 +58,13 @@ public class FilePreviewActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new DiscriptionFragment(), this.getString(R.string.discription));
-        adapter.addFragment(new DocumentsFragment(), this.getString(R.string.docs));
-        adapter.addFragment(new LaywerDocsFragment(), this.getString(R.string.lawyer_docs));
         adapter.addFragment(new LawyerCommentFragment(), this.getString(R.string.lawyer_comment));
+        adapter.addFragment(new LaywerDocsFragment(), this.getString(R.string.lawyer_docs));
+        adapter.addFragment(new DocumentsFragment(), this.getString(R.string.docs));
+        adapter.addFragment(new DiscriptionFragment(), this.getString(R.string.discription));
+
         viewPager.setAdapter(adapter);
+        viewPager.setCurrentItem(adapter.getCount()-1);
     }
 
     class ViewPagerAdapter extends FragmentPagerAdapter {
