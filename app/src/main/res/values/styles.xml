@@ -39,4 +39,9 @@
         <item name="android:textColorPrimary">@color/black</item>
     </style>
 
+    <style name="RatingBar" parent="Theme.AppCompat">
+        <item name="colorAccent">@color/sun_yellow</item>
+        <item name="colorControlNormal">@color/white</item>
+    </style>
+
 </resources>

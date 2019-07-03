@@ -37,4 +37,6 @@
     <color name="navigationBarColor">#000000</color>
     <!--tab layout style-->
 
+    <color name="sun_yellow">#ffca28</color>
+
 </resources>

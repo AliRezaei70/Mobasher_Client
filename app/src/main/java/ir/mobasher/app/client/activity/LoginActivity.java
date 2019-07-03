@@ -16,7 +16,9 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -108,6 +110,26 @@ public class LoginActivity extends AppCompatActivity implements TextView.OnEdito
 
         validationCodeEt = (EditText) findViewById(R.id.validationCodeEt);
         validationCodeEt.setOnEditorActionListener(this);
+        validationCodeEt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (count == 5){
+                    progressBarManager.showProgress((ProgressBar) mProgressView, LoginActivity.this);
+
+                    validateUser(validationCodeEt.getText().toString());
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
 
         mProgressView = findViewById(R.id.login_progress);
 

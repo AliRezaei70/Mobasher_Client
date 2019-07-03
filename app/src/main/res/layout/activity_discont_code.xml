@@ -48,7 +48,7 @@
             android:singleLine="true"
             android:padding="10dp"
             android:gravity="center"
-            android:hint="@string/rials"/>
+            android:hint="@string/enter"/>
 
         <Button
             android:layout_marginTop="20dp"
