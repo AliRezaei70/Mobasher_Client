@@ -30,6 +30,7 @@
     <color name="reddish">#c14242</color>
     <color name="dark_blue_grey">#10273b</color>
     <color name="mid_blue">#22659e</color>
+    <color name="dusk_blue">#204e75</color>
 
     <!--tab layout style-->
     <color name="textColorPrimary">#FFFFFF</color>

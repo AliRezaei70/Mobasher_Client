@@ -142,7 +142,8 @@ public class HelpActivity extends AppCompatActivity {
         if (isLogin == true) {
             finish();
         }else {
-            startActivity(new Intent(this, LoginActivity.class));
+            //startActivity(new Intent(this, LoginActivity.class));
+            startActivity(new Intent(this, HomeActivity.class));
             finish();
         }
 

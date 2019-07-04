@@ -25,4 +25,11 @@ public class AppKey {
     public static final String KEY_FILE_NAME = "fileName";
     public static final String KEY_LAWYER_NAME = "lawyerName";
 
+    public static final String KEY_REQ_FROM_PREVIOUS_OR_FAVORITES = "reqFrmPrevOrFav";
+    public static final String KEY_REQ_FROM_FAVORITES = "reqFromFav";
+    public static final String KEY_REQ_FROM_PREVIOUS = "reqFrmPrev";
+    public static final String KEY_SELECT_OR_DESELECT = "selectOrDeselect";
+    public static final String KEY_SELECT = "select";
+    public static final String KEY_DESELECT = "deselect";
+
 }

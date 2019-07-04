@@ -40,8 +40,8 @@
     </style>
 
     <style name="RatingBar" parent="Theme.AppCompat">
-        <item name="colorAccent">@color/sun_yellow</item>
-        <item name="colorControlNormal">@color/white</item>
+        <item name="colorAccent">@color/white</item>
+        <item name="colorControlNormal">@color/sun_yellow</item>
     </style>
 
 </resources>

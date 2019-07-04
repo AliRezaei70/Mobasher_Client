@@ -124,6 +124,8 @@
     <string name="cancel_request">لغو درخواست</string>
     <string name="choose_adviser">انتخاب مشاور</string>
     <string name="connect">ارتباط</string>
+    <string name="select">انتخاب</string>
+    <string name="deselect">عدم انتخاب</string>
     <string name="credit_cash">مبلغ افزایش اعتبار</string>
     <string name="rials">ریال</string>
     <string name="connect_to_bank_and_pay">اتصال به بانک و پرداخت آنلاین</string>
@@ -154,5 +156,7 @@
     </string>
 
     <string name="enter">وارد نمایید ...</string>
+    <string name="req_from_favorites_advisers">درخواست از مشاورین محبوب</string>
+    <string name="req_from_previous_advisers">درخواست از مشاورین قبلی</string>
 
 </resources>

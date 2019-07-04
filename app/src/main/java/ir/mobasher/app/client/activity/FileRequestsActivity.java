@@ -48,7 +48,7 @@ public class FileRequestsActivity extends AppCompatActivity implements View.OnCl
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.viewFileLayout:
-                Toast.makeText(this, getText(R.string.view_file), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, getText(R.string.view_file), Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(this, FilePreviewActivity.class));
 
                 return;
@@ -58,10 +58,12 @@ public class FileRequestsActivity extends AppCompatActivity implements View.OnCl
                 finish();
                 return;
             case R.id.recentConsultantLayout:
-                Toast.makeText(this, getText(R.string.recent_consultant), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, getText(R.string.recent_consultant), Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(this, RequestFromAdvisersActivity.class).putExtra(AppKey.KEY_REQ_FROM_PREVIOUS_OR_FAVORITES,AppKey.KEY_REQ_FROM_PREVIOUS));
                 return;
             case R.id.faivoritesConsultantLayout:
-                Toast.makeText(this, getText(R.string.faivorites_consultant), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, getText(R.string.faivorites_consultant), Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(this, RequestFromAdvisersActivity.class).putExtra(AppKey.KEY_REQ_FROM_PREVIOUS_OR_FAVORITES,AppKey.KEY_REQ_FROM_FAVORITES));
                 return;
 
         }
