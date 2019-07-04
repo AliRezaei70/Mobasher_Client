@@ -20,36 +20,58 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activity.RequestFromAdvisersActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:label="@string/req_from_favorites_advisers"></activity>
+        <activity
+            android:name=".activity.SendFeedbackActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".activity.RequestFromAdvisersActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/req_from_favorites_advisers"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.FilePreviewActivity"
+            android:configChanges="orientation|keyboardHidden"
             android:label="@string/title_activity_file_preview"
+            android:screenOrientation="portrait"
             android:theme="@style/MyMaterialTheme" />
         <activity
             android:name=".activity.DiscontCodeActivity"
+            android:configChanges="orientation|keyboardHidden"
             android:label="@string/discount_code"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.ShareActivity"
+            android:configChanges="orientation|keyboardHidden"
             android:label="@string/share"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.CallReportActivity"
+            android:configChanges="orientation|keyboardHidden"
             android:label="@string/call_report"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.FinancialReportActivity"
+            android:configChanges="orientation|keyboardHidden"
             android:label="@string/finacial_report"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.IncreaseCreditActivity"
+            android:configChanges="orientation|keyboardHidden"
             android:label="@string/increase_credit"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.ChooseAdviserActivity"
+            android:configChanges="orientation|keyboardHidden"
             android:label="@string/choose_adviser"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activity.ImagePickerActivity" />
 
@@ -59,7 +81,9 @@
 
         <activity
             android:name=".activity.MainActivity"
+            android:configChanges="orientation|keyboardHidden"
             android:label="@string/app_name"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -69,16 +93,22 @@
         </activity>
         <activity
             android:name=".activity.LoginActivity"
+            android:configChanges="orientation|keyboardHidden"
             android:label="@string/app_name"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".activity.HomeActivity"
+            android:configChanges="orientation|keyboardHidden"
             android:label="@string/app_name"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.HelpActivity"
+            android:configChanges="orientation|keyboardHidden"
             android:label="@string/title_activity_help"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" /> <!-- Firebase Notifications -->
         <service android:name=".service.MyFirebaseMessagingService">
             <intent-filter>
@@ -92,34 +122,49 @@
         </service> <!-- ./Firebase Notifications -->
         <activity
             android:name=".activity.RulesActivity"
+            android:configChanges="orientation|keyboardHidden"
             android:label="@string/title_activity_rules"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.AboutUsActivity"
+            android:configChanges="orientation|keyboardHidden"
             android:label="@string/about_us"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.CreateFileActivity"
+            android:configChanges="orientation|keyboardHidden"
             android:label="@string/title_activity_create_file"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.FileRequestsActivity"
+            android:configChanges="orientation|keyboardHidden"
             android:label="@string/title_activity_create_file"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.WaitForRequestActivity"
+            android:configChanges="orientation|keyboardHidden"
             android:label="@string/title_activity_create_file"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.AdviserRequestActivity"
+            android:configChanges="orientation|keyboardHidden"
             android:label="@string/phone_consultant"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.CreditActivity"
+            android:configChanges="orientation|keyboardHidden"
             android:label="@string/title_activity_credit"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" /> <!-- uCrop cropping activity -->
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
+            android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             android:theme="@style/uCropStyle" /> <!-- cache directory file provider paths -->
         <provider

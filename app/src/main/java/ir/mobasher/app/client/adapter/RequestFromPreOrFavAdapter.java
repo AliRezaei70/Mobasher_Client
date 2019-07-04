@@ -1,6 +1,7 @@
 package ir.mobasher.app.client.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import com.mikhaellopez.circularimageview.CircularImageView;
 import java.util.List;
 import java.util.Map;
 import ir.mobasher.app.client.R;
+import ir.mobasher.app.client.activity.SendFeedbackActivity;
 import ir.mobasher.app.client.app.AppKey;
 
 public class RequestFromPreOrFavAdapter extends SimpleAdapter {
@@ -86,6 +88,13 @@ public class RequestFromPreOrFavAdapter extends SimpleAdapter {
 
         Button selectOrDeselectBtn = (Button) v.findViewById(R.id.selectOrDeselectBtn);
         selectOrDeselectBtn.setText(status);
+
+        selectOrDeselectBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                context.startActivity(new Intent(context, SendFeedbackActivity.class));
+            }
+        });
 
         return v;
     }

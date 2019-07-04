@@ -159,5 +159,8 @@
     <string name="req_from_favorites_advisers">درخواست از مشاورین محبوب</string>
     <string name="req_from_previous_advisers">درخواست از مشاورین قبلی</string>
     <string name="send_request">ارسال درخواست</string>
+    <string name="send_feedback">ثبت و ارسال نظر</string>
+    <string name="your_feedback_to_lawyer_score">امتیاز شما به این مشاور</string>
+    <string name="send_us_your_commnet">در صورت تمایل نظر خود را یادداشت و برای ما ارسال نمایید</string>
 
 </resources>
