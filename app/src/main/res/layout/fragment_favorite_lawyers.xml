@@ -3,12 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.ViewFileFragment">
+    tools:context=".fragments.FavoriteLawyersFragment">
 
-    <!-- TODO: Update blank fragment create_file_step_2 -->
-    <TextView
+    <ListView
+        android:id="@+id/favoriteLawyerList"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_margin="15dp"
+        android:divider="@null"
+        android:dividerHeight="15dp"
+        android:scrollbars="none"></ListView>
 
 </FrameLayout>

@@ -10,7 +10,6 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.HashMap;
 import ir.mobasher.app.client.R;
-import ir.mobasher.app.client.adapter.ChooseAdviserAdapter;
 import ir.mobasher.app.client.adapter.RequestFromPreOrFavAdapter;
 import ir.mobasher.app.client.app.AppKey;
 
@@ -42,7 +41,7 @@ public class RequestFromAdvisersActivity extends AppCompatActivity {
 
         forceRTLIfSupported();
 
-        chooseFromAdviserList = (ListView) findViewById(R.id.chooseFromAdviserList);
+        chooseFromAdviserList = (ListView) findViewById(R.id.favoriteLawyerList);
 
         initList();
     }
