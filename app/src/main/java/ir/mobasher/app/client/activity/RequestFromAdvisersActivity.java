@@ -105,6 +105,10 @@ public class RequestFromAdvisersActivity extends AppCompatActivity {
         }
     }
 
+    public void sendRequestOnClick(View v){
+
+    }
+
     @Override
     public boolean onSupportNavigateUp() {
         finish();

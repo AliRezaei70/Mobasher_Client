@@ -158,5 +158,6 @@
     <string name="enter">وارد نمایید ...</string>
     <string name="req_from_favorites_advisers">درخواست از مشاورین محبوب</string>
     <string name="req_from_previous_advisers">درخواست از مشاورین قبلی</string>
+    <string name="send_request">ارسال درخواست</string>
 
 </resources>
