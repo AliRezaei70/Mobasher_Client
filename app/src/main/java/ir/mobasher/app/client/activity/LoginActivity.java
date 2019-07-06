@@ -29,7 +29,6 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -39,11 +38,9 @@ import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.mikhaellopez.circularimageview.CircularImageView;
-
 import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-
 import butterknife.ButterKnife;
 import ir.mobasher.app.client.R;
 import ir.mobasher.app.client.api.APIInterface;
@@ -62,7 +59,6 @@ import ir.mobasher.app.client.network.RetrofitClientInstance;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.provider.Settings;
@@ -556,6 +552,7 @@ public class LoginActivity extends AppCompatActivity implements TextView.OnEdito
                     Toast.makeText(getBaseContext(), validationResponse.getMessage(), Toast.LENGTH_SHORT).show();
 
                     JwtResponse jwtResponse = validationResponse.getJwtResponse();
+
 
                     settingsPrefEditor.putString(Config.WALLET_ID, validationResponse.getWalletId());
                     settingsPrefEditor.commit();
