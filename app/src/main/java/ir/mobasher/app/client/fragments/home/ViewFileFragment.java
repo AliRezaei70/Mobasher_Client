@@ -1,4 +1,4 @@
-package ir.mobasher.app.client.fragments;
+package ir.mobasher.app.client.fragments.home;
 
 import android.content.Intent;
 import android.os.Bundle;

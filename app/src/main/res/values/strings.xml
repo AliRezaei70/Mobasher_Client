@@ -162,5 +162,12 @@
     <string name="send_feedback">ثبت و ارسال نظر</string>
     <string name="your_feedback_to_lawyer_score">امتیاز شما به این مشاور</string>
     <string name="send_us_your_commnet">در صورت تمایل نظر خود را یادداشت و برای ما ارسال نمایید</string>
+    <string name="adviser_type">نوع مشاور</string>
+    <string name="level">سطح</string>
+
+    <string name="price_per_minute">هر دقیقه مشاوره</string>
+    <string name="about_lawyer">درباره مشاور</string>
+    <string name="comments">نظرات</string>
+    <string name="response">پاسخ‌ها</string>
 
 </resources>

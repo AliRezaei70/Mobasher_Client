@@ -1,4 +1,4 @@
-package ir.mobasher.app.client.fragments;
+package ir.mobasher.app.client.fragments.viewFile;
 
 import android.content.Context;
 import android.net.Uri;

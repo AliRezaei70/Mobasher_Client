@@ -118,7 +118,8 @@ public class LoginActivity extends AppCompatActivity implements TextView.OnEdito
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (count == 5){
+
+                if (validationCodeEt.getText().length() == 5){
                     progressBarManager.showProgress((ProgressBar) mProgressView, LoginActivity.this);
 
                     validateUser(validationCodeEt.getText().toString());

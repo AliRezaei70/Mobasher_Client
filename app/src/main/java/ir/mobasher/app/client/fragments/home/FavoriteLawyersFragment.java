@@ -1,18 +1,21 @@
-package ir.mobasher.app.client.fragments;
+package ir.mobasher.app.client.fragments.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.HashMap;
 import ir.mobasher.app.client.R;
+import ir.mobasher.app.client.activity.AdviserProfileActivity;
 import ir.mobasher.app.client.adapter.FavoriteLawyerAdapter;
 import ir.mobasher.app.client.app.AppKey;
 
-public class FavoriteLawyersFragment extends Fragment {
+public class FavoriteLawyersFragment extends Fragment implements AdapterView.OnItemClickListener {
 
     ListView favoritesLawyerList;
     ArrayList<HashMap<String, String>> data;
@@ -69,8 +72,12 @@ public class FavoriteLawyersFragment extends Fragment {
         }
 
         favoritesLawyerList.setAdapter(favoritesLawyerAdapter);
+        favoritesLawyerList.setOnItemClickListener(this);
     }
 
 
-
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        startActivity(new Intent(getContext(), AdviserProfileActivity.class).putExtra(AppKey.KEY_LAWYER_NAME, "علی محمدرضایی"));
+    }
 }

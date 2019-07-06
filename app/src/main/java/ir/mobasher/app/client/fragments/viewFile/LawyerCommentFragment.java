@@ -1,4 +1,4 @@
-package ir.mobasher.app.client.fragments;
+package ir.mobasher.app.client.fragments.viewFile;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

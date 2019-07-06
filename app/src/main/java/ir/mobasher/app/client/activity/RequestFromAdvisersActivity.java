@@ -81,7 +81,7 @@ public class RequestFromAdvisersActivity extends AppCompatActivity {
             map.put(AppKey.KEY_PHOTO_URL, "");
             map.put(AppKey.KEY_LEVEL, "سطح یک");
             map.put(AppKey.KEY_PRICE, "7000 تومان");
-            map.put(AppKey.KEY_STATUS, "ارتباط");
+            map.put(AppKey.KEY_STATUS, "عدم انتخاب");
             map.put(AppKey.KEY_IS_ONLINE, "");
             if (favoritesOrPrevious.equals(AppKey.KEY_REQ_FROM_PREVIOUS)) {
                 map.put(AppKey.KEY_SELECT_OR_DESELECT, AppKey.KEY_DESELECT);
